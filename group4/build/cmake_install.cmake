@@ -1,8 +1,8 @@
-# Install script for directory: /home/pioneer/group4/src
+# Install script for directory: /home/pioneer/group41/src
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  SET(CMAKE_INSTALL_PREFIX "/home/pioneer/group4/install")
+  SET(CMAKE_INSTALL_PREFIX "/home/pioneer/group41/install")
 ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
 STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -44,38 +44,38 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unsp
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   list(APPEND CPACK_ABSOLUTE_DESTINATION_FILES
-   "/home/pioneer/group4/install/_setup_util.py")
-FILE(INSTALL DESTINATION "/home/pioneer/group4/install" TYPE PROGRAM FILES "/home/pioneer/group4/build/catkin_generated/installspace/_setup_util.py")
+   "/home/pioneer/group41/install/_setup_util.py")
+FILE(INSTALL DESTINATION "/home/pioneer/group41/install" TYPE PROGRAM FILES "/home/pioneer/group41/build/catkin_generated/installspace/_setup_util.py")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   list(APPEND CPACK_ABSOLUTE_DESTINATION_FILES
-   "/home/pioneer/group4/install/env.sh")
-FILE(INSTALL DESTINATION "/home/pioneer/group4/install" TYPE PROGRAM FILES "/home/pioneer/group4/build/catkin_generated/installspace/env.sh")
+   "/home/pioneer/group41/install/env.sh")
+FILE(INSTALL DESTINATION "/home/pioneer/group41/install" TYPE PROGRAM FILES "/home/pioneer/group41/build/catkin_generated/installspace/env.sh")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   list(APPEND CPACK_ABSOLUTE_DESTINATION_FILES
-   "/home/pioneer/group4/install/setup.bash")
-FILE(INSTALL DESTINATION "/home/pioneer/group4/install" TYPE FILE FILES "/home/pioneer/group4/build/catkin_generated/installspace/setup.bash")
+   "/home/pioneer/group41/install/setup.bash")
+FILE(INSTALL DESTINATION "/home/pioneer/group41/install" TYPE FILE FILES "/home/pioneer/group41/build/catkin_generated/installspace/setup.bash")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   list(APPEND CPACK_ABSOLUTE_DESTINATION_FILES
-   "/home/pioneer/group4/install/setup.sh")
-FILE(INSTALL DESTINATION "/home/pioneer/group4/install" TYPE FILE FILES "/home/pioneer/group4/build/catkin_generated/installspace/setup.sh")
+   "/home/pioneer/group41/install/setup.sh")
+FILE(INSTALL DESTINATION "/home/pioneer/group41/install" TYPE FILE FILES "/home/pioneer/group41/build/catkin_generated/installspace/setup.sh")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   list(APPEND CPACK_ABSOLUTE_DESTINATION_FILES
-   "/home/pioneer/group4/install/setup.zsh")
-FILE(INSTALL DESTINATION "/home/pioneer/group4/install" TYPE FILE FILES "/home/pioneer/group4/build/catkin_generated/installspace/setup.zsh")
+   "/home/pioneer/group41/install/setup.zsh")
+FILE(INSTALL DESTINATION "/home/pioneer/group41/install" TYPE FILE FILES "/home/pioneer/group41/build/catkin_generated/installspace/setup.zsh")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   list(APPEND CPACK_ABSOLUTE_DESTINATION_FILES
-   "/home/pioneer/group4/install/.rosinstall")
-FILE(INSTALL DESTINATION "/home/pioneer/group4/install" TYPE FILE FILES "/home/pioneer/group4/build/catkin_generated/installspace/.rosinstall")
+   "/home/pioneer/group41/install/.rosinstall")
+FILE(INSTALL DESTINATION "/home/pioneer/group41/install" TYPE FILE FILES "/home/pioneer/group41/build/catkin_generated/installspace/.rosinstall")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
@@ -88,8 +88,8 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unsp
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("/home/pioneer/group4/build/gtest/cmake_install.cmake")
-  INCLUDE("/home/pioneer/group4/build/hippo/cmake_install.cmake")
+  INCLUDE("/home/pioneer/group41/build/gtest/cmake_install.cmake")
+  INCLUDE("/home/pioneer/group41/build/hippo2/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 
@@ -99,7 +99,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/home/pioneer/group4/build/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/home/pioneer/group41/build/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/home/pioneer/group4/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/home/pioneer/group41/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

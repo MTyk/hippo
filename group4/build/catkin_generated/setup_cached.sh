@@ -7,4 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export PWD="/home/pioneer/group4/build"
+export PWD="/home/pioneer/group41/build"

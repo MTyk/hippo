@@ -1,0 +1,15 @@
+<launch>
+<node name="RosAria" pkg="rosaria" type="RosAria" respawn="true" output="screen"/>
+
+<node name="LMS1xx_node" pkg="lms1xx" type="LMS1xx_node" args="_host:=192.168.0.1"/>
+
+<node name="tf_broadcaster" pkg="hippo2" type="tf_broadcaster"/>
+
+<node name="cmd_vel_relay" pkg="hippo2" type="cmd_vel_relay" /> 
+
+<!-- Launches the robot 
+More on launch files: see http://wiki.ros.org/ROS/Tutorials/UsingRqtconsoleRoslaunch
+-->
+
+
+</launch>

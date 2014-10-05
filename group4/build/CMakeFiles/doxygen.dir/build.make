@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pioneer/group4/src
+CMAKE_SOURCE_DIR = /home/pioneer/group41/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pioneer/group4/build
+CMAKE_BINARY_DIR = /home/pioneer/group41/build
 
 # Utility rule file for doxygen.
 
@@ -43,7 +43,7 @@ CMAKE_BINARY_DIR = /home/pioneer/group4/build
 include CMakeFiles/doxygen.dir/progress.make
 
 CMakeFiles/doxygen:
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/pioneer/group4/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/pioneer/group41/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "doxygen found"
 
 doxygen: CMakeFiles/doxygen
@@ -59,6 +59,6 @@ CMakeFiles/doxygen.dir/clean:
 .PHONY : CMakeFiles/doxygen.dir/clean
 
 CMakeFiles/doxygen.dir/depend:
-	cd /home/pioneer/group4/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pioneer/group4/src /home/pioneer/group4/src /home/pioneer/group4/build /home/pioneer/group4/build /home/pioneer/group4/build/CMakeFiles/doxygen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/pioneer/group41/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/pioneer/group41/src /home/pioneer/group41/src /home/pioneer/group41/build /home/pioneer/group41/build /home/pioneer/group41/build/CMakeFiles/doxygen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/doxygen.dir/depend
 
