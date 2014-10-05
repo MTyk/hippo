@@ -1,0 +1,8 @@
+prefix=/home/pioneer/group4/devel
+
+Name: hippo
+Description: Description of hippo
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/pioneer/group4/devel/lib 
+Requires: message_runtime
