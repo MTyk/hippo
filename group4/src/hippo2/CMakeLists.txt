@@ -10,6 +10,8 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   tf
   geometry_msgs
+  move_base_msgs 
+  actionlib
 )
 
 ## System dependencies are found with CMake's conventions
@@ -168,8 +170,13 @@ include_directories(
 include_directories(include ${catkin_INCLUDE_DIRS})
 
 add_executable(talker src/talker.cpp)
-add_executable(tf_broadcaster src/tf_broadcaster.cpp)
-add_executable(cmd_vel_relay src/cmd_vel_relay.cpp)
 target_link_libraries(talker ${catkin_LIBRARIES})
-target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
+
+add_executable(cmd_vel_relay src/cmd_vel_relay.cpp)
 target_link_libraries(cmd_vel_relay ${catkin_LIBRARIES})
+
+add_executable(tf_broadcaster src/tf_broadcaster.cpp)
+target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
+
+add_executable(send_goal src/send_goal.cpp)
+target_link_libraries(send_goal ${catkin_LIBRARIES})
