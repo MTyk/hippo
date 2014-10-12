@@ -7,6 +7,7 @@ project(hippo2)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
+# opencv2
   std_msgs
   tf
   geometry_msgs
@@ -172,11 +173,14 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 add_executable(talker src/talker.cpp)
 target_link_libraries(talker ${catkin_LIBRARIES})
 
-add_executable(cmd_vel_relay src/cmd_vel_relay.cpp)
-target_link_libraries(cmd_vel_relay ${catkin_LIBRARIES})
+#add_executable(cmd_vel_relay src/cmd_vel_relay.cpp)
+#target_link_libraries(cmd_vel_relay ${catkin_LIBRARIES})
 
 add_executable(tf_broadcaster src/tf_broadcaster.cpp)
 target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
 
 add_executable(send_goal src/send_goal.cpp)
 target_link_libraries(send_goal ${catkin_LIBRARIES})
+
+#add_executable(record_video src/record_video.py)
+#target_link_libraries(record_video ${catkin_LIBRARIES})

@@ -1,0 +1,9 @@
+digraph G {
+"base_link" -> "back_sonar"[label="Broadcaster: /robot_state_publisher\nAverage rate: 15.208 Hz\nMost recent transform: 1412848966.375 \nBuffer length: 4.866 sec\n"];
+"base_link" -> "front_sonar"[label="Broadcaster: /robot_state_publisher\nAverage rate: 15.208 Hz\nMost recent transform: 1412848966.375 \nBuffer length: 4.866 sec\n"];
+"p3dx_left_wheel" -> "p3dx_left_hubcap"[label="Broadcaster: /robot_state_publisher\nAverage rate: 15.208 Hz\nMost recent transform: 1412848966.375 \nBuffer length: 4.866 sec\n"];
+"p3dx_right_wheel" -> "p3dx_right_hubcap"[label="Broadcaster: /robot_state_publisher\nAverage rate: 15.208 Hz\nMost recent transform: 1412848966.375 \nBuffer length: 4.866 sec\n"];
+"top_plate" -> "laser"[label="Broadcaster: /robot_state_publisher\nAverage rate: 15.208 Hz\nMost recent transform: 1412848966.375 \nBuffer length: 4.866 sec\n"];
+"base_link" -> "top_plate"[label="Broadcaster: /robot_state_publisher\nAverage rate: 15.208 Hz\nMost recent transform: 1412848966.375 \nBuffer length: 4.866 sec\n"];
+"center_wheel" -> "center_hubcap"[label="Broadcaster: /robot_state_publisher\nAverage rate: 15.208 Hz\nMost recent transform: 1412848966.375 \nBuffer length: 4.866 sec\n"];
+}

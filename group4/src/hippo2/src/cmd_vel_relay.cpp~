@@ -14,6 +14,9 @@ void relaycmd (const geometry_msgs::Twist cmd){
   newcmd.angular.y=cmd.angular.y;
   newcmd.angular.z=cmd.angular.z;
   
+  ROS_INFO("x:%f",newcmd.linear.x);
+  ROS_INFO("y:%f",newcmd.linear.x);
+  ROS_INFO("z:%f",newcmd.linear.x);
   cmd_pub.publish(newcmd);
 }
 
@@ -25,9 +28,8 @@ int main(int argc, char **argv){
   cmd_pub = n.advertise<geometry_msgs::Twist>("RosAria/cmd_vel",1000);
 	ros::Subscriber sub = n.subscribe("cmd_vel", 1000, relaycmd);
 	
-	ros::Rate loop_rate(10);
-	while (ros::ok()){
-	 	ros::spinOnce();
-  	loop_rate.sleep();
-	}
+	
+
+	 	ros::spin();
+ 
 }
