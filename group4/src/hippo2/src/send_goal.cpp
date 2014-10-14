@@ -2,7 +2,9 @@
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include <tf/transform_datatypes.h>
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include <stdlib.h>
+#include <string>
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 using namespace std;
@@ -15,11 +17,36 @@ Moves the robot to given coordinates.
 "send_goal reset" will send the robot to its inital pose
 **/
 int main(int argc, char** argv){
-  //if x,y,theta are set, move relative or to a point on the map
-  if (argc=3){
-
   ros::init(argc,argv,"send_goals");
   ros::NodeHandle nh;
+  
+  ROS_INFO("Argc:%d",argc);
+  
+  //first set the initial pose for amcl
+  ros::Publisher iniPose_pub = nh.advertise<geometry_msgs::PoseWithCovarianceStamped>("/initialpose",1000);
+  
+  geometry_msgs::PoseWithCovarianceStamped msg;
+  msg.pose.pose.position.x = 1.14812;
+  msg.pose.pose.position.y = 13.5645;
+      
+  tf::Quaternion quaternion;
+  quaternion = tf::createQuaternionFromYaw(-0.948);
+  geometry_msgs::Quaternion qMsg;
+  tf::quaternionTFToMsg(quaternion, qMsg);
+      
+  msg.pose.pose.orientation = qMsg;
+  
+ msg.pose.covariance[6*0+0] = 0.5 * 0.5;
+msg.pose.covariance[6*1+1] = 0.5 * 0.5;
+msg.pose.covariance[6*5+5] = M_PI/12.0 * M_PI/12.0;
+  
+  //iniPose_pub.publish(msg);
+  ROS_INFO("Initial Pose set!");
+  
+  //if x,y,theta are set, move relative or to a point on the map
+  if (argc==5){
+
+  
 
   double x=atof(argv[2]);
   double y=atof(argv[3]);
@@ -35,9 +62,9 @@ int main(int argc, char** argv){
 
   move_base_msgs::MoveBaseGoal goal;
 
-  if(argv[1]=="map"){
+  if(!strcmp(argv[1],"map")){
     goal.target_pose.header.frame_id = "map";   
-  }else if(argv[1]=="relative"){
+  }else if(!strcmp(argv[1],"relative")){
     goal.target_pose.header.frame_id = "base_link";
   }
 
@@ -68,98 +95,82 @@ int main(int argc, char** argv){
 
   }else{
     //if a roundtrip is planned, execute the following (midterm 1)
-    if(argv[1]=="go"){
+    if(!strcmp(argv[1],"go")){
       struct waypoint{
         float x;
         float y;
+        float t;
       } waypoints[7];
-
+      
+      int laps=atof(argv[2]);
+      if(laps==0){
+        laps=100;
+      }  
       //coordinates of the waypoints
-      waypoints[0].x = 1.83652;
+      waypoints[0].x = 1.78652;
       waypoints[0].y = 12.4001;
-      waypoints[1].x = 2.95875;
-      waypoints[1].y = 12.2325;
-      waypoints[2].x = 4.1000; 
-      waypoints[2].y = 13.2758;
+      waypoints[0].t = 0.0;
+      waypoints[1].x = 3.12151;
+      waypoints[1].y = 12.1953;
+      waypoints[1].t = 60.0;
+      waypoints[2].x = 4.24906; 
+      waypoints[2].y = 13.2962;
+      waypoints[2].t = 67.0;
       waypoints[3].x = 4.03;
       waypoints[3].y = 14.3739;
+      waypoints[3].t = 140.0;
       waypoints[4].x = 3.26894;
       waypoints[4].y = 15.3317;
+      waypoints[4].t = -150.0;
       waypoints[5].x = 2.27449;
       waypoints[5].y = 14.5452;
-      waypoints[6].x = 2.7223;
-      waypoints[6].y = 13.54821;
+      waypoints[5].t = -60.0;
+      waypoints[6].x = 2.80013;
+      waypoints[6].y = 13.5616;
+      waypoints[6].t = -110.0;
 
-      float theta=0.0;
-
-      //go to first waypoint
       MoveBaseClient ac("move_base",true);
+      
+      move_base_msgs::MoveBaseGoal goal;
+
+      goal.target_pose.header.frame_id = "map";
 
       while(!ac.waitForServer(ros::Duration(5.0))){
         ROS_INFO("Waiting for the move_base action server to come up");
       }
-
-      move_base_msgs::MoveBaseGoal goal;
-
-      goal.target_pose.header.frame_id = "map";   
-      
-      goal.target_pose.header.stamp = ros::Time::now();
-      goal.target_pose.pose.position.x = waypoints[0].x;
-      goal.target_pose.pose.position.y = waypoints[0].y;
-
-        // Convert the Euler angle to quaternion
-      double radians = theta * (M_PI/180);
-      
-      tf::Quaternion quaternion;
-      quaternion = tf::createQuaternionFromYaw(radians);
-      geometry_msgs::Quaternion qMsg;
-      tf::quaternionTFToMsg(quaternion, qMsg);
-      
-      goal.target_pose.pose.orientation = qMsg;
-
-      ROS_INFO("Going to waypoint 1");
-      ac.sendGoal(goal);
-      // Wait for the action to return
-      ac.waitForResult();
-      
-      if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-        ROS_INFO("You have reached the waypoint 1!");
-      else
-        ROS_INFO("The base failed for some reason");
-      
-      //go to the other waypoints
-      for(int i=1;i<(sizeof(waypoints)/sizeof(*waypoints));i++){
-        move_base_msgs::MoveBaseGoal goal;
-
-        goal.target_pose.header.frame_id = "map";   
-      
-        goal.target_pose.header.stamp = ros::Time::now();
-        goal.target_pose.pose.position.x = waypoints[i].x;
-        goal.target_pose.pose.position.y = waypoints[i].y;
-
-        // Convert the Euler angle to quaternion
-        double radians = theta * (M_PI/180);
+      for(int j=0;j<laps;j++){
+        //go to the other waypoints
+        for(int i=0;i<(sizeof(waypoints)/sizeof(*waypoints));i++){
+             
         
-        tf::Quaternion quaternion;
-        quaternion = tf::createQuaternionFromYaw(radians);
-        geometry_msgs::Quaternion qMsg;
-        tf::quaternionTFToMsg(quaternion, qMsg);
-        
-        goal.target_pose.pose.orientation = qMsg;
-  
-        ROS_INFO("Going to waypoint %d",i);
-        ac.sendGoal(goal);
-        // Wait for the action to return
-        ac.waitForResult();
-        
-        if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-          ROS_INFO("You have reached the waypoint %d!",i);
-        else
-          ROS_INFO("The base failed for some reason");
-      }
+          goal.target_pose.header.stamp = ros::Time::now();
+          goal.target_pose.pose.position.x = waypoints[i].x;
+          goal.target_pose.pose.position.y = waypoints[i].y;
 
-    }else if(argv[1]=="reset"){
-       //go to first waypoint
+          // Convert the Euler angle to quaternion
+          double radians = waypoints[i].t * (M_PI/180);
+          
+          tf::Quaternion quaternion;
+          quaternion = tf::createQuaternionFromYaw(radians);
+          geometry_msgs::Quaternion qMsg;
+          tf::quaternionTFToMsg(quaternion, qMsg);
+          
+          goal.target_pose.pose.orientation = qMsg;
+    
+          ROS_INFO("Going to waypoint %d",i);
+          ROS_INFO("x=%f y=%f theta=%f",waypoints[i].x,waypoints[i].y,waypoints[i].t);
+          ac.sendGoal(goal);
+          // Wait for the action to return
+          ac.waitForResult();
+          
+          if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+            ROS_INFO("You have reached the waypoint %d!",i);
+          else
+            ROS_INFO("The base failed for some reason");
+        }
+     }
+    }else if(!strcmp(argv[1],"reset")){
+       //go to initial waypoint
       MoveBaseClient ac("move_base",true);
 
       while(!ac.waitForServer(ros::Duration(5.0))){
@@ -173,13 +184,9 @@ int main(int argc, char** argv){
       goal.target_pose.header.stamp = ros::Time::now();
       goal.target_pose.pose.position.x = 1.14812;
       goal.target_pose.pose.position.y = 13.5645;
-      float theta = -0.948;
-
-        // Convert the Euler angle to quaternion
-      double radians = theta * (M_PI/180);
       
       tf::Quaternion quaternion;
-      quaternion = tf::createQuaternionFromYaw(radians);
+      quaternion = tf::createQuaternionFromYaw(-0.948);
       geometry_msgs::Quaternion qMsg;
       tf::quaternionTFToMsg(quaternion, qMsg);
       
@@ -197,3 +204,4 @@ int main(int argc, char** argv){
     }
   }
 } 
+

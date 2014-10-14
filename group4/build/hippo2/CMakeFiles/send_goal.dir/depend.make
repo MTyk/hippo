@@ -28,6 +28,8 @@ hippo2/CMakeFiles/send_goal.dir/src/send_goal.cpp.o: /opt/ros/hydro/include/geom
 hippo2/CMakeFiles/send_goal.dir/src/send_goal.cpp.o: /opt/ros/hydro/include/geometry_msgs/PointStamped.h
 hippo2/CMakeFiles/send_goal.dir/src/send_goal.cpp.o: /opt/ros/hydro/include/geometry_msgs/Pose.h
 hippo2/CMakeFiles/send_goal.dir/src/send_goal.cpp.o: /opt/ros/hydro/include/geometry_msgs/PoseStamped.h
+hippo2/CMakeFiles/send_goal.dir/src/send_goal.cpp.o: /opt/ros/hydro/include/geometry_msgs/PoseWithCovariance.h
+hippo2/CMakeFiles/send_goal.dir/src/send_goal.cpp.o: /opt/ros/hydro/include/geometry_msgs/PoseWithCovarianceStamped.h
 hippo2/CMakeFiles/send_goal.dir/src/send_goal.cpp.o: /opt/ros/hydro/include/geometry_msgs/Quaternion.h
 hippo2/CMakeFiles/send_goal.dir/src/send_goal.cpp.o: /opt/ros/hydro/include/geometry_msgs/QuaternionStamped.h
 hippo2/CMakeFiles/send_goal.dir/src/send_goal.cpp.o: /opt/ros/hydro/include/geometry_msgs/Transform.h

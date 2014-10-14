@@ -1,0 +1,5 @@
+<launch>
+	<include file="$(find hippo2)/launch/hippo.launch" />
+	<include file="$(find p2os_urdf)/launch/pioneer3dx_urdf.launch" />
+	<include file="$(find hippo2)/launch/move_base.launch" />
+</launch>	

@@ -15,4 +15,4 @@ TrajectoryPlannerROS:
     
  #   meter_scoring: true
  #   heading_scoring: true
-    dwa: true
+ #   dwa: true
