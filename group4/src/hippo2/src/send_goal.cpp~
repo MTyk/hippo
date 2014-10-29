@@ -109,12 +109,15 @@ msg.pose.covariance[6*5+5] = M_PI/12.0 * M_PI/12.0;
       //coordinates of the waypoints
       waypoints[0].x = 1.78652;
       waypoints[0].y = 12.4001;
-      waypoints[0].t = 0.0;
+      waypoints[0].t = -60.0;
       waypoints[1].x = 3.12151;
       waypoints[1].y = 12.1953;
       waypoints[1].t = 60.0;
-      waypoints[2].x = 4.24906; 
-      waypoints[2].y = 13.2962;
+ //     waypoints[1].x = 2.10632; //pseudo-patch 1
+ //     waypoints[1].y = 12.1026;
+ //     waypoints[1].t = -20.0;
+      waypoints[2].x = 4.29906; 
+      waypoints[2].y = 13.3462;
       waypoints[2].t = 67.0;
       waypoints[3].x = 4.03;
       waypoints[3].y = 14.3739;
@@ -141,7 +144,10 @@ msg.pose.covariance[6*5+5] = M_PI/12.0 * M_PI/12.0;
       for(int j=0;j<laps;j++){
         //go to the other waypoints
         for(int i=0;i<(sizeof(waypoints)/sizeof(*waypoints));i++){
-             
+         // do not send patches 2 and 4 as goals, global planner will take care of them
+          if ((i == 3)){
+            continue;
+          }    
         
           goal.target_pose.header.stamp = ros::Time::now();
           goal.target_pose.pose.position.x = waypoints[i].x;
@@ -184,13 +190,9 @@ msg.pose.covariance[6*5+5] = M_PI/12.0 * M_PI/12.0;
       goal.target_pose.header.stamp = ros::Time::now();
       goal.target_pose.pose.position.x = 1.14812;
       goal.target_pose.pose.position.y = 13.5645;
-      float theta = -0.948;
-
-        // Convert the Euler angle to quaternion
-      double radians = theta * (M_PI/180);
       
       tf::Quaternion quaternion;
-      quaternion = tf::createQuaternionFromYaw(radians);
+      quaternion = tf::createQuaternionFromYaw(-0.948);
       geometry_msgs::Quaternion qMsg;
       tf::quaternionTFToMsg(quaternion, qMsg);
       

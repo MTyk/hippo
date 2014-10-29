@@ -231,46 +231,32 @@ actionlib_msgs_generate_messages_py/fast:
 .PHONY : actionlib_msgs_generate_messages_py/fast
 
 # Convenience name for target.
-hippo2/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-.PHONY : hippo2/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+hippo2/CMakeFiles/begin_circuit.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/begin_circuit.dir/rule
+.PHONY : hippo2/CMakeFiles/begin_circuit.dir/rule
 
 # Convenience name for target.
-geometry_msgs_generate_messages_cpp: hippo2/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-.PHONY : geometry_msgs_generate_messages_cpp
+begin_circuit: hippo2/CMakeFiles/begin_circuit.dir/rule
+.PHONY : begin_circuit
 
 # fast build rule for target.
-geometry_msgs_generate_messages_cpp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make hippo2/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
-.PHONY : geometry_msgs_generate_messages_cpp/fast
+begin_circuit/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/begin_circuit.dir/build.make hippo2/CMakeFiles/begin_circuit.dir/build
+.PHONY : begin_circuit/fast
 
 # Convenience name for target.
-hippo2/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-.PHONY : hippo2/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
+hippo2/CMakeFiles/global_planner_lib.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/global_planner_lib.dir/rule
+.PHONY : hippo2/CMakeFiles/global_planner_lib.dir/rule
 
 # Convenience name for target.
-geometry_msgs_generate_messages_lisp: hippo2/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-.PHONY : geometry_msgs_generate_messages_lisp
+global_planner_lib: hippo2/CMakeFiles/global_planner_lib.dir/rule
+.PHONY : global_planner_lib
 
 # fast build rule for target.
-geometry_msgs_generate_messages_lisp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build.make hippo2/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build
-.PHONY : geometry_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-.PHONY : hippo2/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_py: hippo2/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-.PHONY : geometry_msgs_generate_messages_py
-
-# fast build rule for target.
-geometry_msgs_generate_messages_py/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/geometry_msgs_generate_messages_py.dir/build.make hippo2/CMakeFiles/geometry_msgs_generate_messages_py.dir/build
-.PHONY : geometry_msgs_generate_messages_py/fast
+global_planner_lib/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/global_planner_lib.dir/build.make hippo2/CMakeFiles/global_planner_lib.dir/build
+.PHONY : global_planner_lib/fast
 
 # Convenience name for target.
 hippo2/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule:
@@ -315,90 +301,6 @@ move_base_msgs_generate_messages_py/fast:
 .PHONY : move_base_msgs_generate_messages_py/fast
 
 # Convenience name for target.
-hippo2/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-.PHONY : hippo2/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_cpp: hippo2/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-.PHONY : roscpp_generate_messages_cpp
-
-# fast build rule for target.
-roscpp_generate_messages_cpp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make hippo2/CMakeFiles/roscpp_generate_messages_cpp.dir/build
-.PHONY : roscpp_generate_messages_cpp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-.PHONY : hippo2/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_lisp: hippo2/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-.PHONY : roscpp_generate_messages_lisp
-
-# fast build rule for target.
-roscpp_generate_messages_lisp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make hippo2/CMakeFiles/roscpp_generate_messages_lisp.dir/build
-.PHONY : roscpp_generate_messages_lisp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/roscpp_generate_messages_py.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/roscpp_generate_messages_py.dir/rule
-.PHONY : hippo2/CMakeFiles/roscpp_generate_messages_py.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_py: hippo2/CMakeFiles/roscpp_generate_messages_py.dir/rule
-.PHONY : roscpp_generate_messages_py
-
-# fast build rule for target.
-roscpp_generate_messages_py/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/roscpp_generate_messages_py.dir/build.make hippo2/CMakeFiles/roscpp_generate_messages_py.dir/build
-.PHONY : roscpp_generate_messages_py/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-.PHONY : hippo2/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_cpp: hippo2/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-.PHONY : rosgraph_msgs_generate_messages_cpp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_cpp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make hippo2/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-.PHONY : hippo2/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_lisp: hippo2/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-.PHONY : rosgraph_msgs_generate_messages_lisp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_lisp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make hippo2/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-.PHONY : hippo2/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_py: hippo2/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-.PHONY : rosgraph_msgs_generate_messages_py
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_py/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make hippo2/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
-.PHONY : rosgraph_msgs_generate_messages_py/fast
-
-# Convenience name for target.
 hippo2/CMakeFiles/send_goal.dir/rule:
 	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/send_goal.dir/rule
 .PHONY : hippo2/CMakeFiles/send_goal.dir/rule
@@ -413,88 +315,18 @@ send_goal/fast:
 .PHONY : send_goal/fast
 
 # Convenience name for target.
-hippo2/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
-.PHONY : hippo2/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+hippo2/CMakeFiles/state_publisher.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/state_publisher.dir/rule
+.PHONY : hippo2/CMakeFiles/state_publisher.dir/rule
 
 # Convenience name for target.
-sensor_msgs_generate_messages_cpp: hippo2/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
-.PHONY : sensor_msgs_generate_messages_cpp
+state_publisher: hippo2/CMakeFiles/state_publisher.dir/rule
+.PHONY : state_publisher
 
 # fast build rule for target.
-sensor_msgs_generate_messages_cpp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make hippo2/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
-.PHONY : sensor_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-.PHONY : hippo2/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_lisp: hippo2/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-.PHONY : sensor_msgs_generate_messages_lisp
-
-# fast build rule for target.
-sensor_msgs_generate_messages_lisp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make hippo2/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
-.PHONY : sensor_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-.PHONY : hippo2/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_py: hippo2/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-.PHONY : sensor_msgs_generate_messages_py
-
-# fast build rule for target.
-sensor_msgs_generate_messages_py/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make hippo2/CMakeFiles/sensor_msgs_generate_messages_py.dir/build
-.PHONY : sensor_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-.PHONY : hippo2/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_cpp: hippo2/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-.PHONY : std_msgs_generate_messages_cpp
-
-# fast build rule for target.
-std_msgs_generate_messages_cpp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make hippo2/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
-.PHONY : std_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-.PHONY : hippo2/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_lisp: hippo2/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-.PHONY : std_msgs_generate_messages_lisp
-
-# fast build rule for target.
-std_msgs_generate_messages_lisp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make hippo2/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
-.PHONY : std_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/std_msgs_generate_messages_py.dir/rule
-.PHONY : hippo2/CMakeFiles/std_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_py: hippo2/CMakeFiles/std_msgs_generate_messages_py.dir/rule
-.PHONY : std_msgs_generate_messages_py
-
-# fast build rule for target.
-std_msgs_generate_messages_py/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/std_msgs_generate_messages_py.dir/build.make hippo2/CMakeFiles/std_msgs_generate_messages_py.dir/build
-.PHONY : std_msgs_generate_messages_py/fast
+state_publisher/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/state_publisher.dir/build.make hippo2/CMakeFiles/state_publisher.dir/build
+.PHONY : state_publisher/fast
 
 # Convenience name for target.
 hippo2/CMakeFiles/talker.dir/rule:
@@ -608,6 +440,54 @@ tf_generate_messages_py/fast:
 	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/tf_generate_messages_py.dir/build.make hippo2/CMakeFiles/tf_generate_messages_py.dir/build
 .PHONY : tf_generate_messages_py/fast
 
+src/begin_circuit.o: src/begin_circuit.cpp.o
+.PHONY : src/begin_circuit.o
+
+# target to build an object file
+src/begin_circuit.cpp.o:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/begin_circuit.dir/build.make hippo2/CMakeFiles/begin_circuit.dir/src/begin_circuit.cpp.o
+.PHONY : src/begin_circuit.cpp.o
+
+src/begin_circuit.i: src/begin_circuit.cpp.i
+.PHONY : src/begin_circuit.i
+
+# target to preprocess a source file
+src/begin_circuit.cpp.i:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/begin_circuit.dir/build.make hippo2/CMakeFiles/begin_circuit.dir/src/begin_circuit.cpp.i
+.PHONY : src/begin_circuit.cpp.i
+
+src/begin_circuit.s: src/begin_circuit.cpp.s
+.PHONY : src/begin_circuit.s
+
+# target to generate assembly for a file
+src/begin_circuit.cpp.s:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/begin_circuit.dir/build.make hippo2/CMakeFiles/begin_circuit.dir/src/begin_circuit.cpp.s
+.PHONY : src/begin_circuit.cpp.s
+
+src/global_planner.o: src/global_planner.cpp.o
+.PHONY : src/global_planner.o
+
+# target to build an object file
+src/global_planner.cpp.o:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/global_planner_lib.dir/build.make hippo2/CMakeFiles/global_planner_lib.dir/src/global_planner.cpp.o
+.PHONY : src/global_planner.cpp.o
+
+src/global_planner.i: src/global_planner.cpp.i
+.PHONY : src/global_planner.i
+
+# target to preprocess a source file
+src/global_planner.cpp.i:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/global_planner_lib.dir/build.make hippo2/CMakeFiles/global_planner_lib.dir/src/global_planner.cpp.i
+.PHONY : src/global_planner.cpp.i
+
+src/global_planner.s: src/global_planner.cpp.s
+.PHONY : src/global_planner.s
+
+# target to generate assembly for a file
+src/global_planner.cpp.s:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/global_planner_lib.dir/build.make hippo2/CMakeFiles/global_planner_lib.dir/src/global_planner.cpp.s
+.PHONY : src/global_planner.cpp.s
+
 src/send_goal.o: src/send_goal.cpp.o
 .PHONY : src/send_goal.o
 
@@ -631,6 +511,30 @@ src/send_goal.s: src/send_goal.cpp.s
 src/send_goal.cpp.s:
 	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/send_goal.dir/build.make hippo2/CMakeFiles/send_goal.dir/src/send_goal.cpp.s
 .PHONY : src/send_goal.cpp.s
+
+src/state_publisher.o: src/state_publisher.cpp.o
+.PHONY : src/state_publisher.o
+
+# target to build an object file
+src/state_publisher.cpp.o:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/state_publisher.dir/build.make hippo2/CMakeFiles/state_publisher.dir/src/state_publisher.cpp.o
+.PHONY : src/state_publisher.cpp.o
+
+src/state_publisher.i: src/state_publisher.cpp.i
+.PHONY : src/state_publisher.i
+
+# target to preprocess a source file
+src/state_publisher.cpp.i:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/state_publisher.dir/build.make hippo2/CMakeFiles/state_publisher.dir/src/state_publisher.cpp.i
+.PHONY : src/state_publisher.cpp.i
+
+src/state_publisher.s: src/state_publisher.cpp.s
+.PHONY : src/state_publisher.s
+
+# target to generate assembly for a file
+src/state_publisher.cpp.s:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/state_publisher.dir/build.make hippo2/CMakeFiles/state_publisher.dir/src/state_publisher.cpp.s
+.PHONY : src/state_publisher.cpp.s
 
 src/talker.o: src/talker.cpp.o
 .PHONY : src/talker.o
@@ -692,10 +596,9 @@ help:
 	@echo "... actionlib_msgs_generate_messages_cpp"
 	@echo "... actionlib_msgs_generate_messages_lisp"
 	@echo "... actionlib_msgs_generate_messages_py"
+	@echo "... begin_circuit"
 	@echo "... edit_cache"
-	@echo "... geometry_msgs_generate_messages_cpp"
-	@echo "... geometry_msgs_generate_messages_lisp"
-	@echo "... geometry_msgs_generate_messages_py"
+	@echo "... global_planner_lib"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
@@ -704,19 +607,8 @@ help:
 	@echo "... move_base_msgs_generate_messages_lisp"
 	@echo "... move_base_msgs_generate_messages_py"
 	@echo "... rebuild_cache"
-	@echo "... roscpp_generate_messages_cpp"
-	@echo "... roscpp_generate_messages_lisp"
-	@echo "... roscpp_generate_messages_py"
-	@echo "... rosgraph_msgs_generate_messages_cpp"
-	@echo "... rosgraph_msgs_generate_messages_lisp"
-	@echo "... rosgraph_msgs_generate_messages_py"
 	@echo "... send_goal"
-	@echo "... sensor_msgs_generate_messages_cpp"
-	@echo "... sensor_msgs_generate_messages_lisp"
-	@echo "... sensor_msgs_generate_messages_py"
-	@echo "... std_msgs_generate_messages_cpp"
-	@echo "... std_msgs_generate_messages_lisp"
-	@echo "... std_msgs_generate_messages_py"
+	@echo "... state_publisher"
 	@echo "... talker"
 	@echo "... test"
 	@echo "... tf2_msgs_generate_messages_cpp"
@@ -726,9 +618,18 @@ help:
 	@echo "... tf_generate_messages_cpp"
 	@echo "... tf_generate_messages_lisp"
 	@echo "... tf_generate_messages_py"
+	@echo "... src/begin_circuit.o"
+	@echo "... src/begin_circuit.i"
+	@echo "... src/begin_circuit.s"
+	@echo "... src/global_planner.o"
+	@echo "... src/global_planner.i"
+	@echo "... src/global_planner.s"
 	@echo "... src/send_goal.o"
 	@echo "... src/send_goal.i"
 	@echo "... src/send_goal.s"
+	@echo "... src/state_publisher.o"
+	@echo "... src/state_publisher.i"
+	@echo "... src/state_publisher.s"
 	@echo "... src/talker.o"
 	@echo "... src/talker.i"
 	@echo "... src/talker.s"
