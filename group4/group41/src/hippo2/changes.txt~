@@ -1,0 +1,4 @@
+1- Changed parameter in move_base_params.yaml to use new global planner (comment out for default) (REVERTED)
+2- reduced robot max speed param in base_local_planner_params.yaml for testing, original was 0.8 (REVERTED)
+3- disabled (commented out) hippo.launch from unleashthehppo.launch (REVERTED)
+4- Changed pdist_scale in _base_local_planner_params.yaml from 0,6 (just comment out to restore default) (REVERTED)

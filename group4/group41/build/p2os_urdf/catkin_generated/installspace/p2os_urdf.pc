@@ -1,0 +1,8 @@
+prefix=/home/pioneer/group41/install
+
+Name: p2os_urdf
+Description: Description of p2os_urdf
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/pioneer/group41/install/lib 
+Requires: 

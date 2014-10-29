@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pioneer/group41/src/p2os_urdf/src/state_publisher.cpp
+ros/ros.h
+-
+sensor_msgs/JointState.h
+-
+

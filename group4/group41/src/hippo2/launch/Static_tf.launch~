@@ -1,0 +1,1 @@
+<node pkg="tf" type="static_transform_publisher" name="laser_base_link_broadcaster" args="-0.08 -0.02 0 0 0 0 /base_link /laser 10" />
