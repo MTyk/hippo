@@ -5,17 +5,17 @@
     <!-- <node pkg="tf" type="static_transform_publisher" name="laser_base_link_broadcaster" args="-0.08 -0.02 0 0 0 0 /base_link /laser 10" /> -->
     
     <!-- Run the map server -->
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find hippo2)/maps/map.pgm 0.050"/> 
+    <!--  <node name="map_server" pkg="map_server" type="map_server" args="$(find hippo2)/maps/map.pgm 0.050"/>--> 
     
-    <!--<node name="slam_gmapping" pkg="gmapping" type="slam_gmapping">
-    </node>-->  
+    <node name="slam_gmapping" pkg="gmapping" type="slam_gmapping">
+    </node>  
 
     <!--- Run AMCL -->
     <include file="$(find amcl)/examples/amcl_diff.launch" />
 
 
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <param name="base_global_planner" value="global_planner/GlobalPlanner"/>
+    <!--<param name="base_global_planner" value="global_planner/GlobalPlanner"/>-->
     <rosparam file="$(find hippo2)/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find hippo2)/costmap_common_params.yaml" command="load" ns="local_costmap" />
     <rosparam file="$(find hippo2)/local_costmap_params.yaml" command="load" />

@@ -67,7 +67,7 @@ set(liblms1xx_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(liblms1xx_SOURCE_PREFIX /home/pioneer/group41/src/liblms1xx)
+  set(liblms1xx_SOURCE_PREFIX /home/pioneer/group41/src/RCPRG_laser_drivers/liblms1xx)
   set(liblms1xx_DEVEL_PREFIX /home/pioneer/group41/devel)
   set(liblms1xx_INSTALL_PREFIX "")
   set(liblms1xx_PREFIX ${liblms1xx_DEVEL_PREFIX})
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(liblms1xx_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/pioneer/group41/src/liblms1xx/libLMS1xx" STREQUAL "")
+if(NOT "/home/pioneer/group41/src/RCPRG_laser_drivers/liblms1xx/libLMS1xx" STREQUAL "")
   set(liblms1xx_INCLUDE_DIRS "")
-  set(_include_dirs "/home/pioneer/group41/src/liblms1xx/libLMS1xx")
+  set(_include_dirs "/home/pioneer/group41/src/RCPRG_laser_drivers/liblms1xx/libLMS1xx")
   foreach(idir ${_include_dirs})
     if(IS_ABSOLUTE ${idir} AND IS_DIRECTORY ${idir})
       set(include ${idir})
@@ -103,7 +103,7 @@ if(NOT "/home/pioneer/group41/src/liblms1xx/libLMS1xx" STREQUAL "")
         message(FATAL_ERROR "Project 'liblms1xx' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  Ask the maintainer 'kp <kp@todo.todo>' to fix it.")
       endif()
     else()
-      message(FATAL_ERROR "Project 'liblms1xx' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/pioneer/group41/src/liblms1xx/${idir}'.  Ask the maintainer 'kp <kp@todo.todo>' to fix it.")
+      message(FATAL_ERROR "Project 'liblms1xx' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/pioneer/group41/src/RCPRG_laser_drivers/liblms1xx/${idir}'.  Ask the maintainer 'kp <kp@todo.todo>' to fix it.")
     endif()
     _list_append_unique(liblms1xx_INCLUDE_DIRS ${include})
   endforeach()
@@ -122,7 +122,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/pioneer/group41/devel/lib;/home/pioneer/navg1/devel/lib;/home/pioneer/group41/devel/lib;/home/pioneer/fsr_catkin_workspace/devel/lib;/opt/ros/hydro/lib)
+    foreach(path /home/pioneer/group41/devel/lib;/home/pioneer/group41/devel/lib;/home/pioneer/new_catkin_workspace/devel/lib;/opt/ros/hydro/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

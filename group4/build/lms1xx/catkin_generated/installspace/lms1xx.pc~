@@ -1,0 +1,8 @@
+prefix=/home/pioneer/group41/install
+
+Name: lms1xx
+Description: Description of lms1xx
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/pioneer/group41/install/lib 
+Requires: roscpp sensor_msgs liblms1xx

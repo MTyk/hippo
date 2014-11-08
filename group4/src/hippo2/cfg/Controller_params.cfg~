@@ -1,0 +1,12 @@
+PACKAGE = "hippo2"
+
+from dynamic_reconfigure.parameter_generator_catkin import *
+
+gen = ParameterGenerator()
+
+gen.add("linKp",  double_t, 0,  "linear proportional action weight" , 1 , 0 , 100)
+gen.add("linKd",  double_t, 0,  "linear derviative action weight" , 0.3 , 0 , 100)
+gen.add("linKi",  double_t, 0,  "linear integral action weight" , 0 , 0 , 100)
+gen.add("angKp",  double_t, 0,  "angular proportional action weight" , 1 , 0 , 100)
+gen.add("angKd",  double_t, 0,  "angular derviative action weight" , 0.3 , 0 , 100)
+gen.add("angKi",  double_t, 0,  "angular integral action weight" , 0 , 0 , 100)

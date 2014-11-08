@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   move_base_msgs 
   actionlib
 )
+find_package(PCL REQUIRED)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -100,12 +101,16 @@ catkin_package(
 # include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
+  ${PCL_INCLUDE_DIRS}
 )
 
+link_directories(${PCL_LIBRARIY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
 ## Declare a cpp library
 # add_library(hippo2
 #   src/${PROJECT_NAME}/hippo2.cpp
 # )
+add_library(global_planner_lib src/global_planner.cpp)
 
 ## Declare a cpp executable
 # add_executable(hippo2_node src/hippo2_node.cpp)
@@ -179,8 +184,15 @@ target_link_libraries(talker ${catkin_LIBRARIES})
 add_executable(tf_broadcaster src/tf_broadcaster.cpp)
 target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
 
+add_executable(state_publisher src/state_publisher.cpp)
+target_link_libraries(state_publisher ${catkin_LIBRARIES})
+
 add_executable(send_goal src/send_goal.cpp)
 target_link_libraries(send_goal ${catkin_LIBRARIES})
+
+add_executable(begin_circuit src/begin_circuit.cpp)
+#target_link_libraries(begin_circuit ${catkin_LIBRARIES})
+target_link_libraries(begin_circuit ${PCL_LIBRARIES} ${catkin_LIBRARIES})
 
 #add_executable(record_video src/record_video.py)
 #target_link_libraries(record_video ${catkin_LIBRARIES})

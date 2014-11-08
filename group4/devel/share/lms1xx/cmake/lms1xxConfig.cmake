@@ -67,7 +67,7 @@ set(lms1xx_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(lms1xx_SOURCE_PREFIX /home/pioneer/group41/src/lms1xx)
+  set(lms1xx_SOURCE_PREFIX /home/pioneer/group41/src/RCPRG_laser_drivers/lms1xx)
   set(lms1xx_DEVEL_PREFIX /home/pioneer/group41/devel)
   set(lms1xx_INSTALL_PREFIX "")
   set(lms1xx_PREFIX ${lms1xx_DEVEL_PREFIX})
@@ -103,7 +103,7 @@ if(NOT "" STREQUAL "")
         message(FATAL_ERROR "Project 'lms1xx' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  Ask the maintainer 'kp <kp@todo.todo>' to fix it.")
       endif()
     else()
-      message(FATAL_ERROR "Project 'lms1xx' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/pioneer/group41/src/lms1xx/${idir}'.  Ask the maintainer 'kp <kp@todo.todo>' to fix it.")
+      message(FATAL_ERROR "Project 'lms1xx' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/pioneer/group41/src/RCPRG_laser_drivers/lms1xx/${idir}'.  Ask the maintainer 'kp <kp@todo.todo>' to fix it.")
     endif()
     _list_append_unique(lms1xx_INCLUDE_DIRS ${include})
   endforeach()
@@ -122,7 +122,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/pioneer/group41/devel/lib;/home/pioneer/navg1/devel/lib;/home/pioneer/group41/devel/lib;/home/pioneer/fsr_catkin_workspace/devel/lib;/opt/ros/hydro/lib)
+    foreach(path /home/pioneer/group41/devel/lib;/home/pioneer/group41/devel/lib;/home/pioneer/new_catkin_workspace/devel/lib;/opt/ros/hydro/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

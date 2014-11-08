@@ -11,10 +11,19 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   tf
   geometry_msgs
+  sensor_msgs
   move_base_msgs 
   actionlib
+  cv_bridge
+  image_geometry
+  std_srvs
+ # dynamic_recongifure
 )
 find_package(PCL REQUIRED)
+
+generate_dynamic_reconfigure_options(
+#cfg/controller_params.cfg
+)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -175,21 +184,33 @@ add_library(global_planner_lib src/global_planner.cpp)
 ## Build talker
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-add_executable(talker src/talker.cpp)
-target_link_libraries(talker ${catkin_LIBRARIES})
+#add_executable(talker src/talker.cpp)
+#target_link_libraries(talker ${catkin_LIBRARIES})
 
 #add_executable(cmd_vel_relay src/cmd_vel_relay.cpp)
 #target_link_libraries(cmd_vel_relay ${catkin_LIBRARIES})
 
-add_executable(tf_broadcaster src/tf_broadcaster.cpp)
-target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
+#add_executable(tf_broadcaster src/tf_broadcaster.cpp)
+#target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
+
+add_executable(state_publisher src/state_publisher.cpp)
+target_link_libraries(state_publisher ${catkin_LIBRARIES})
 
 add_executable(send_goal src/send_goal.cpp)
 target_link_libraries(send_goal ${catkin_LIBRARIES})
 
-add_executable(begin_circuit src/begin_circuit.cpp)
+add_executable(pose_adjuster src/pose_adjuster.cpp)
+target_link_libraries(pose_adjuster ${catkin_LIBRARIES})
+
+add_executable(task_planner src/pose_task_planner.cpp)
+target_link_libraries(task_planner ${catkin_LIBRARIES})
+
+add_executable(server src/server.cpp)
+target_link_libraries(server ${catkin_LIBRARIES})
+
+#add_executable(begin_circuit src/begin_circuit.cpp)
 #target_link_libraries(begin_circuit ${catkin_LIBRARIES})
-target_link_libraries(begin_circuit ${PCL_LIBRARIES} ${catkin_LIBRARIES})
+#target_link_libraries(begin_circuit ${PCL_LIBRARIES} ${catkin_LIBRARIES})
 
 #add_executable(record_video src/record_video.py)
 #target_link_libraries(record_video ${catkin_LIBRARIES})
