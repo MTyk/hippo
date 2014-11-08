@@ -8,3 +8,4 @@
 
 # modified environment variables
 export PWD="/home/pioneer/group41/build"
+export ROS_PACKAGE_PATH="/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks"

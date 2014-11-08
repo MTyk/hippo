@@ -20,8 +20,10 @@ int main(int argc, char** argv)
 
     //declare variables for navigation
     MoveBaseClient ac("move_base",true);
+    while(!ac.waitForServer(ros::Duration(5.0))){
+        ROS_INFO("Waiting for the move_base action server to come up");
+    }
     move_base_msgs::MoveBaseGoal goal;
-    goal.target_pose.header.frame_id = "map";
     tf::Quaternion quaternion;
     geometry_msgs::Quaternion qMsg;
     double radians;
@@ -38,19 +40,22 @@ int main(int argc, char** argv)
         float t;	//orientation
       } toyLocation[TOYS_TOTAL], basketLocation;
     //TO DO: Define toy location array
-      toyLocation[0].x = 1.3;
-      toyLocation[0].y = 1.5;
-      toyLocation[0].t = 0;
-      toyLocation[1].x = 1.5;
-      toyLocation[1].y = 0.6;
-      toyLocation[1].t = 0;
-      toyLocation[2].x = 1.8;
-      toyLocation[2].y = -0.24;
-      toyLocation[2].t = 0;
+      toyLocation[0].x = 2.27449;
+      toyLocation[0].y = 14.5452;
+      toyLocation[0].t = 60.0;
+      toyLocation[1].x = 2.80013;
+      toyLocation[1].y = 13.5616;
+      toyLocation[1].t = 60.0;
+      toyLocation[2].x = 3.12151;
+      toyLocation[2].y = 12.1953;
+      toyLocation[2].t = 60.0;
     //To DO: Define basket location
-      basketLocation.x = 0.74;
-      basketLocation.y = 0.27;
-      basketLocation.t = 0;
+      basketLocation.x = 1.78652;
+      basketLocation.y = 12.4001;
+      basketLocation.t = -150.0;
+      
+      
+      
 
     while (ros::ok())
     {
@@ -66,6 +71,7 @@ int main(int argc, char** argv)
                 break;
             case MOVE2TOY:
 		//Send toyLocation[i] as goal to nav.
+		            goal.target_pose.header.frame_id = "map";
 		            goal.target_pose.header.stamp = ros::Time::now();
        		      goal.target_pose.pose.position.x = toyLocation[toyIndex].x;
      		        goal.target_pose.pose.position.y = toyLocation[toyIndex].y;
@@ -76,6 +82,7 @@ int main(int argc, char** argv)
 		            ac.sendGoal(goal);
 		            ROS_INFO("goal sent.");
 		            ac.waitForResult();
+		            ROS_INFO("result retrieved.");
                 if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){  //if toy reached
                     state = PICKUP;
                 }else{
@@ -89,9 +96,11 @@ int main(int argc, char** argv)
                 }else{
 		                 ROS_INFO("Failed to call pickup service.");
 		            }
+		            state = MOVE2BASKET;
                 break;
             case MOVE2BASKET:
 		            // Go to basket
+		            goal.target_pose.header.frame_id = "map";
 		            goal.target_pose.header.stamp = ros::Time::now();
        		      goal.target_pose.pose.position.x = basketLocation.x;
      		        goal.target_pose.pose.position.y = basketLocation.y;

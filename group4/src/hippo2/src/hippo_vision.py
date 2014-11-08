@@ -219,7 +219,7 @@ class hippoVision():
     def find_closest_roi(self, blob_frame, color_frame):
         contours, hierarchy = cv2.findContours(blob_frame,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     
-        min_area = 1000
+        min_area = 3000
         max_area = 200000
         box_ratio = 2
         closest = (None, 0.0)
@@ -229,18 +229,9 @@ class hippoVision():
             area = w * h
             if (min_area < area < max_area):     # filter by area (we don't want the small objects a.k.a. crap)
                 if(w/h < box_ratio) and (h/w < box_ratio):    # filter by shape (mainly for filtering out wall-floor intersections)
-                    '''
-                    roi=orig_frame[y:y+h,x:x+w]
-                    masked = self.mask_red(roi)
-                    black_pix = 100 * cv2.countNonZero(masked)
-                    percentage = black_pix / area
-                    if percentage < 50:
-                        cv2.rectangle(orig_frame, (x,y), (x+w, y+h), (255, 0, 0), 2)
-                    else:
-                        cv2.rectangle(orig_frame, (x,y), (x+w, y+h), (0, 255, 0), 2)
-                    #cv2.imwrite(str(idx) + '.jpg', roi)
-                    '''
+                    
                     distance = self.depth_image_metric[y+(h/2)][x+(w/2)]
+                    
                     px_off = 1
                     while (distance == 0.0) or (px_off < 51):
                         if (x+(w/2) + px_off) < self.image_width:
@@ -249,25 +240,21 @@ class hippoVision():
                                 if (x+(w/2) - px_off) >= 0:
                                     distance = self.depth_image_metric[y+(h/2)][x+(w/2) - px_off]
                         px_off += 1
-                    if (self.roi[0] == None):
+                    
+                    if (self.roi[0] == None) or (closest[1] == 0.0):
                         closest = (cnt, distance)
                     else:
                         if (distance < closest[1]):
                             closest = (cnt, distance)
                             
                     cv2.rectangle(color_frame, (x,y), (x+w, y+h), (0, 255, 0), 2)
-                    '''
-                    distance = 0.0
-                    if self.depth_image_metric != None:
-                        distance = self.depth_image_metric[y+(h/2)][x+(w/2)]
-                    if (distance < closest[1]) and (self.roi[0] != None) and (distance > 0.0):
-                        closest = (cnt, distance)
-                    '''
+                    rospy.loginfo("Object found at a distance of " + str(distance) + "mm.")
+                    
         if closest[0] == None:
             rospy.loginfo("Robot did not find any ROIs.")
         else:
             rospy.loginfo("Robot found a ROI!")
-            rospy.loginfo("Distance to object is " + str(closest[1]) + " cm.")
+            rospy.loginfo("Distance to object is " + str(closest[1]) + " mm.")
             
         return closest
     
@@ -282,8 +269,8 @@ class hippoVision():
         if self.roi[0] != None:
             x,y,w,h = cv2.boundingRect(self.roi[0])
             roi_center = (x+(w/2), y+(h/2))
-            x_offset = self.center[0] - roi_center[0]
-            y_offset = self.center[1] - roi_center[1]
+            x_offset = roi_center[0] - self.center[0]
+            y_offset = roi_center[1] - self.center[1]
             return (x_offset, y_offset)
         return (0,0)
     
@@ -347,17 +334,7 @@ class hippoVision():
         
     def cleanup(self):
         print "Shutting down vision node."
-        cv2.destroyAllWindows()    
-
-''' 
-cv2.destroyAllWindows()
-
-final = np.copy(blob_8U)
-keypoints = find_rois(color_img, blob_8U)
-
-for point in keypoints:
-    cv2.circle(color_img, point, 5, (0,0,255))
-'''      
+        cv2.destroyAllWindows()       
 
     
 if __name__ == '__main__':

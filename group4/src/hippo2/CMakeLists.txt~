@@ -202,7 +202,7 @@ target_link_libraries(send_goal ${catkin_LIBRARIES})
 add_executable(pose_adjuster src/pose_adjuster.cpp)
 target_link_libraries(pose_adjuster ${catkin_LIBRARIES})
 
-add_executable(task_planner src/pose_task_planner.cpp)
+add_executable(task_planner src/task_planner.cpp)
 target_link_libraries(task_planner ${catkin_LIBRARIES})
 
 add_executable(server src/server.cpp)

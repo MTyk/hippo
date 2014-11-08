@@ -11,6 +11,8 @@ ros/ros.h
 -
 sensor_msgs/JointState.h
 -
+geometry_msgs/Vector3.h
+-
 tf/transform_broadcaster.h
 -
 

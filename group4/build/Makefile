@@ -888,6 +888,19 @@ send_goal/fast:
 .PHONY : send_goal/fast
 
 #=============================================================================
+# Target rules for targets named send_goal2
+
+# Build rule for target.
+send_goal2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 send_goal2
+.PHONY : send_goal2
+
+# fast build rule for target.
+send_goal2/fast:
+	$(MAKE) -f hippo2/CMakeFiles/send_goal2.dir/build.make hippo2/CMakeFiles/send_goal2.dir/build
+.PHONY : send_goal2/fast
+
+#=============================================================================
 # Target rules for targets named sensor_msgs_generate_messages_cpp
 
 # Build rule for target.
@@ -1269,6 +1282,7 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_lisp"
 	@echo "... rosgraph_msgs_generate_messages_py"
 	@echo "... send_goal"
+	@echo "... send_goal2"
 	@echo "... sensor_msgs_generate_messages_cpp"
 	@echo "... sensor_msgs_generate_messages_lisp"
 	@echo "... sensor_msgs_generate_messages_py"
