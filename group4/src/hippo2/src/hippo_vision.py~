@@ -7,7 +7,7 @@ import numpy as np
 from sensor_msgs.msg import Image, CameraInfo, RegionOfInterest
 from geometry_msgs.msg import Twist, Vector3
 from cv_bridge import CvBridge, CvBridgeError
-from math import cos
+from math import cos, degrees
 
 class hippoVision():
     def __init__(self):
@@ -29,6 +29,12 @@ class hippoVision():
         cv.NamedWindow("Depth Image", cv.CV_WINDOW_NORMAL)
         cv.MoveWindow("Depth Image", 25, 350)
         
+        # Create holders for raw image data
+        self.ros_depth_raw = None
+        self.ros_rgb_raw = None
+        
+        self.pickup_done = False
+        
         # Create the cv_bridge object
         self.bridge = CvBridge()
         
@@ -39,8 +45,8 @@ class hippoVision():
         self.depth_image_metric = None
         self.roi = (None, 0.0)
         
-        self.default_camera_pose = (0, 1.57, 1.57)
-        self.desired_camera_pose = (0, 1.57, 1.57)
+        self.default_camera_pose = (90, 90, 0)
+        self.desired_camera_pose = (90, 90, 0)
         
         rospy.wait_for_message('/camera/rgb/camera_info', CameraInfo)
         self.info_sub = rospy.Subscriber('/camera/rgb/camera_info', CameraInfo, self.get_camera_info)
@@ -55,9 +61,29 @@ class hippoVision():
         self.roi_pub = rospy.Publisher('/roi', RegionOfInterest, queue_size=1)
         self.pose_err_pub = rospy.Publisher('/pose_error', Twist, queue_size=3)
         
-        rospy.loginfo("Waiting for image topics...")
+        '''
+        #rospy.loginfo("Waiting for image topics...")
+        rospy.wait_for_service('pickup')
+        self.pickup_service = rospy.ServiceProxy('pickup', self.start_pickup_service)
+        '''
+      
         
+    # Dummy callback function for the rgb image subscriber    
+    def save_rgb_raw(self, image):
+        self.ros_rgb_raw = image
+   
+    # Dummy callback function for the depth image subscriber    
+    def save_depth_raw(self, image):
+        self.ros_depth_raw = image
         
+    # This function starts the image processing and pickup service    
+    def start_pickup_service(self):
+        rospy.loginfo("Pickup service started")
+        while not self.pickup_done:
+            self.depth_callback()
+            self.image_callback()
+    
+    # Finds the height, width of the image and calculates its center point    
     def get_camera_info(self, msg):
         # Init image resolution based on first msg
         if (self.center[0] == 0) and (self.center[1] == 0):
@@ -67,10 +93,10 @@ class hippoVision():
             rospy.loginfo("Found camera with a resolution of %d x %d", self.image_width, self.image_height)
         
         
-    def image_callback(self, ros_image):
+    def image_callback(self, ros_rgb_raw):
         # Use cv_bridge() to convert the ROS image to OpenCV format
         try:
-            frame = self.bridge.imgmsg_to_cv(ros_image, "bgr8")
+            frame = self.bridge.imgmsg_to_cv(ros_rgb_raw, "bgr8")
         except CvBridgeError, e:
             print e
         
@@ -94,6 +120,8 @@ class hippoVision():
             rospy.loginfo("ROI offset: %s", str(pixel_offset))
             angle_offset = self.calculate_angle_offset(pixel_offset)
             
+            self.move_camera(pixel_offset, angle_offset)
+            
             if self.roi[0] != None:
                 x,y,w,h = cv2.boundingRect(self.roi[0])
                 roi_new = RegionOfInterest()
@@ -113,11 +141,11 @@ class hippoVision():
                     rospy.signal_shutdown("User hit q key to quit.")
         
         
-    def depth_callback(self, ros_image):
+    def depth_callback(self, ros_depth_raw):
         # Use cv_bridge() to convert the ROS image to OpenCV format
         try:
             # The depth image is a single-channel float32 image
-            depth_image = self.bridge.imgmsg_to_cv(ros_image, "32FC1")
+            depth_image = self.bridge.imgmsg_to_cv(ros_depth_raw, "32FC1")
         except CvBridgeError, e:
             print e
         
@@ -223,6 +251,10 @@ class hippoVision():
         max_area = 200000
         box_ratio = 2
         closest = (None, 0.0)
+        
+        x_c = self.image_width/2
+        y_c = self.image_height/2
+        cv2.rectangle(color_frame, (x_c-1,y_c-1), (x_c+1, y_c+1), (0, 0, 255), 2)
     
         for cnt in contours:
             x,y,w,h = cv2.boundingRect(cnt)
@@ -277,45 +309,74 @@ class hippoVision():
     
     def calculate_angle_offset(self, offset):
         if (self.roi[0] != None) and (self.roi[1] > 0.0):
-            y_gain = 0.01
+            y_gain = 0.002
             tolerance = 0.1
             x,y,w,h = cv2.boundingRect(self.roi[0])
-            distance_to_center = self.depth_image_metric[y+(h/2)][self.image_width/2]
-            angle_offset_z = cos(distance_to_center/self.roi[1])
-            angle_offset_y = y_gain * offset[1]
+            x_c = self.image_width/2
+            y_c = self.image_height/2
+            distance_to_center = self.depth_image_metric[y_c][x_c]
+            #angle_offset_z = cos(distance_to_center/self.roi[1])
+            angle_offset_z = y_gain * -offset[0]
+            rospy.loginfo("Z angle offset =  " + str(angle_offset_z))
+            angle_offset_y = y_gain * -offset[1]
+            '''
             if abs(angle_offset_z) < tolerance:
                 rospy.loginfo("Z angle offset is below tolerance")
                 angle_offset_z = 0
             if abs(angle_offset_y) < tolerance:
                 rospy.loginfo("Y angle offset is below tolerance")
                 angle_offset_y = 0
+            '''
             return (angle_offset_z, angle_offset_y)
         
         
     def move_camera(self, pixel_offset, angle_offset):
-        if self.roi == None:
+        if (self.roi[0] == None) or (self.roi[1] == 0.0):
             # move camera to default pose
             pass
-        elif (angle_offset[0] == 0) and (angle_offset[1] == 0):
+        elif (angle_offset[0] == 0): #and (angle_offset[1] == 0):
             rospy.logdebug("Camera is looking at object.")
+            '''
             rospy.logdebug("Aligning robot with object.")
             self.align_robot()
+            '''
+            # Remove lines below, when ptu_control works
+            '''
+            if self.roi[1] < 450.0:
+                rospy.logdebug("Initiating toy pickup.")
+                # Write code for toy pickup
+                self.pickup_done = True
+            '''
         else:
+            '''
             if pixel_offset[0] < 0:
-                angle_offset[0] = -angle_offset[0]
-            if pixel_offset[1] >= 0:
-                angle_offset[1] = -angle_offset[1]
+                angle_offset = (-angle_offset[0], angle_offset[1])
+            if pixel_offset[1] < 0:
+                angle_offset = (angle_offset[0], -angle_offset[1])
+            '''
+            '''
             x, y, z = self.default_camera_pose
-            self.desired_camera_pose = (x, y + angle_offset[1], z + angle_offset[0])
+            y_twist = degrees(angle_offset[1])
+            z_twist = degrees(angle_offset[0])
+            self.desired_camera_pose = (x, y + y_twist, z + z_twist)
             # publish to camera control node
+            '''
+            self.align_robot(angle_offset)
             
     
-    def align_robot(self):
+    def align_robot(self, angle_offset):
+        x_c = self.image_width/2
+        y_c = self.image_height/2
+        distance_to_center = self.depth_image_metric[y_c][x_c]
+        rospy.loginfo("Distance to center: " + str(distance_to_center))
+        #if distance_to_center > 0.0:
+        rospy.loginfo("Aligning robot.")
         pose_error = Twist()
-        pose_error.linear.x = self.roi[1]
-        pose_error.linear.z = 0.5
-        pose_error.angular.x = self.desired_camera_pose[2] - self.default_camera_pose[2]
-        pose_error.angular.z = 0.1
+        pose_error.linear.x = self.roi[1] * 0.001 - 0.4
+        pose_error.linear.z = 0.1
+        #pose_error.angular.x = self.desired_camera_pose[2] - self.default_camera_pose[2]
+        pose_error.angular.x = angle_offset[0]
+        pose_error.angular.z = 0.3
         self.pose_err_pub.publish(pose_error)
     
     

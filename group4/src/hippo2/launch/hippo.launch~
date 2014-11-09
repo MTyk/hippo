@@ -10,11 +10,11 @@
 
 <!--<node name="cmd_vel_relay" pkg="hippo2" type="cmd_vel_relay" /> -->
 
-<!-- <include file="$(find openni_launch)/launch/openni.launch" />
+<include file="$(find openni_launch)/launch/openni.launch" />
    <node name="PTU_XTION" pkg="rosserial_python" type="serial_node.py">
       <param name="~port" value="/dev/ttyACM0" />
       <param name="~baud" value="57600" />
-   </node> --> 
+   </node> 
 <!-- Launches the robot 
 More on launch files: see http://wiki.ros.org/ROS/Tutorials/UsingRqtconsoleRoslaunch
 -->

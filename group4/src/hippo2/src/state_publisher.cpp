@@ -13,9 +13,9 @@ float z=90;
 void setJoints(const geometry_msgs::Vector3 jointstate)
 {
   ROS_INFO("jointstate y,z: [%f,%f]", jointstate.y,jointstate.z);
-  x=jointstate.x;
-  y=jointstate.y;
-  z=jointstate.z;
+ // x=jointstate.x;
+//  y=jointstate.y;
+//  z=jointstate.z;
 }
 
 int main( int argc, char* argv[] )
@@ -35,11 +35,11 @@ int main( int argc, char* argv[] )
   js.name.resize(3);
   js.position.resize(3);
   js.name[0] ="servo_joint";
-  js.position[0] = x;
+  js.position[0] = 0;
   js.name[1] ="y_joint";
-  js.position[1] = y;
+  js.position[1] = 90;
   js.name[2] ="z_joint";
-  js.position[2] = z;
+  js.position[2] = 90;
 
 
 	while( n.ok() )

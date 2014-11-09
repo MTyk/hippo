@@ -15,7 +15,7 @@ void getError(const geometry_msgs::Twist& e){
     linError = e.linear.x;
     angError = e.angular.x;
     linErrorTolerance = e.linear.z;
-    angErrorTolerance = e.angular.z,
+    angErrorTolerance = e.angular.z;
     ROS_INFO("linErr0:%f ",e.linear.x);
     ROS_INFO("linErr:%f ",linError);
     ROS_INFO("angErr:%f ",angError);
@@ -55,7 +55,7 @@ int main(int argc, char** argv)
             dAction = angKd * (angError - angErrorLast) / sampleTime;
             angErrorSum = angErrorSum + angError;
             iAction = angKi * sampleTime * angErrorSum / 2;
-            cmd.angular.x = pAction + dAction + iAction;
+            cmd.angular.z = pAction + dAction + iAction;
             angErrorLast = angError;
             
             //Set linear velocity to 0 to ensure only orientation is controlled
@@ -74,9 +74,9 @@ int main(int argc, char** argv)
             linErrorLast = linError;
             //Set angular velocity to 0 to ensure only position is controlled
             ROS_INFO("lin cmd:%f ",cmd.linear.x);
-            cmd.angular.x = 0;
+            cmd.angular.z = 0;
         } else {    //if error is withing bounds do not move
-            cmd.angular.x = 0;
+            cmd.angular.z = 0;
             cmd.linear.x = 0;
         }
 

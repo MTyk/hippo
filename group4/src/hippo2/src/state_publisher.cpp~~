@@ -6,16 +6,16 @@
 
 #define pi 3.14159265
 
-float x;
-float y;
-float z;
+float x=0;
+float y=90;
+float z=90;
 
 void setJoints(const geometry_msgs::Vector3 jointstate)
 {
-  ROS_INFO("r: [%f]", jointstate.x);
- // x=jointstate.x;
- // y=jointstate.y;
- // z=jointstate.z;
+  ROS_INFO("jointstate y,z: [%f,%f]", jointstate.y,jointstate.z);
+  x=jointstate.x;
+  y=jointstate.y;
+  z=jointstate.z;
 }
 
 int main( int argc, char* argv[] )
@@ -24,7 +24,7 @@ int main( int argc, char* argv[] )
   ros::NodeHandle n;
 
   ros::Publisher joint_state_publisher = n.advertise<sensor_msgs::JointState>("joint_states",1000);
-  ros::Subscriber sub = n.subscribe("chatter", 1000, setJoints);
+  ros::Subscriber sub = n.subscribe("ptu_servo_angles", 1000, setJoints);
   
   ros::Rate loop_rate(15);
   sensor_msgs::JointState js;
@@ -35,11 +35,11 @@ int main( int argc, char* argv[] )
   js.name.resize(3);
   js.position.resize(3);
   js.name[0] ="servo_joint";
-  js.position[0] = 0;
+  js.position[0] = x;
   js.name[1] ="y_joint";
-  js.position[1] = 90;
+  js.position[1] = y;
   js.name[2] ="z_joint";
-  js.position[2] = 90;
+  js.position[2] = z;
 
 
 	while( n.ok() )
