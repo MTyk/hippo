@@ -521,14 +521,47 @@ actionlib_DIR:PATH=/opt/ros/hydro/share/actionlib/cmake
 //The directory containing a CMake configuration file for actionlib_msgs.
 actionlib_msgs_DIR:PATH=/opt/ros/hydro/share/actionlib_msgs/cmake
 
+//The directory containing a CMake configuration file for angles.
+angles_DIR:PATH=/opt/ros/hydro/share/angles/cmake
+
+//The directory containing a CMake configuration file for bond.
+bond_DIR:PATH=/opt/ros/hydro/share/bond/cmake
+
+//The directory containing a CMake configuration file for bondcpp.
+bondcpp_DIR:PATH=/opt/ros/hydro/share/bondcpp/cmake
+
 //The directory containing a CMake configuration file for catkin.
 catkin_DIR:PATH=/opt/ros/hydro/share/catkin/cmake
+
+//The directory containing a CMake configuration file for class_loader.
+class_loader_DIR:PATH=/opt/ros/hydro/share/class_loader/cmake
+
+//The directory containing a CMake configuration file for console_bridge.
+console_bridge_DIR:PATH=/opt/ros/hydro/share/console_bridge/cmake
+
+//The directory containing a CMake configuration file for costmap_2d.
+costmap_2d_DIR:PATH=/opt/ros/hydro/share/costmap_2d/cmake
 
 //The directory containing a CMake configuration file for cpp_common.
 cpp_common_DIR:PATH=/opt/ros/hydro/share/cpp_common/cmake
 
+//The directory containing a CMake configuration file for cv_bridge.
+cv_bridge_DIR:PATH=/opt/ros/hydro/share/cv_bridge/cmake
+
+//The directory containing a CMake configuration file for dynamic_reconfigure.
+dynamic_reconfigure_DIR:PATH=/opt/ros/hydro/share/dynamic_reconfigure/cmake
+
+//The directory containing a CMake configuration file for dynamic_recongifure.
+dynamic_recongifure_DIR:PATH=dynamic_recongifure_DIR-NOTFOUND
+
+//The directory containing a CMake configuration file for euslisp.
+euslisp_DIR:PATH=/opt/ros/hydro/share/euslisp/cmake
+
 //The directory containing a CMake configuration file for gencpp.
 gencpp_DIR:PATH=/opt/ros/hydro/share/gencpp/cmake
+
+//The directory containing a CMake configuration file for geneus.
+geneus_DIR:PATH=/opt/ros/hydro/share/geneus/cmake
 
 //The directory containing a CMake configuration file for genlisp.
 genlisp_DIR:PATH=/opt/ros/hydro/share/genlisp/cmake
@@ -579,26 +612,35 @@ hippo2_BINARY_DIR:STATIC=/home/pioneer/group41/build/hippo2
 //Value Computed by CMake
 hippo2_SOURCE_DIR:STATIC=/home/pioneer/group41/src/hippo2
 
+//The directory containing a CMake configuration file for image_geometry.
+image_geometry_DIR:PATH=/opt/ros/hydro/share/image_geometry/cmake
+
+//The directory containing a CMake configuration file for laser_geometry.
+laser_geometry_DIR:PATH=/opt/ros/hydro/share/laser_geometry/cmake
+
 //Path to a library.
-lib:FILEPATH=/opt/ros/hydro/lib/libtf2.so
+lib:FILEPATH=/usr/lib/x86_64-linux-gnu/libpthread.so
 
 //Value Computed by CMake
-liblms1xx_BINARY_DIR:STATIC=/home/pioneer/group41/build/liblms1xx
+liblms1xx_BINARY_DIR:STATIC=/home/pioneer/group41/build/RCPRG_laser_drivers/liblms1xx
 
 //The directory containing a CMake configuration file for liblms1xx.
 liblms1xx_DIR:PATH=/home/pioneer/group41/devel/share/liblms1xx/cmake
 
 //Value Computed by CMake
-liblms1xx_SOURCE_DIR:STATIC=/home/pioneer/group41/src/liblms1xx
+liblms1xx_SOURCE_DIR:STATIC=/home/pioneer/group41/src/RCPRG_laser_drivers/liblms1xx
 
 //Value Computed by CMake
-lms1xx_BINARY_DIR:STATIC=/home/pioneer/group41/build/lms1xx
+lms1xx_BINARY_DIR:STATIC=/home/pioneer/group41/build/RCPRG_laser_drivers/lms1xx
 
 //Dependencies for target
 lms1xx_LIB_DEPENDS:STATIC=
 
 //Value Computed by CMake
-lms1xx_SOURCE_DIR:STATIC=/home/pioneer/group41/src/lms1xx
+lms1xx_SOURCE_DIR:STATIC=/home/pioneer/group41/src/RCPRG_laser_drivers/lms1xx
+
+//The directory containing a CMake configuration file for map_msgs.
+map_msgs_DIR:PATH=/opt/ros/hydro/share/map_msgs/cmake
 
 //The directory containing a CMake configuration file for message_filters.
 message_filters_DIR:PATH=/opt/ros/hydro/share/message_filters/cmake
@@ -612,6 +654,21 @@ message_runtime_DIR:PATH=/opt/ros/hydro/share/message_runtime/cmake
 //The directory containing a CMake configuration file for move_base_msgs.
 move_base_msgs_DIR:PATH=/opt/ros/hydro/share/move_base_msgs/cmake
 
+//The directory containing a CMake configuration file for nav_core.
+nav_core_DIR:PATH=/opt/ros/hydro/share/nav_core/cmake
+
+//The directory containing a CMake configuration file for nav_msgs.
+nav_msgs_DIR:PATH=/opt/ros/hydro/share/nav_msgs/cmake
+
+//The directory containing a CMake configuration file for nodelet.
+nodelet_DIR:PATH=/opt/ros/hydro/share/nodelet/cmake
+
+//The directory containing a CMake configuration file for nodelet_topic_tools.
+nodelet_topic_tools_DIR:PATH=/opt/ros/hydro/share/nodelet_topic_tools/cmake
+
+//Path to a library.
+onelib:FILEPATH=/opt/ros/hydro/lib/libconsole_bridge.so
+
 //The directory containing a CMake configuration file for opencv2.
 opencv2_DIR:PATH=opencv2_DIR-NOTFOUND
 
@@ -620,6 +677,30 @@ p2os_urdf_BINARY_DIR:STATIC=/home/pioneer/group41/build/p2os_urdf
 
 //Value Computed by CMake
 p2os_urdf_SOURCE_DIR:STATIC=/home/pioneer/group41/src/p2os_urdf
+
+//The directory containing a CMake configuration file for pcl_conversions.
+pcl_conversions_DIR:PATH=/opt/ros/hydro/share/pcl_conversions/cmake
+
+//The directory containing a CMake configuration file for pcl_msgs.
+pcl_msgs_DIR:PATH=/opt/ros/hydro/share/pcl_msgs/cmake
+
+//The directory containing a CMake configuration file for pcl_ros.
+pcl_ros_DIR:PATH=/opt/ros/hydro/share/pcl_ros/cmake
+
+//The directory containing a CMake configuration file for pluginlib.
+pluginlib_DIR:PATH=/opt/ros/hydro/share/pluginlib/cmake
+
+//The directory containing a CMake configuration file for rosbag.
+rosbag_DIR:PATH=/opt/ros/hydro/share/rosbag/cmake
+
+//The directory containing a CMake configuration file for rosbag_storage.
+rosbag_storage_DIR:PATH=/opt/ros/hydro/share/rosbag_storage/cmake
+
+//The directory containing a CMake configuration file for rosbuild.
+rosbuild_DIR:PATH=/opt/ros/hydro/share/rosbuild/cmake
+
+//The directory containing a CMake configuration file for rosclean.
+rosclean_DIR:PATH=/opt/ros/hydro/share/rosclean/cmake
 
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/hydro/share/rosconsole/cmake
@@ -639,14 +720,56 @@ rosgraph_DIR:PATH=/opt/ros/hydro/share/rosgraph/cmake
 //The directory containing a CMake configuration file for rosgraph_msgs.
 rosgraph_msgs_DIR:PATH=/opt/ros/hydro/share/rosgraph_msgs/cmake
 
+//The directory containing a CMake configuration file for roslaunch.
+roslaunch_DIR:PATH=/opt/ros/hydro/share/roslaunch/cmake
+
+//The directory containing a CMake configuration file for roslib.
+roslib_DIR:PATH=/opt/ros/hydro/share/roslib/cmake
+
+//The directory containing a CMake configuration file for rosmaster.
+rosmaster_DIR:PATH=/opt/ros/hydro/share/rosmaster/cmake
+
+//The directory containing a CMake configuration file for rosmsg.
+rosmsg_DIR:PATH=/opt/ros/hydro/share/rosmsg/cmake
+
+//The directory containing a CMake configuration file for rosnode.
+rosnode_DIR:PATH=/opt/ros/hydro/share/rosnode/cmake
+
+//The directory containing a CMake configuration file for rosout.
+rosout_DIR:PATH=/opt/ros/hydro/share/rosout/cmake
+
+//The directory containing a CMake configuration file for rospack.
+rospack_DIR:PATH=/opt/ros/hydro/share/rospack/cmake
+
+//The directory containing a CMake configuration file for rosparam.
+rosparam_DIR:PATH=/opt/ros/hydro/share/rosparam/cmake
+
 //The directory containing a CMake configuration file for rospy.
 rospy_DIR:PATH=/opt/ros/hydro/share/rospy/cmake
+
+//The directory containing a CMake configuration file for rosservice.
+rosservice_DIR:PATH=/opt/ros/hydro/share/rosservice/cmake
+
+//The directory containing a CMake configuration file for rostest.
+rostest_DIR:PATH=/opt/ros/hydro/share/rostest/cmake
 
 //The directory containing a CMake configuration file for rostime.
 rostime_DIR:PATH=/opt/ros/hydro/share/rostime/cmake
 
+//The directory containing a CMake configuration file for rostopic.
+rostopic_DIR:PATH=/opt/ros/hydro/share/rostopic/cmake
+
+//The directory containing a CMake configuration file for rosunit.
+rosunit_DIR:PATH=/opt/ros/hydro/share/rosunit/cmake
+
+//The directory containing a CMake configuration file for roswtf.
+roswtf_DIR:PATH=/opt/ros/hydro/share/roswtf/cmake
+
 //The directory containing a CMake configuration file for sensor_msgs.
 sensor_msgs_DIR:PATH=/opt/ros/hydro/share/sensor_msgs/cmake
+
+//The directory containing a CMake configuration file for smclib.
+smclib_DIR:PATH=/opt/ros/hydro/share/smclib/cmake
 
 //Value Computed by CMake
 src_BINARY_DIR:STATIC=/home/pioneer/group41/build/p2os_urdf
@@ -656,6 +779,9 @@ src_SOURCE_DIR:STATIC=/home/pioneer/group41/src/p2os_urdf
 
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/hydro/share/std_msgs/cmake
+
+//The directory containing a CMake configuration file for std_srvs.
+std_srvs_DIR:PATH=/opt/ros/hydro/share/std_srvs/cmake
 
 //The directory containing a CMake configuration file for tf2.
 tf2_DIR:PATH=/opt/ros/hydro/share/tf2/cmake
@@ -671,6 +797,15 @@ tf2_ros_DIR:PATH=/opt/ros/hydro/share/tf2_ros/cmake
 
 //The directory containing a CMake configuration file for tf.
 tf_DIR:PATH=/opt/ros/hydro/share/tf/cmake
+
+//The directory containing a CMake configuration file for topic_tools.
+topic_tools_DIR:PATH=/opt/ros/hydro/share/topic_tools/cmake
+
+//The directory containing a CMake configuration file for visualization_msgs.
+visualization_msgs_DIR:PATH=/opt/ros/hydro/share/visualization_msgs/cmake
+
+//The directory containing a CMake configuration file for voxel_grid.
+voxel_grid_DIR:PATH=/opt/ros/hydro/share/voxel_grid/cmake
 
 //The directory containing a CMake configuration file for xmlrpcpp.
 xmlrpcpp_DIR:PATH=/opt/ros/hydro/share/xmlrpcpp/cmake
@@ -835,7 +970,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=5
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=3
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

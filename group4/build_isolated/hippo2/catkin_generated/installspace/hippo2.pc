@@ -1,0 +1,8 @@
+prefix=/opt/ros/hydro
+
+Name: hippo2
+Description: Description of hippo2
+Version: 0.0.0
+Cflags: -I/opt/ros/hydro/include
+Libs: -L/opt/ros/hydro/lib 
+Requires: 

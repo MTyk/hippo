@@ -1,0 +1,8 @@
+prefix=/home/pioneer/group41/install
+
+Name: rosserial_server
+Description: Description of rosserial_server
+Version: 0.6.3
+Cflags: -I/home/pioneer/group41/install/include
+Libs: -L/home/pioneer/group41/install/lib 
+Requires: roscpp rosserial_msgs topic_tools

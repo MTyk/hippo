@@ -861,6 +861,20 @@ send_goal/fast:
 .PHONY : send_goal/fast
 
 # Convenience name for target.
+hippo2/CMakeFiles/send_goal2.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/send_goal2.dir/rule
+.PHONY : hippo2/CMakeFiles/send_goal2.dir/rule
+
+# Convenience name for target.
+send_goal2: hippo2/CMakeFiles/send_goal2.dir/rule
+.PHONY : send_goal2
+
+# fast build rule for target.
+send_goal2/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/send_goal2.dir/build.make hippo2/CMakeFiles/send_goal2.dir/build
+.PHONY : send_goal2/fast
+
+# Convenience name for target.
 hippo2/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule:
 	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
 .PHONY : hippo2/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
@@ -1268,6 +1282,30 @@ src/send_goal.cpp.s:
 	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/send_goal.dir/build.make hippo2/CMakeFiles/send_goal.dir/src/send_goal.cpp.s
 .PHONY : src/send_goal.cpp.s
 
+src/send_goal2.o: src/send_goal2.cpp.o
+.PHONY : src/send_goal2.o
+
+# target to build an object file
+src/send_goal2.cpp.o:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/send_goal2.dir/build.make hippo2/CMakeFiles/send_goal2.dir/src/send_goal2.cpp.o
+.PHONY : src/send_goal2.cpp.o
+
+src/send_goal2.i: src/send_goal2.cpp.i
+.PHONY : src/send_goal2.i
+
+# target to preprocess a source file
+src/send_goal2.cpp.i:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/send_goal2.dir/build.make hippo2/CMakeFiles/send_goal2.dir/src/send_goal2.cpp.i
+.PHONY : src/send_goal2.cpp.i
+
+src/send_goal2.s: src/send_goal2.cpp.s
+.PHONY : src/send_goal2.s
+
+# target to generate assembly for a file
+src/send_goal2.cpp.s:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/send_goal2.dir/build.make hippo2/CMakeFiles/send_goal2.dir/src/send_goal2.cpp.s
+.PHONY : src/send_goal2.cpp.s
+
 src/server.o: src/server.cpp.o
 .PHONY : src/server.o
 
@@ -1403,6 +1441,7 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_lisp"
 	@echo "... rosgraph_msgs_generate_messages_py"
 	@echo "... send_goal"
+	@echo "... send_goal2"
 	@echo "... sensor_msgs_generate_messages_cpp"
 	@echo "... sensor_msgs_generate_messages_lisp"
 	@echo "... sensor_msgs_generate_messages_py"
@@ -1437,6 +1476,9 @@ help:
 	@echo "... src/send_goal.o"
 	@echo "... src/send_goal.i"
 	@echo "... src/send_goal.s"
+	@echo "... src/send_goal2.o"
+	@echo "... src/send_goal2.i"
+	@echo "... src/send_goal2.s"
 	@echo "... src/server.o"
 	@echo "... src/server.i"
 	@echo "... src/server.s"

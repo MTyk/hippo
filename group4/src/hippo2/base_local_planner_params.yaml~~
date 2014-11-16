@@ -13,6 +13,13 @@ TrajectoryPlannerROS:
     yaw_goal_tolerance: 0.5
     xy_goal_tolerance: 0.2
     
- #   meter_scoring: true
+ #   prune_plan: flase
+ #   pdist_scale: 5
+#    gdist_scale: 1
+ #   occdist_scale: 0.0
+    
+ #   sim_time: 0.1
+    
+  #  meter_scoring: true
  #   heading_scoring: true
  #   dwa: true

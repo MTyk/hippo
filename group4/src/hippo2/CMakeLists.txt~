@@ -199,6 +199,9 @@ target_link_libraries(state_publisher ${catkin_LIBRARIES})
 add_executable(send_goal src/send_goal.cpp)
 target_link_libraries(send_goal ${catkin_LIBRARIES})
 
+add_executable(send_goal2 src/send_goal2.cpp)
+target_link_libraries(send_goal2 ${catkin_LIBRARIES})
+
 add_executable(pose_adjuster src/pose_adjuster.cpp)
 target_link_libraries(pose_adjuster ${catkin_LIBRARIES})
 

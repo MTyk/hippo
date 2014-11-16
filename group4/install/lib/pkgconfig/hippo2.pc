@@ -1,0 +1,8 @@
+prefix=/home/pioneer/group41/install
+
+Name: hippo2
+Description: Description of hippo2
+Version: 0.0.0
+Cflags: -I/home/pioneer/group41/install/include
+Libs: -L/home/pioneer/group41/install/lib 
+Requires: 

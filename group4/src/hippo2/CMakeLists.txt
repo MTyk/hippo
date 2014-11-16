@@ -7,6 +7,7 @@ project(hippo2)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
+  rosserial_python
 # opencv2
   std_msgs
   tf

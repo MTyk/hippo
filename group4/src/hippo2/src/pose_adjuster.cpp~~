@@ -38,10 +38,10 @@ int main(int argc, char** argv)
     double angErrorLast = 0;
     double linErrorSum = 0;
     double angErrorSum = 0;
-    double linKp = 1;
+    double linKp = 1.2;
     double linKi = 0;
     double linKd = 0.3;
-    double angKp = 1;
+    double angKp = 1.2;
     double angKi = 0;
     double angKd = 0.3;
     double sampleTime = double(1)/double(LOOP_RATE);
@@ -55,7 +55,7 @@ int main(int argc, char** argv)
             dAction = angKd * (angError - angErrorLast) / sampleTime;
             angErrorSum = angErrorSum + angError;
             iAction = angKi * sampleTime * angErrorSum / 2;
-            cmd.angular.x = pAction + dAction + iAction;
+            cmd.angular.z = pAction + dAction + iAction;
             angErrorLast = angError;
             
             //Set linear velocity to 0 to ensure only orientation is controlled
@@ -74,9 +74,9 @@ int main(int argc, char** argv)
             linErrorLast = linError;
             //Set angular velocity to 0 to ensure only position is controlled
             ROS_INFO("lin cmd:%f ",cmd.linear.x);
-            cmd.angular.x = 0;
+            cmd.angular.z = 0;
         } else {    //if error is withing bounds do not move
-            cmd.angular.x = 0;
+            cmd.angular.z = 0;
             cmd.linear.x = 0;
         }
 
