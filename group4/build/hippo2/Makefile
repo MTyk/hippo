@@ -301,20 +301,6 @@ dynamic_reconfigure_generate_messages_py/fast:
 .PHONY : dynamic_reconfigure_generate_messages_py/fast
 
 # Convenience name for target.
-hippo2/CMakeFiles/global_planner_lib.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/global_planner_lib.dir/rule
-.PHONY : hippo2/CMakeFiles/global_planner_lib.dir/rule
-
-# Convenience name for target.
-global_planner_lib: hippo2/CMakeFiles/global_planner_lib.dir/rule
-.PHONY : global_planner_lib
-
-# fast build rule for target.
-global_planner_lib/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/global_planner_lib.dir/build.make hippo2/CMakeFiles/global_planner_lib.dir/build
-.PHONY : global_planner_lib/fast
-
-# Convenience name for target.
 hippo2/CMakeFiles/hippo2_gencfg.dir/rule:
 	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/hippo2_gencfg.dir/rule
 .PHONY : hippo2/CMakeFiles/hippo2_gencfg.dir/rule
@@ -341,6 +327,20 @@ hippo2_tf_ALL_GEN_OUTPUT_FILES_eus: hippo2/CMakeFiles/hippo2_tf_ALL_GEN_OUTPUT_F
 hippo2_tf_ALL_GEN_OUTPUT_FILES_eus/fast:
 	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/hippo2_tf_ALL_GEN_OUTPUT_FILES_eus.dir/build.make hippo2/CMakeFiles/hippo2_tf_ALL_GEN_OUTPUT_FILES_eus.dir/build
 .PHONY : hippo2_tf_ALL_GEN_OUTPUT_FILES_eus/fast
+
+# Convenience name for target.
+hippo2/CMakeFiles/ir_locator.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/ir_locator.dir/rule
+.PHONY : hippo2/CMakeFiles/ir_locator.dir/rule
+
+# Convenience name for target.
+ir_locator: hippo2/CMakeFiles/ir_locator.dir/rule
+.PHONY : ir_locator
+
+# fast build rule for target.
+ir_locator/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/ir_locator.dir/build.make hippo2/CMakeFiles/ir_locator.dir/build
+.PHONY : ir_locator/fast
 
 # Convenience name for target.
 hippo2/CMakeFiles/map_msgs_generate_messages_cpp.dir/rule:
@@ -623,20 +623,6 @@ send_goal2/fast:
 .PHONY : send_goal2/fast
 
 # Convenience name for target.
-hippo2/CMakeFiles/server.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/server.dir/rule
-.PHONY : hippo2/CMakeFiles/server.dir/rule
-
-# Convenience name for target.
-server: hippo2/CMakeFiles/server.dir/rule
-.PHONY : server
-
-# fast build rule for target.
-server/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/server.dir/build.make hippo2/CMakeFiles/server.dir/build
-.PHONY : server/fast
-
-# Convenience name for target.
 hippo2/CMakeFiles/state_publisher.dir/rule:
 	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/state_publisher.dir/rule
 .PHONY : hippo2/CMakeFiles/state_publisher.dir/rule
@@ -748,29 +734,29 @@ visualization_msgs_generate_messages_py/fast:
 	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/visualization_msgs_generate_messages_py.dir/build.make hippo2/CMakeFiles/visualization_msgs_generate_messages_py.dir/build
 .PHONY : visualization_msgs_generate_messages_py/fast
 
-src/global_planner.o: src/global_planner.cpp.o
-.PHONY : src/global_planner.o
+src/ir_locator.o: src/ir_locator.cpp.o
+.PHONY : src/ir_locator.o
 
 # target to build an object file
-src/global_planner.cpp.o:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/global_planner_lib.dir/build.make hippo2/CMakeFiles/global_planner_lib.dir/src/global_planner.cpp.o
-.PHONY : src/global_planner.cpp.o
+src/ir_locator.cpp.o:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/ir_locator.dir/build.make hippo2/CMakeFiles/ir_locator.dir/src/ir_locator.cpp.o
+.PHONY : src/ir_locator.cpp.o
 
-src/global_planner.i: src/global_planner.cpp.i
-.PHONY : src/global_planner.i
+src/ir_locator.i: src/ir_locator.cpp.i
+.PHONY : src/ir_locator.i
 
 # target to preprocess a source file
-src/global_planner.cpp.i:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/global_planner_lib.dir/build.make hippo2/CMakeFiles/global_planner_lib.dir/src/global_planner.cpp.i
-.PHONY : src/global_planner.cpp.i
+src/ir_locator.cpp.i:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/ir_locator.dir/build.make hippo2/CMakeFiles/ir_locator.dir/src/ir_locator.cpp.i
+.PHONY : src/ir_locator.cpp.i
 
-src/global_planner.s: src/global_planner.cpp.s
-.PHONY : src/global_planner.s
+src/ir_locator.s: src/ir_locator.cpp.s
+.PHONY : src/ir_locator.s
 
 # target to generate assembly for a file
-src/global_planner.cpp.s:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/global_planner_lib.dir/build.make hippo2/CMakeFiles/global_planner_lib.dir/src/global_planner.cpp.s
-.PHONY : src/global_planner.cpp.s
+src/ir_locator.cpp.s:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/ir_locator.dir/build.make hippo2/CMakeFiles/ir_locator.dir/src/ir_locator.cpp.s
+.PHONY : src/ir_locator.cpp.s
 
 src/pose_adjuster.o: src/pose_adjuster.cpp.o
 .PHONY : src/pose_adjuster.o
@@ -844,30 +830,6 @@ src/send_goal2.cpp.s:
 	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/send_goal2.dir/build.make hippo2/CMakeFiles/send_goal2.dir/src/send_goal2.cpp.s
 .PHONY : src/send_goal2.cpp.s
 
-src/server.o: src/server.cpp.o
-.PHONY : src/server.o
-
-# target to build an object file
-src/server.cpp.o:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/server.dir/build.make hippo2/CMakeFiles/server.dir/src/server.cpp.o
-.PHONY : src/server.cpp.o
-
-src/server.i: src/server.cpp.i
-.PHONY : src/server.i
-
-# target to preprocess a source file
-src/server.cpp.i:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/server.dir/build.make hippo2/CMakeFiles/server.dir/src/server.cpp.i
-.PHONY : src/server.cpp.i
-
-src/server.s: src/server.cpp.s
-.PHONY : src/server.s
-
-# target to generate assembly for a file
-src/server.cpp.s:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/server.dir/build.make hippo2/CMakeFiles/server.dir/src/server.cpp.s
-.PHONY : src/server.cpp.s
-
 src/state_publisher.o: src/state_publisher.cpp.o
 .PHONY : src/state_publisher.o
 
@@ -934,12 +896,12 @@ help:
 	@echo "... dynamic_reconfigure_generate_messages_lisp"
 	@echo "... dynamic_reconfigure_generate_messages_py"
 	@echo "... edit_cache"
-	@echo "... global_planner_lib"
 	@echo "... hippo2_gencfg"
 	@echo "... hippo2_tf_ALL_GEN_OUTPUT_FILES_eus"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
+	@echo "... ir_locator"
 	@echo "... list_install_components"
 	@echo "... map_msgs_generate_messages_cpp"
 	@echo "... map_msgs_generate_messages_lisp"
@@ -962,7 +924,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... send_goal"
 	@echo "... send_goal2"
-	@echo "... server"
 	@echo "... state_publisher"
 	@echo "... std_srvs_generate_messages_cpp"
 	@echo "... std_srvs_generate_messages_lisp"
@@ -972,9 +933,9 @@ help:
 	@echo "... visualization_msgs_generate_messages_cpp"
 	@echo "... visualization_msgs_generate_messages_lisp"
 	@echo "... visualization_msgs_generate_messages_py"
-	@echo "... src/global_planner.o"
-	@echo "... src/global_planner.i"
-	@echo "... src/global_planner.s"
+	@echo "... src/ir_locator.o"
+	@echo "... src/ir_locator.i"
+	@echo "... src/ir_locator.s"
 	@echo "... src/pose_adjuster.o"
 	@echo "... src/pose_adjuster.i"
 	@echo "... src/pose_adjuster.s"
@@ -984,9 +945,6 @@ help:
 	@echo "... src/send_goal2.o"
 	@echo "... src/send_goal2.i"
 	@echo "... src/send_goal2.s"
-	@echo "... src/server.o"
-	@echo "... src/server.i"
-	@echo "... src/server.s"
 	@echo "... src/state_publisher.o"
 	@echo "... src/state_publisher.i"
 	@echo "... src/state_publisher.s"

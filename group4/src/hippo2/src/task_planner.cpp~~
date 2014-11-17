@@ -91,12 +91,11 @@ int main(int argc, char** argv)
                 break;
             case PICKUP:
                 if(pickupClient.call(srv)){     //call service and wait for reply
-
+		                state = MOVE2BASKET;
                    // printf("toy index: %d\n", toyIndex);  //debugging
                 }else{
 		                 ROS_INFO("Failed to call pickup service.");
 		            }
-		            state = MOVE2BASKET;
                 break;
             case MOVE2BASKET:
 		            // Go to basket
@@ -111,7 +110,7 @@ int main(int argc, char** argv)
 		            ac.sendGoal(goal);
 		            ac.waitForResult();
                 if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){  //if basket reached
-                    state = PICKUP;
+                    state = DROP;
                 }else{
 		                ROS_INFO("failed to reach basket.");
 		            }

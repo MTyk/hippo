@@ -1,0 +1,2 @@
+set(rosserial_msgs_MESSAGE_FILES "/home/pioneer/group41/src/rosserial-hydro-devel/rosserial_msgs/msg/Log.msg;/home/pioneer/group41/src/rosserial-hydro-devel/rosserial_msgs/msg/TopicInfo.msg")
+set(rosserial_msgs_SERVICE_FILES "/home/pioneer/group41/src/rosserial-hydro-devel/rosserial_msgs/srv/RequestParam.srv;/home/pioneer/group41/src/rosserial-hydro-devel/rosserial_msgs/srv/RequestMessageInfo.srv")

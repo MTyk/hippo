@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/pioneer/group41/install/include/rosserial_msgs/RequestMessageInfo.h
+/home/pioneer/group41/devel/include/rosserial_msgs/RequestMessageInfo.h
 ros/service_traits.h
 -
 rosserial_msgs/RequestMessageInfoRequest.h
@@ -14,7 +14,7 @@ rosserial_msgs/RequestMessageInfoRequest.h
 rosserial_msgs/RequestMessageInfoResponse.h
 -
 
-/home/pioneer/group41/install/include/rosserial_msgs/RequestMessageInfoRequest.h
+/home/pioneer/group41/devel/include/rosserial_msgs/RequestMessageInfoRequest.h
 string
 -
 vector
@@ -30,7 +30,7 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/pioneer/group41/install/include/rosserial_msgs/RequestMessageInfoResponse.h
+/home/pioneer/group41/devel/include/rosserial_msgs/RequestMessageInfoResponse.h
 string
 -
 vector
@@ -46,7 +46,7 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/pioneer/group41/install/include/rosserial_msgs/TopicInfo.h
+/home/pioneer/group41/devel/include/rosserial_msgs/TopicInfo.h
 string
 -
 vector

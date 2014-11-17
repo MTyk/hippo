@@ -766,7 +766,7 @@ rosserial_arduino_SOURCE_DIR:STATIC=/home/pioneer/group41/src/rosserial-hydro-de
 rosserial_client_BINARY_DIR:STATIC=/home/pioneer/group41/build/rosserial-hydro-devel/rosserial_client
 
 //The directory containing a CMake configuration file for rosserial_client.
-rosserial_client_DIR:PATH=/home/pioneer/group41/install/share/rosserial_client/cmake
+rosserial_client_DIR:PATH=/home/pioneer/group41/devel/share/rosserial_client/cmake
 
 //Value Computed by CMake
 rosserial_client_SOURCE_DIR:STATIC=/home/pioneer/group41/src/rosserial-hydro-devel/rosserial_client
@@ -781,7 +781,7 @@ rosserial_embeddedlinux_SOURCE_DIR:STATIC=/home/pioneer/group41/src/rosserial-hy
 rosserial_msgs_BINARY_DIR:STATIC=/home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs
 
 //The directory containing a CMake configuration file for rosserial_msgs.
-rosserial_msgs_DIR:PATH=/home/pioneer/group41/install/share/rosserial_msgs/cmake
+rosserial_msgs_DIR:PATH=/home/pioneer/group41/devel/share/rosserial_msgs/cmake
 
 //Value Computed by CMake
 rosserial_msgs_SOURCE_DIR:STATIC=/home/pioneer/group41/src/rosserial-hydro-devel/rosserial_msgs
@@ -790,7 +790,7 @@ rosserial_msgs_SOURCE_DIR:STATIC=/home/pioneer/group41/src/rosserial-hydro-devel
 rosserial_python_BINARY_DIR:STATIC=/home/pioneer/group41/build/rosserial-hydro-devel/rosserial_python
 
 //The directory containing a CMake configuration file for rosserial_python.
-rosserial_python_DIR:PATH=/home/pioneer/group41/install/share/rosserial_python/cmake
+rosserial_python_DIR:PATH=/home/pioneer/group41/devel/share/rosserial_python/cmake
 
 //Value Computed by CMake
 rosserial_python_SOURCE_DIR:STATIC=/home/pioneer/group41/src/rosserial-hydro-devel/rosserial_python

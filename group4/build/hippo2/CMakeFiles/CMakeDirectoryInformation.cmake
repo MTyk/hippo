@@ -11,13 +11,7 @@ SET(CMAKE_FORCE_UNIX_PATHS 1)
 # The C and CXX include file search paths:
 SET(CMAKE_C_INCLUDE_PATH
   "/home/pioneer/group41/devel/include"
-  "/usr/include/vtk-5.8"
   "/opt/ros/hydro/include"
-  "/opt/ros/hydro/include/opencv"
-  "/usr/include/pcl-1.7"
-  "/usr/include/eigen3"
-  "/usr/include/ni"
-  "/usr/include/qhull"
   "/home/pioneer/group41/src/hippo2/include"
   )
 SET(CMAKE_CXX_INCLUDE_PATH ${CMAKE_C_INCLUDE_PATH})
