@@ -8,7 +8,7 @@
 using namespace std;
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
-#define TOYS_TOTAL 3
+#define TOYS_TOTAL 5
 
 int main(int argc, char** argv)
 {
@@ -40,15 +40,21 @@ int main(int argc, char** argv)
         float t;	//orientation
       } toyLocation[TOYS_TOTAL], basketLocation;
     //TO DO: Define toy location array
-      toyLocation[0].x = 2.27449;
-      toyLocation[0].y = 14.5452;
+      toyLocation[0].x = 3.9935;
+      toyLocation[0].y = 13.544;
       toyLocation[0].t = 60.0;
-      toyLocation[1].x = 2.80013;
-      toyLocation[1].y = 13.5616;
+      toyLocation[1].x = 3.5592;
+      toyLocation[1].y = 13.759;
       toyLocation[1].t = 60.0;
-      toyLocation[2].x = 3.12151;
-      toyLocation[2].y = 12.1953;
+      toyLocation[2].x = 3.3789;
+      toyLocation[2].y = 13.983;
       toyLocation[2].t = 60.0;
+      toyLocation[3].x = 3.0869;
+      toyLocation[3].y = 14.446;
+      toyLocation[3].t = 60.0;
+      toyLocation[4].x = 2.8939;
+      toyLocation[4].y = 14.823;
+      toyLocation[4].t = 60.0;
     //To DO: Define basket location
       basketLocation.x = 1.78652;
       basketLocation.y = 12.4001;

@@ -11,7 +11,7 @@ TrajectoryPlannerROS:
     holonomic_robot: true
     
     yaw_goal_tolerance: 0.5
-    xy_goal_tolerance: 0.2
+    xy_goal_tolerance: 0.1
     
  #   prune_plan: flase
  #   pdist_scale: 5

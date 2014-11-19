@@ -8,10 +8,10 @@ TrajectoryPlannerROS:
     acc_lim_x: 2.5
     acc_lim_y: 2.5
 
-    holonomic_robot: false
+    holonomic_robot: true
     
-    yaw_goal_tolerance: 0.5
-    xy_goal_tolerance: 0.2
+    yaw_goal_tolerance: 0.05
+    xy_goal_tolerance: 0.05
     
  #   prune_plan: flase
  #   pdist_scale: 5
