@@ -24,6 +24,7 @@
 /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_arduino/CMakeFiles/geometry_msgs_generate_messages_cpp.dir
 /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_arduino/CMakeFiles/geometry_msgs_generate_messages_lisp.dir
 /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_arduino/CMakeFiles/geometry_msgs_generate_messages_py.dir
+/home/pioneer/group41/build/hippo2/CMakeFiles/gripper_controller.dir
 /home/pioneer/group41/build/gtest/CMakeFiles/gtest.dir
 /home/pioneer/group41/build/gtest/CMakeFiles/gtest_main.dir
 /home/pioneer/group41/build/hippo2/CMakeFiles/hippo2_gencfg.dir

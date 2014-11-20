@@ -20,7 +20,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_srvs
  # dynamic_recongifure
 )
-find_package(PCL REQUIRED)
+#find_package(PCL REQUIRED)
 
 generate_dynamic_reconfigure_options(
 #cfg/controller_params.cfg
@@ -120,7 +120,7 @@ include_directories(
 # add_library(hippo2
 #   src/${PROJECT_NAME}/hippo2.cpp
 # )
-add_library(global_planner_lib src/global_planner.cpp)
+#add_library(global_planner_lib src/global_planner.cpp)
 
 ## Declare a cpp executable
 # add_executable(hippo2_node src/hippo2_node.cpp)

@@ -1096,19 +1096,6 @@ dynamic_reconfigure_generate_messages_py/fast:
 .PHONY : dynamic_reconfigure_generate_messages_py/fast
 
 #=============================================================================
-# Target rules for targets named global_planner_lib
-
-# Build rule for target.
-global_planner_lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 global_planner_lib
-.PHONY : global_planner_lib
-
-# fast build rule for target.
-global_planner_lib/fast:
-	$(MAKE) -f hippo2/CMakeFiles/global_planner_lib.dir/build.make hippo2/CMakeFiles/global_planner_lib.dir/build
-.PHONY : global_planner_lib/fast
-
-#=============================================================================
 # Target rules for targets named hippo2_gencfg
 
 # Build rule for target.
@@ -1133,6 +1120,19 @@ hippo2_tf_ALL_GEN_OUTPUT_FILES_eus: cmake_check_build_system
 hippo2_tf_ALL_GEN_OUTPUT_FILES_eus/fast:
 	$(MAKE) -f hippo2/CMakeFiles/hippo2_tf_ALL_GEN_OUTPUT_FILES_eus.dir/build.make hippo2/CMakeFiles/hippo2_tf_ALL_GEN_OUTPUT_FILES_eus.dir/build
 .PHONY : hippo2_tf_ALL_GEN_OUTPUT_FILES_eus/fast
+
+#=============================================================================
+# Target rules for targets named ir_locator
+
+# Build rule for target.
+ir_locator: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ir_locator
+.PHONY : ir_locator
+
+# fast build rule for target.
+ir_locator/fast:
+	$(MAKE) -f hippo2/CMakeFiles/ir_locator.dir/build.make hippo2/CMakeFiles/ir_locator.dir/build
+.PHONY : ir_locator/fast
 
 #=============================================================================
 # Target rules for targets named map_msgs_generate_messages_cpp
@@ -1395,19 +1395,6 @@ send_goal2/fast:
 .PHONY : send_goal2/fast
 
 #=============================================================================
-# Target rules for targets named server
-
-# Build rule for target.
-server: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 server
-.PHONY : server
-
-# fast build rule for target.
-server/fast:
-	$(MAKE) -f hippo2/CMakeFiles/server.dir/build.make hippo2/CMakeFiles/server.dir/build
-.PHONY : server/fast
-
-#=============================================================================
 # Target rules for targets named state_publisher
 
 # Build rule for target.
@@ -1597,9 +1584,9 @@ help:
 	@echo "... dynamic_reconfigure_generate_messages_cpp"
 	@echo "... dynamic_reconfigure_generate_messages_lisp"
 	@echo "... dynamic_reconfigure_generate_messages_py"
-	@echo "... global_planner_lib"
 	@echo "... hippo2_gencfg"
 	@echo "... hippo2_tf_ALL_GEN_OUTPUT_FILES_eus"
+	@echo "... ir_locator"
 	@echo "... map_msgs_generate_messages_cpp"
 	@echo "... map_msgs_generate_messages_lisp"
 	@echo "... map_msgs_generate_messages_py"
@@ -1620,7 +1607,6 @@ help:
 	@echo "... pose_adjuster"
 	@echo "... send_goal"
 	@echo "... send_goal2"
-	@echo "... server"
 	@echo "... state_publisher"
 	@echo "... std_srvs_generate_messages_cpp"
 	@echo "... std_srvs_generate_messages_lisp"

@@ -15,12 +15,12 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   move_base_msgs 
   actionlib
-  cv_bridge
-  image_geometry
+ # cv_bridge
+ # image_geometry
   std_srvs
  # dynamic_recongifure
 )
-find_package(PCL REQUIRED)
+#find_package(PCL REQUIRED)
 
 generate_dynamic_reconfigure_options(
 #cfg/controller_params.cfg
@@ -111,16 +111,16 @@ catkin_package(
 # include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
-  ${PCL_INCLUDE_DIRS}
+ # ${PCL_INCLUDE_DIRS}
 )
 
-link_directories(${PCL_LIBRARIY_DIRS})
-add_definitions(${PCL_DEFINITIONS})
+#link_directories(${PCL_LIBRARIY_DIRS})
+#add_definitions(${PCL_DEFINITIONS})
 ## Declare a cpp library
 # add_library(hippo2
 #   src/${PROJECT_NAME}/hippo2.cpp
 # )
-add_library(global_planner_lib src/global_planner.cpp)
+#add_library(global_planner_lib src/global_planner.cpp)
 
 ## Declare a cpp executable
 # add_executable(hippo2_node src/hippo2_node.cpp)
@@ -209,8 +209,11 @@ target_link_libraries(pose_adjuster ${catkin_LIBRARIES})
 add_executable(task_planner src/task_planner.cpp)
 target_link_libraries(task_planner ${catkin_LIBRARIES})
 
-add_executable(server src/server.cpp)
-target_link_libraries(server ${catkin_LIBRARIES})
+#add_executable(server src/server.cpp)
+#target_link_libraries(server ${catkin_LIBRARIES})
+
+add_executable(ir_locator src/ir_locator.cpp)
+target_link_libraries(ir_locator ${catkin_LIBRARIES})
 
 #add_executable(begin_circuit src/begin_circuit.cpp)
 #target_link_libraries(begin_circuit ${catkin_LIBRARIES})

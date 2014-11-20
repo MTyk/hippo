@@ -56,52 +56,52 @@ rosserial-hydro-devel/rosserial_msgs/CMakeFiles/rosserial_msgs_message_generatio
 /home/pioneer/.ros/roseus/hydro/rosserial_msgs/manifest.l:
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/pioneer/group41/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating EusLisp code for upstream package rosserial_msgs"
-	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks:/home/pioneer/fsr_catkin_workspace/ /opt/ros/hydro/share/geneus/scripts/genmanifest_eus rosserial_msgs /home/pioneer/.ros/roseus/hydro/rosserial_msgs/manifest.l
+	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group3ws/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks /opt/ros/hydro/share/geneus/scripts/genmanifest_eus rosserial_msgs /home/pioneer/.ros/roseus/hydro/rosserial_msgs/manifest.l
 
 /home/pioneer/.ros/roseus/hydro/catkin/manifest.l:
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/pioneer/group41/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating EusLisp code for upstream package catkin"
-	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks:/home/pioneer/fsr_catkin_workspace/ /opt/ros/hydro/share/geneus/scripts/genmanifest_eus catkin /home/pioneer/.ros/roseus/hydro/catkin/manifest.l
+	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group3ws/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks /opt/ros/hydro/share/geneus/scripts/genmanifest_eus catkin /home/pioneer/.ros/roseus/hydro/catkin/manifest.l
 
 /home/pioneer/.ros/roseus/hydro/console_bridge/manifest.l:
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/pioneer/group41/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating EusLisp code for upstream package console_bridge"
-	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks:/home/pioneer/fsr_catkin_workspace/ /opt/ros/hydro/share/geneus/scripts/genmanifest_eus console_bridge /home/pioneer/.ros/roseus/hydro/console_bridge/manifest.l
+	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group3ws/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks /opt/ros/hydro/share/geneus/scripts/genmanifest_eus console_bridge /home/pioneer/.ros/roseus/hydro/console_bridge/manifest.l
 
 /home/pioneer/.ros/roseus/hydro/cpp_common/manifest.l:
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/pioneer/group41/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating EusLisp code for upstream package cpp_common"
-	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks:/home/pioneer/fsr_catkin_workspace/ /opt/ros/hydro/share/geneus/scripts/genmanifest_eus cpp_common /home/pioneer/.ros/roseus/hydro/cpp_common/manifest.l
+	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group3ws/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks /opt/ros/hydro/share/geneus/scripts/genmanifest_eus cpp_common /home/pioneer/.ros/roseus/hydro/cpp_common/manifest.l
 
 /home/pioneer/.ros/roseus/hydro/rostime/manifest.l:
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/pioneer/group41/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating EusLisp code for upstream package rostime"
-	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks:/home/pioneer/fsr_catkin_workspace/ /opt/ros/hydro/share/geneus/scripts/genmanifest_eus rostime /home/pioneer/.ros/roseus/hydro/rostime/manifest.l
+	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group3ws/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks /opt/ros/hydro/share/geneus/scripts/genmanifest_eus rostime /home/pioneer/.ros/roseus/hydro/rostime/manifest.l
 
 /home/pioneer/.ros/roseus/hydro/roscpp_traits/manifest.l:
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/pioneer/group41/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating EusLisp code for upstream package roscpp_traits"
-	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks:/home/pioneer/fsr_catkin_workspace/ /opt/ros/hydro/share/geneus/scripts/genmanifest_eus roscpp_traits /home/pioneer/.ros/roseus/hydro/roscpp_traits/manifest.l
+	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group3ws/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks /opt/ros/hydro/share/geneus/scripts/genmanifest_eus roscpp_traits /home/pioneer/.ros/roseus/hydro/roscpp_traits/manifest.l
 
 /home/pioneer/.ros/roseus/hydro/roscpp_serialization/manifest.l:
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/pioneer/group41/build/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating EusLisp code for upstream package roscpp_serialization"
-	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks:/home/pioneer/fsr_catkin_workspace/ /opt/ros/hydro/share/geneus/scripts/genmanifest_eus roscpp_serialization /home/pioneer/.ros/roseus/hydro/roscpp_serialization/manifest.l
+	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group3ws/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks /opt/ros/hydro/share/geneus/scripts/genmanifest_eus roscpp_serialization /home/pioneer/.ros/roseus/hydro/roscpp_serialization/manifest.l
 
 /home/pioneer/.ros/roseus/hydro/genmsg/manifest.l:
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/pioneer/group41/build/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating EusLisp code for upstream package genmsg"
-	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks:/home/pioneer/fsr_catkin_workspace/ /opt/ros/hydro/share/geneus/scripts/genmanifest_eus genmsg /home/pioneer/.ros/roseus/hydro/genmsg/manifest.l
+	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group3ws/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks /opt/ros/hydro/share/geneus/scripts/genmanifest_eus genmsg /home/pioneer/.ros/roseus/hydro/genmsg/manifest.l
 
 /home/pioneer/.ros/roseus/hydro/genpy/manifest.l:
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/pioneer/group41/build/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating EusLisp code for upstream package genpy"
-	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks:/home/pioneer/fsr_catkin_workspace/ /opt/ros/hydro/share/geneus/scripts/genmanifest_eus genpy /home/pioneer/.ros/roseus/hydro/genpy/manifest.l
+	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group3ws/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks /opt/ros/hydro/share/geneus/scripts/genmanifest_eus genpy /home/pioneer/.ros/roseus/hydro/genpy/manifest.l
 
 /home/pioneer/.ros/roseus/hydro/message_runtime/manifest.l:
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/pioneer/group41/build/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating EusLisp code for upstream package message_runtime"
-	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks:/home/pioneer/fsr_catkin_workspace/ /opt/ros/hydro/share/geneus/scripts/genmanifest_eus message_runtime /home/pioneer/.ros/roseus/hydro/message_runtime/manifest.l
+	cd /home/pioneer/group41/build/rosserial-hydro-devel/rosserial_msgs && ROS_PACKAGE_PATH=/opt/ros/hydro/share/euslisp:/opt/ros/hydro/share/geneus:/home/pioneer/group41/src:/home/pioneer/group3ws/src:/home/pioneer/group41/src:/home/pioneer/new_catkin_workspace/src:/opt/ros/hydro/share:/opt/ros/hydro/stacks /opt/ros/hydro/share/geneus/scripts/genmanifest_eus message_runtime /home/pioneer/.ros/roseus/hydro/message_runtime/manifest.l
 
 rosserial_msgs_message_generation_ALL_GEN_OUTPUT_FILES_eus: rosserial-hydro-devel/rosserial_msgs/CMakeFiles/rosserial_msgs_message_generation_ALL_GEN_OUTPUT_FILES_eus
 rosserial_msgs_message_generation_ALL_GEN_OUTPUT_FILES_eus: /home/pioneer/.ros/roseus/hydro/rosserial_msgs/manifest.l

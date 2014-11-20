@@ -215,6 +215,9 @@ target_link_libraries(task_planner ${catkin_LIBRARIES})
 add_executable(ir_locator src/ir_locator.cpp)
 target_link_libraries(ir_locator ${catkin_LIBRARIES})
 
+add_executable(gripper_controller src/gripper_controller.cpp)
+target_link_libraries(gripper_controller ${catkin_LIBRARIES})
+
 #add_executable(begin_circuit src/begin_circuit.cpp)
 #target_link_libraries(begin_circuit ${catkin_LIBRARIES})
 #target_link_libraries(begin_circuit ${PCL_LIBRARIES} ${catkin_LIBRARIES})
