@@ -1,0 +1,8 @@
+prefix=/home/pioneer/group41/devel
+
+Name: pointcloud_to_laserscan
+Description: Description of pointcloud_to_laserscan
+Version: 1.2.2
+Cflags: -I/home/pioneer/group41/src/pointcloud_to_laserscan/include
+Libs: -L/home/pioneer/group41/devel/lib -lPointCloudToLaserScan -lPointCloudToLaserScanNodelet
+Requires: dynamic_reconfigure libpcl-all-dev message_filters nodelet pcl_ros roscpp sensor_msgs

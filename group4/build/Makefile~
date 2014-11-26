@@ -1096,6 +1096,19 @@ dynamic_reconfigure_generate_messages_py/fast:
 .PHONY : dynamic_reconfigure_generate_messages_py/fast
 
 #=============================================================================
+# Target rules for targets named gripper_controller
+
+# Build rule for target.
+gripper_controller: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gripper_controller
+.PHONY : gripper_controller
+
+# fast build rule for target.
+gripper_controller/fast:
+	$(MAKE) -f hippo2/CMakeFiles/gripper_controller.dir/build.make hippo2/CMakeFiles/gripper_controller.dir/build
+.PHONY : gripper_controller/fast
+
+#=============================================================================
 # Target rules for targets named hippo2_gencfg
 
 # Build rule for target.
@@ -1584,6 +1597,7 @@ help:
 	@echo "... dynamic_reconfigure_generate_messages_cpp"
 	@echo "... dynamic_reconfigure_generate_messages_lisp"
 	@echo "... dynamic_reconfigure_generate_messages_py"
+	@echo "... gripper_controller"
 	@echo "... hippo2_gencfg"
 	@echo "... hippo2_tf_ALL_GEN_OUTPUT_FILES_eus"
 	@echo "... ir_locator"

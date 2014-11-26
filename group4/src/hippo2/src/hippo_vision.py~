@@ -61,7 +61,7 @@ class hippoVision():
         self.info_sub = rospy.Subscriber('/camera/rgb/camera_info', CameraInfo, self.get_camera_info)
         
         # Subscribe to the IR range data
-        rospy.wait_for_message('/arduino_data', Vector3)
+        #rospy.wait_for_message('/arduino_data', Vector3)
         self.range_sub = rospy.Subscriber("/arduino_data", Vector3, self.ir_callback)
         
         # Subscribe to the camera image and depth topics and set
@@ -72,9 +72,9 @@ class hippoVision():
         #rospy.wait_for_message('/camera/rgb/image_color', Image)
         self.image_sub = rospy.Subscriber("/camera/rgb/image_color", Image, self.image_callback)
         
-        self.roi_pub = rospy.Publisher('/roi', RegionOfInterest, queue_size=1)
-        self.pose_err_pub = rospy.Publisher('/pose_error', Twist, queue_size=1)
-        self.gripper_pub = rospy.Publisher('/arduino_command', Vector3, queue_size=10)
+        #self.roi_pub = rospy.Publisher('/roi', RegionOfInterest, queue_size=1)
+        #self.pose_err_pub = rospy.Publisher('/pose_error', Twist, queue_size=1)
+        #self.gripper_pub = rospy.Publisher('/arduino_command', Vector3, queue_size=10)
         
         '''
         #rospy.loginfo("Waiting for image topics...")
@@ -128,48 +128,46 @@ class hippoVision():
         except CvBridgeError, e:
             print e
         
-        if self.depth_image_metric != None:
+        # Convert the image to a Numpy array since most cv2 functions
+        # require Numpy arrays.
+        frame = np.array(frame, dtype=np.uint8)
         
-            # Convert the image to a Numpy array since most cv2 functions
-            # require Numpy arrays.
-            frame = np.array(frame, dtype=np.uint8)
+        if not self.is_flying_blind:
+            # Process the frame using the process_image() function
+            display_image = self.process_image(frame)
             
-            if not self.is_flying_blind:
-                # Process the frame using the process_image() function
-                display_image = self.process_image(frame)
-                
-                # Find closest region of interest
-                self.roi = self.find_closest_roi(display_image, frame)
-                self.mark_roi(frame)
-            
-            # Display the image
-            cv2.imshow(self.node_name, frame)
-            
-            pixel_offset = self.calculate_pixel_offset()
-            #rospy.loginfo("ROI offset: %s", str(pixel_offset))
-            angle_offset = self.calculate_angle_offset(pixel_offset)
-            #self.move_camera(pixel_offset, angle_offset)
-            self.align_robot(angle_offset)
-            
-            '''
-            if self.roi[0] != None:
-                x,y,w,h = cv2.boundingRect(self.roi[0])
-                roi_new = RegionOfInterest()
-                roi_new.x_offset = x
-                roi_new.y_offset = y
-                roi_new.height = h
-                roi_new.width = w
-                roi_new.do_rectify = False
-                self.roi_pub.publish(roi_new)
-            '''
-            
-            # Process any keyboard commands
-            self.keystroke = cv.WaitKey(5)
-            if 32 <= self.keystroke and self.keystroke < 128:
-                cc = chr(self.keystroke).lower()
-                if cc == 'q':
-                    # The user has press the q key, so exit
-                    rospy.signal_shutdown("User hit q key to quit.")
+            # Find closest region of interest
+            self.roi = self.find_closest_roi(display_image, frame)
+            self.mark_roi(frame)
+        
+        # Display the image
+        cv2.imshow(self.node_name, frame)
+        
+        pixel_offset = self.calculate_pixel_offset()
+        #rospy.loginfo("ROI offset: %s", str(pixel_offset))
+        angle_offset = self.calculate_angle_offset(pixel_offset)
+        #self.move_camera(pixel_offset, angle_offset)
+        #self.align_robot(angle_offset)
+        
+        '''
+        if self.roi[0] != None:
+            x,y,w,h = cv2.boundingRect(self.roi[0])
+            roi_new = RegionOfInterest()
+            roi_new.x_offset = x
+            roi_new.y_offset = y
+            roi_new.height = h
+            roi_new.width = w
+            roi_new.do_rectify = False
+            self.roi_pub.publish(roi_new)
+        '''
+        
+        # Process any keyboard commands
+        self.keystroke = cv.WaitKey(5)
+        if 32 <= self.keystroke and self.keystroke < 128:
+            cc = chr(self.keystroke).lower()
+            if cc == 'q':
+                # The user has press the q key, so exit
+                rospy.signal_shutdown("User hit q key to quit.")
         
         
     def depth_callback(self, ros_depth_raw):
@@ -223,9 +221,10 @@ class hippoVision():
             if k == 27:
                 break
         '''
+
    
-        upper = 200
-        lower = 180
+        upper = 220
+        lower = 200
         f_thres = 7000
         b_thres = 30000
         
@@ -281,8 +280,8 @@ class hippoVision():
         #rospy.wait_for_message('/camera/depth/image_raw', Image)
         contours, hierarchy = cv2.findContours(blob_frame,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     
-        min_area = 3000
-        max_area = 200000
+        min_area = 2000
+        max_area = 10000
         box_ratio = 2
         closest = (None, 0.0)
         
@@ -300,23 +299,35 @@ class hippoVision():
                     # Mask ROI for black color
                     roi=color_frame[y:y+h,x:x+w]
                     masked = self.mask_color(roi)
-                    black_pix = 100 * cv2.countNonZero(masked)
+                    black_pix = 100.0 * cv2.countNonZero(masked)
                     percentage = black_pix / area
-                    if percentage > 25:
+                    if percentage > 25.0:
                         rospy.loginfo("This object is partly black")
                     
                     # Get the distance to the object
-                    distance = self.depth_image_metric[y+(h/2)][x+(w/2)]
-                    
-                    # Try to find an approximate value, if previous distance was 0.0
-                    px_shift = 1
-                    while (distance == 0.0) or (px_shift < 51):
-                        if (x+(w/2) + px_shift) < self.image_width:
-                            distance = self.depth_image_metric[y+(h/2)][x+(w/2) + px_shift]
-                            if (distance == 0.0):
-                                if (x+(w/2) - px_shift) >= 0:
-                                    distance = self.depth_image_metric[y+(h/2)][x+(w/2) - px_shift]
-                        px_shift += 1
+                    try:
+                        rospy.loginfo("Trying...")
+                        depth_roi = self.depth_image_metric[y:y+h,x:x+w]
+                        non_zero_pix = 100.0 * cv2.countNonZero(depth_roi)
+                        percentage = non_zero_pix / area
+                        if percentage > 95.0:
+                            rospy.loginfo("Invalid blob: no depth")
+                            continue
+                 
+                        distance = self.depth_image_metric[y+(h/2)][x+(w/2)]
+                        
+                        # Try to find an approximate value, if previous distance was 0.0
+                        px_shift = 1
+                        while (distance == 0.0) or (px_shift < 51):
+                            if (x+(w/2) + px_shift) < self.image_width:
+                                distance = self.depth_image_metric[y+(h/2)][x+(w/2) + px_shift]
+                                if (distance == 0.0):
+                                    if (x+(w/2) - px_shift) >= 0:
+                                        distance = self.depth_image_metric[y+(h/2)][x+(w/2) - px_shift]
+                            px_shift += 1
+                            
+                    except rospy.ROSException, e:
+                        print e
                     
                     # Compare for the closest object
                     if (self.roi[0] == None) or (closest[1] == 0.0):
@@ -458,7 +469,7 @@ class hippoVision():
             gripper_command = Vector3()
             gripper_command.x = 1.0
             gripper_command.y = 0.0
-            gripper_command.z = 200.0
+            gripper_command.z = 300.0
             self.gripper_pub.publish(gripper_command)
             if self.is_closed_scoop:
                 lift_command = Vector3()

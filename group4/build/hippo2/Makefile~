@@ -301,6 +301,20 @@ dynamic_reconfigure_generate_messages_py/fast:
 .PHONY : dynamic_reconfigure_generate_messages_py/fast
 
 # Convenience name for target.
+hippo2/CMakeFiles/gripper_controller.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/gripper_controller.dir/rule
+.PHONY : hippo2/CMakeFiles/gripper_controller.dir/rule
+
+# Convenience name for target.
+gripper_controller: hippo2/CMakeFiles/gripper_controller.dir/rule
+.PHONY : gripper_controller
+
+# fast build rule for target.
+gripper_controller/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/gripper_controller.dir/build.make hippo2/CMakeFiles/gripper_controller.dir/build
+.PHONY : gripper_controller/fast
+
+# Convenience name for target.
 hippo2/CMakeFiles/hippo2_gencfg.dir/rule:
 	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/hippo2_gencfg.dir/rule
 .PHONY : hippo2/CMakeFiles/hippo2_gencfg.dir/rule
@@ -734,6 +748,30 @@ visualization_msgs_generate_messages_py/fast:
 	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/visualization_msgs_generate_messages_py.dir/build.make hippo2/CMakeFiles/visualization_msgs_generate_messages_py.dir/build
 .PHONY : visualization_msgs_generate_messages_py/fast
 
+src/gripper_controller.o: src/gripper_controller.cpp.o
+.PHONY : src/gripper_controller.o
+
+# target to build an object file
+src/gripper_controller.cpp.o:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/gripper_controller.dir/build.make hippo2/CMakeFiles/gripper_controller.dir/src/gripper_controller.cpp.o
+.PHONY : src/gripper_controller.cpp.o
+
+src/gripper_controller.i: src/gripper_controller.cpp.i
+.PHONY : src/gripper_controller.i
+
+# target to preprocess a source file
+src/gripper_controller.cpp.i:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/gripper_controller.dir/build.make hippo2/CMakeFiles/gripper_controller.dir/src/gripper_controller.cpp.i
+.PHONY : src/gripper_controller.cpp.i
+
+src/gripper_controller.s: src/gripper_controller.cpp.s
+.PHONY : src/gripper_controller.s
+
+# target to generate assembly for a file
+src/gripper_controller.cpp.s:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/gripper_controller.dir/build.make hippo2/CMakeFiles/gripper_controller.dir/src/gripper_controller.cpp.s
+.PHONY : src/gripper_controller.cpp.s
+
 src/ir_locator.o: src/ir_locator.cpp.o
 .PHONY : src/ir_locator.o
 
@@ -896,6 +934,7 @@ help:
 	@echo "... dynamic_reconfigure_generate_messages_lisp"
 	@echo "... dynamic_reconfigure_generate_messages_py"
 	@echo "... edit_cache"
+	@echo "... gripper_controller"
 	@echo "... hippo2_gencfg"
 	@echo "... hippo2_tf_ALL_GEN_OUTPUT_FILES_eus"
 	@echo "... install"
@@ -933,6 +972,9 @@ help:
 	@echo "... visualization_msgs_generate_messages_cpp"
 	@echo "... visualization_msgs_generate_messages_lisp"
 	@echo "... visualization_msgs_generate_messages_py"
+	@echo "... src/gripper_controller.o"
+	@echo "... src/gripper_controller.i"
+	@echo "... src/gripper_controller.s"
 	@echo "... src/ir_locator.o"
 	@echo "... src/ir_locator.i"
 	@echo "... src/ir_locator.s"
