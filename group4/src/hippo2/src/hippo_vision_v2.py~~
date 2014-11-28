@@ -183,12 +183,12 @@ class hippoVision():
     def process_image(self, frame):
         # Convert image to grayscale
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        
-        lower_yellow = np.array([255, 255, 255])
-        upper_yellow = np.array([255, 255, 255])
+   
+        lower_yellow = np.array([10, 170, 200])
+        upper_yellow = np.array([30, 255, 255])
         mask_yellow = cv2.inRange(hsv, lower_yellow, upper_yellow)
         
-        lower_green = np.array([50, 100, 60])
+        lower_green = np.array([50, 130, 30])
         upper_green = np.array([80, 255, 255])
         mask_green = cv2.inRange(hsv, lower_green, upper_green)
         
@@ -196,8 +196,8 @@ class hippoVision():
         upper_red = np.array([180, 255, 255])
         mask_red = cv2.inRange(hsv, lower_red, upper_red)
         
-        lower_blue = np.array([100, 150, 100])
-        upper_blue = np.array([130, 255, 255])
+        lower_blue = np.array([105, 200, 70])
+        upper_blue = np.array([125, 255, 255])
         mask_blue = cv2.inRange(hsv, lower_blue, upper_blue)
         
         res = cv2.bitwise_or(mask_yellow, mask_green)
@@ -250,16 +250,17 @@ class hippoVision():
         x_c = self.image_width/2
         y_c = self.image_height/2
         cv2.rectangle(color_frame, (x_c-1,y_c-1), (x_c+1, y_c+1), (0, 0, 255), 2)
-        rospy.loginfo("Sorting contours")
+        rospy.loginfo("Sorting contours.")
     
         for cnt in contours:
             x,y,w,h = cv2.boundingRect(cnt)
             area = w * h
             if (min_area < area < max_area):     # filter by area (we don't want the small objects a.k.a. crap)
                 if(w/h < box_ratio) and (h/w < box_ratio):    # filter by shape (mainly for filtering out wall-floor intersections)
-                    '''
+                    
                     # Mask ROI for black color
                     roi=color_frame[y:y+h,x:x+w]
+                    '''
                     masked = self.mask_color(roi)
                     black_pix = 100.0 * cv2.countNonZero(masked)
                     percentage = black_pix / area
@@ -267,7 +268,7 @@ class hippoVision():
                         rospy.loginfo("This object is partly black")
                     '''
                     # Get the distance to the object
-                    rospy.loginfo("Calculating distance")
+                    rospy.loginfo("Trying...")
                     '''
                     depth_roi = self.depth_image_metric[y:y+h,x:x+w]
                     non_zero_pix = 100.0 * cv2.countNonZero(depth_roi)
@@ -277,11 +278,12 @@ class hippoVision():
                         continue
                     '''
                     distance = self.depth_image_metric[y+(h/2)][x+(w/2)]
+                    distance = sqrt(pow(distance * 0.001, 2) - pow(0.38, 2))
                     
                     # Try to find an approximate value, if previous distance was 0.0
                     px_shift = 1
                     while (distance == 0.0) and (px_shift < 51):
-                        rospy.loginfo("Locating distance with pixel shift")
+                        rospy.loginfo("Shifting...")
                         if (x+(w/2) + px_shift) < self.image_width:
                             distance = self.depth_image_metric[y+(h/2)][x+(w/2) + px_shift]
                             if (distance == 0.0):
@@ -289,11 +291,7 @@ class hippoVision():
                                     distance = self.depth_image_metric[y+(h/2)][x+(w/2) - px_shift]
                         px_shift += 1
                     
-                    if distance > 0.0:
-                        distance = sqrt(pow(distance * 0.001, 2) - pow(0.38, 2))
-                        rospy.loginfo("Aye, got a distance!")
-                    else:
-                        rospy.loginfo("Nay, bad sport.")
+                    rospy.loginfo("Aye, got it!")
                     
                     # Compare for the closest object
                     if (self.roi[0] == None) or (closest[1] == 0.0):
@@ -303,28 +301,23 @@ class hippoVision():
                             closest = (cnt, distance)
                             
                     cv2.rectangle(color_frame, (x,y), (x+w, y+h), (0, 255, 0), 2)
-                    rospy.loginfo("Object found at a distance of " + str(distance) + "m")
+                    rospy.loginfo("Object found at a distance of " + str(distance) + "m.")
                     
                     if (distance > 0.0):
-                        pix_to_angle = 0.00172
-                        corr_coef = 0.025
+                        gain = 0.0012
+                        corr_coef = 0.04
                         
                         roi_center = (x+(w/2), y+(h/2))
                         x_offset = roi_center[0] - self.center[0]
-                        angle_offset_z = pix_to_angle * -x_offset + corr_coef
+                        angle_offset_z = gain * -x_offset[0] + corr_coef
                         
-                        toy_loc = Vector3()
-                        toy_loc.x = distance
-                        toy_loc.y = angle_offset_z
-                        toy_loc.z = 0.0
-                        rospy.loginfo("Publishing object location: offset = %f", angle_offset_z)
-                        self.toy_loc_pub.publish(toy_loc)
+                        
                     
         if closest[0] == None:
             rospy.loginfo("Robot did not find any ROIs.")
         else:
             rospy.loginfo("Robot found a ROI!")
-            rospy.loginfo("Distance to object from the front is " + str(closest[1]) + " m.")
+            rospy.loginfo("Distance to object from camera is " + str(closest[1]) + " m.")
             
         return closest
     
