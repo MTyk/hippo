@@ -231,6 +231,132 @@ hippo2_gencfg/fast:
 .PHONY : hippo2_gencfg/fast
 
 # Convenience name for target.
+hippo2/CMakeFiles/hippo2_gencpp.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/hippo2_gencpp.dir/rule
+.PHONY : hippo2/CMakeFiles/hippo2_gencpp.dir/rule
+
+# Convenience name for target.
+hippo2_gencpp: hippo2/CMakeFiles/hippo2_gencpp.dir/rule
+.PHONY : hippo2_gencpp
+
+# fast build rule for target.
+hippo2_gencpp/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/hippo2_gencpp.dir/build.make hippo2/CMakeFiles/hippo2_gencpp.dir/build
+.PHONY : hippo2_gencpp/fast
+
+# Convenience name for target.
+hippo2/CMakeFiles/hippo2_generate_messages.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/hippo2_generate_messages.dir/rule
+.PHONY : hippo2/CMakeFiles/hippo2_generate_messages.dir/rule
+
+# Convenience name for target.
+hippo2_generate_messages: hippo2/CMakeFiles/hippo2_generate_messages.dir/rule
+.PHONY : hippo2_generate_messages
+
+# fast build rule for target.
+hippo2_generate_messages/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/hippo2_generate_messages.dir/build.make hippo2/CMakeFiles/hippo2_generate_messages.dir/build
+.PHONY : hippo2_generate_messages/fast
+
+# Convenience name for target.
+hippo2/CMakeFiles/hippo2_generate_messages_cpp.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/hippo2_generate_messages_cpp.dir/rule
+.PHONY : hippo2/CMakeFiles/hippo2_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+hippo2_generate_messages_cpp: hippo2/CMakeFiles/hippo2_generate_messages_cpp.dir/rule
+.PHONY : hippo2_generate_messages_cpp
+
+# fast build rule for target.
+hippo2_generate_messages_cpp/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/hippo2_generate_messages_cpp.dir/build.make hippo2/CMakeFiles/hippo2_generate_messages_cpp.dir/build
+.PHONY : hippo2_generate_messages_cpp/fast
+
+# Convenience name for target.
+hippo2/CMakeFiles/hippo2_generate_messages_eus.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/hippo2_generate_messages_eus.dir/rule
+.PHONY : hippo2/CMakeFiles/hippo2_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+hippo2_generate_messages_eus: hippo2/CMakeFiles/hippo2_generate_messages_eus.dir/rule
+.PHONY : hippo2_generate_messages_eus
+
+# fast build rule for target.
+hippo2_generate_messages_eus/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/hippo2_generate_messages_eus.dir/build.make hippo2/CMakeFiles/hippo2_generate_messages_eus.dir/build
+.PHONY : hippo2_generate_messages_eus/fast
+
+# Convenience name for target.
+hippo2/CMakeFiles/hippo2_generate_messages_lisp.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/hippo2_generate_messages_lisp.dir/rule
+.PHONY : hippo2/CMakeFiles/hippo2_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+hippo2_generate_messages_lisp: hippo2/CMakeFiles/hippo2_generate_messages_lisp.dir/rule
+.PHONY : hippo2_generate_messages_lisp
+
+# fast build rule for target.
+hippo2_generate_messages_lisp/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/hippo2_generate_messages_lisp.dir/build.make hippo2/CMakeFiles/hippo2_generate_messages_lisp.dir/build
+.PHONY : hippo2_generate_messages_lisp/fast
+
+# Convenience name for target.
+hippo2/CMakeFiles/hippo2_generate_messages_py.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/hippo2_generate_messages_py.dir/rule
+.PHONY : hippo2/CMakeFiles/hippo2_generate_messages_py.dir/rule
+
+# Convenience name for target.
+hippo2_generate_messages_py: hippo2/CMakeFiles/hippo2_generate_messages_py.dir/rule
+.PHONY : hippo2_generate_messages_py
+
+# fast build rule for target.
+hippo2_generate_messages_py/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/hippo2_generate_messages_py.dir/build.make hippo2/CMakeFiles/hippo2_generate_messages_py.dir/build
+.PHONY : hippo2_generate_messages_py/fast
+
+# Convenience name for target.
+hippo2/CMakeFiles/hippo2_geneus.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/hippo2_geneus.dir/rule
+.PHONY : hippo2/CMakeFiles/hippo2_geneus.dir/rule
+
+# Convenience name for target.
+hippo2_geneus: hippo2/CMakeFiles/hippo2_geneus.dir/rule
+.PHONY : hippo2_geneus
+
+# fast build rule for target.
+hippo2_geneus/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/hippo2_geneus.dir/build.make hippo2/CMakeFiles/hippo2_geneus.dir/build
+.PHONY : hippo2_geneus/fast
+
+# Convenience name for target.
+hippo2/CMakeFiles/hippo2_genlisp.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/hippo2_genlisp.dir/rule
+.PHONY : hippo2/CMakeFiles/hippo2_genlisp.dir/rule
+
+# Convenience name for target.
+hippo2_genlisp: hippo2/CMakeFiles/hippo2_genlisp.dir/rule
+.PHONY : hippo2_genlisp
+
+# fast build rule for target.
+hippo2_genlisp/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/hippo2_genlisp.dir/build.make hippo2/CMakeFiles/hippo2_genlisp.dir/build
+.PHONY : hippo2_genlisp/fast
+
+# Convenience name for target.
+hippo2/CMakeFiles/hippo2_genpy.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/hippo2_genpy.dir/rule
+.PHONY : hippo2/CMakeFiles/hippo2_genpy.dir/rule
+
+# Convenience name for target.
+hippo2_genpy: hippo2/CMakeFiles/hippo2_genpy.dir/rule
+.PHONY : hippo2_genpy
+
+# fast build rule for target.
+hippo2_genpy/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/hippo2_genpy.dir/build.make hippo2/CMakeFiles/hippo2_genpy.dir/build
+.PHONY : hippo2_genpy/fast
+
+# Convenience name for target.
 hippo2/CMakeFiles/hippo2_tf_ALL_GEN_OUTPUT_FILES_eus.dir/rule:
 	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/hippo2_tf_ALL_GEN_OUTPUT_FILES_eus.dir/rule
 .PHONY : hippo2/CMakeFiles/hippo2_tf_ALL_GEN_OUTPUT_FILES_eus.dir/rule
@@ -425,6 +551,20 @@ send_goal2: hippo2/CMakeFiles/send_goal2.dir/rule
 send_goal2/fast:
 	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/send_goal2.dir/build.make hippo2/CMakeFiles/send_goal2.dir/build
 .PHONY : send_goal2/fast
+
+# Convenience name for target.
+hippo2/CMakeFiles/server.dir/rule:
+	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/server.dir/rule
+.PHONY : hippo2/CMakeFiles/server.dir/rule
+
+# Convenience name for target.
+server: hippo2/CMakeFiles/server.dir/rule
+.PHONY : server
+
+# fast build rule for target.
+server/fast:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/server.dir/build.make hippo2/CMakeFiles/server.dir/build
+.PHONY : server/fast
 
 # Convenience name for target.
 hippo2/CMakeFiles/state_publisher.dir/rule:
@@ -658,6 +798,30 @@ src/send_goal2.cpp.s:
 	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/send_goal2.dir/build.make hippo2/CMakeFiles/send_goal2.dir/src/send_goal2.cpp.s
 .PHONY : src/send_goal2.cpp.s
 
+src/server.o: src/server.cpp.o
+.PHONY : src/server.o
+
+# target to build an object file
+src/server.cpp.o:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/server.dir/build.make hippo2/CMakeFiles/server.dir/src/server.cpp.o
+.PHONY : src/server.cpp.o
+
+src/server.i: src/server.cpp.i
+.PHONY : src/server.i
+
+# target to preprocess a source file
+src/server.cpp.i:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/server.dir/build.make hippo2/CMakeFiles/server.dir/src/server.cpp.i
+.PHONY : src/server.cpp.i
+
+src/server.s: src/server.cpp.s
+.PHONY : src/server.s
+
+# target to generate assembly for a file
+src/server.cpp.s:
+	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/server.dir/build.make hippo2/CMakeFiles/server.dir/src/server.cpp.s
+.PHONY : src/server.cpp.s
+
 src/state_publisher.o: src/state_publisher.cpp.o
 .PHONY : src/state_publisher.o
 
@@ -719,6 +883,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... gripper_controller"
 	@echo "... hippo2_gencfg"
+	@echo "... hippo2_gencpp"
+	@echo "... hippo2_generate_messages"
+	@echo "... hippo2_generate_messages_cpp"
+	@echo "... hippo2_generate_messages_eus"
+	@echo "... hippo2_generate_messages_lisp"
+	@echo "... hippo2_generate_messages_py"
+	@echo "... hippo2_geneus"
+	@echo "... hippo2_genlisp"
+	@echo "... hippo2_genpy"
 	@echo "... hippo2_tf_ALL_GEN_OUTPUT_FILES_eus"
 	@echo "... install"
 	@echo "... install/local"
@@ -738,6 +911,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... send_goal"
 	@echo "... send_goal2"
+	@echo "... server"
 	@echo "... state_publisher"
 	@echo "... std_srvs_generate_messages_cpp"
 	@echo "... std_srvs_generate_messages_lisp"
@@ -762,6 +936,9 @@ help:
 	@echo "... src/send_goal2.o"
 	@echo "... src/send_goal2.i"
 	@echo "... src/send_goal2.s"
+	@echo "... src/server.o"
+	@echo "... src/server.i"
+	@echo "... src/server.s"
 	@echo "... src/state_publisher.o"
 	@echo "... src/state_publisher.i"
 	@echo "... src/state_publisher.s"

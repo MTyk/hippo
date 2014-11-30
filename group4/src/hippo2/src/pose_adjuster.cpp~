@@ -42,7 +42,7 @@ int main(int argc, char** argv)
     double linKp = 0.8;
     double linKi = 0;
     double linKd = 0.3;
-    double angKp = 1.2
+    double angKp = 1.2;
     double angKi = 0;
     double angKd = 0.3;
     double sampleTime = double(1)/double(LOOP_RATE);

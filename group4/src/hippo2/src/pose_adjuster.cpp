@@ -58,7 +58,7 @@ int main(int argc, char** argv)
             iAction = angKi * sampleTime * angErrorSum / 2;
             cmd.angular.z = pAction + dAction + iAction;
             angErrorLast = angError;
-            
+
             //Set linear velocity to 0 to ensure only orientation is controlled
             cmd.linear.x = 0;
         } else if ( (linError<0 && linError<linErrorTolerance*(-1)) || (linError>0 && linError>linErrorTolerance) ){

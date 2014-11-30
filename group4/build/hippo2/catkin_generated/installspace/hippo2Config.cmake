@@ -145,7 +145,7 @@ foreach(library ${libraries})
   endif()
 endforeach()
 
-set(hippo2_EXPORTED_TARGETS "hippo2_gencfg")
+set(hippo2_EXPORTED_TARGETS "hippo2_gencfg;hippo2_generate_messages_cpp;hippo2_generate_messages_eus;hippo2_generate_messages_lisp;hippo2_generate_messages_py")
 # create dummy targets for exported code generation targets to make life of users easier
 foreach(t ${hippo2_EXPORTED_TARGETS})
   if(NOT TARGET ${t})
@@ -153,7 +153,7 @@ foreach(t ${hippo2_EXPORTED_TARGETS})
   endif()
 endforeach()
 
-set(depends "")
+set(depends "message_runtime;roscpp;rospy;std_msgs")
 foreach(depend ${depends})
   string(REPLACE " " ";" depend_list ${depend})
   # the package name of the dependency must be kept in a unique variable so that it is not overwritten in recursive calls
@@ -182,7 +182,7 @@ foreach(depend ${depends})
   list(APPEND hippo2_EXPORTED_TARGETS ${${hippo2_dep}_EXPORTED_TARGETS})
 endforeach()
 
-set(pkg_cfg_extras "")
+set(pkg_cfg_extras "hippo2-msg-extras.cmake")
 foreach(extra ${pkg_cfg_extras})
   if(NOT IS_ABSOLUTE ${extra})
     set(extra ${hippo2_DIR}/${extra})

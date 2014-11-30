@@ -147,48 +147,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-hippo2/CMakeFiles/bond_generate_messages_cpp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/bond_generate_messages_cpp.dir/rule
-.PHONY : hippo2/CMakeFiles/bond_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-bond_generate_messages_cpp: hippo2/CMakeFiles/bond_generate_messages_cpp.dir/rule
-.PHONY : bond_generate_messages_cpp
-
-# fast build rule for target.
-bond_generate_messages_cpp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/bond_generate_messages_cpp.dir/build.make hippo2/CMakeFiles/bond_generate_messages_cpp.dir/build
-.PHONY : bond_generate_messages_cpp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/bond_generate_messages_lisp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/bond_generate_messages_lisp.dir/rule
-.PHONY : hippo2/CMakeFiles/bond_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-bond_generate_messages_lisp: hippo2/CMakeFiles/bond_generate_messages_lisp.dir/rule
-.PHONY : bond_generate_messages_lisp
-
-# fast build rule for target.
-bond_generate_messages_lisp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/bond_generate_messages_lisp.dir/build.make hippo2/CMakeFiles/bond_generate_messages_lisp.dir/build
-.PHONY : bond_generate_messages_lisp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/bond_generate_messages_py.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/bond_generate_messages_py.dir/rule
-.PHONY : hippo2/CMakeFiles/bond_generate_messages_py.dir/rule
-
-# Convenience name for target.
-bond_generate_messages_py: hippo2/CMakeFiles/bond_generate_messages_py.dir/rule
-.PHONY : bond_generate_messages_py
-
-# fast build rule for target.
-bond_generate_messages_py/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/bond_generate_messages_py.dir/build.make hippo2/CMakeFiles/bond_generate_messages_py.dir/build
-.PHONY : bond_generate_messages_py/fast
-
-# Convenience name for target.
 hippo2/CMakeFiles/costmap_2d_gencfg.dir/rule:
 	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/costmap_2d_gencfg.dir/rule
 .PHONY : hippo2/CMakeFiles/costmap_2d_gencfg.dir/rule
@@ -243,62 +201,6 @@ costmap_2d_generate_messages_py: hippo2/CMakeFiles/costmap_2d_generate_messages_
 costmap_2d_generate_messages_py/fast:
 	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/costmap_2d_generate_messages_py.dir/build.make hippo2/CMakeFiles/costmap_2d_generate_messages_py.dir/build
 .PHONY : costmap_2d_generate_messages_py/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
-.PHONY : hippo2/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_gencfg: hippo2/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
-.PHONY : dynamic_reconfigure_gencfg
-
-# fast build rule for target.
-dynamic_reconfigure_gencfg/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/dynamic_reconfigure_gencfg.dir/build.make hippo2/CMakeFiles/dynamic_reconfigure_gencfg.dir/build
-.PHONY : dynamic_reconfigure_gencfg/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
-.PHONY : hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_cpp: hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
-.PHONY : dynamic_reconfigure_generate_messages_cpp
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_cpp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build.make hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_cpp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
-.PHONY : hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_lisp: hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
-.PHONY : dynamic_reconfigure_generate_messages_lisp
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_lisp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build.make hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_lisp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
-.PHONY : hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_py: hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
-.PHONY : dynamic_reconfigure_generate_messages_py
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_py/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build.make hippo2/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_py/fast
 
 # Convenience name for target.
 hippo2/CMakeFiles/gripper_controller.dir/rule:
@@ -481,118 +383,6 @@ nav_msgs_generate_messages_py: hippo2/CMakeFiles/nav_msgs_generate_messages_py.d
 nav_msgs_generate_messages_py/fast:
 	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/nav_msgs_generate_messages_py.dir/build.make hippo2/CMakeFiles/nav_msgs_generate_messages_py.dir/build
 .PHONY : nav_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/nodelet_generate_messages_cpp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/nodelet_generate_messages_cpp.dir/rule
-.PHONY : hippo2/CMakeFiles/nodelet_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-nodelet_generate_messages_cpp: hippo2/CMakeFiles/nodelet_generate_messages_cpp.dir/rule
-.PHONY : nodelet_generate_messages_cpp
-
-# fast build rule for target.
-nodelet_generate_messages_cpp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/nodelet_generate_messages_cpp.dir/build.make hippo2/CMakeFiles/nodelet_generate_messages_cpp.dir/build
-.PHONY : nodelet_generate_messages_cpp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/nodelet_generate_messages_lisp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/nodelet_generate_messages_lisp.dir/rule
-.PHONY : hippo2/CMakeFiles/nodelet_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-nodelet_generate_messages_lisp: hippo2/CMakeFiles/nodelet_generate_messages_lisp.dir/rule
-.PHONY : nodelet_generate_messages_lisp
-
-# fast build rule for target.
-nodelet_generate_messages_lisp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/nodelet_generate_messages_lisp.dir/build.make hippo2/CMakeFiles/nodelet_generate_messages_lisp.dir/build
-.PHONY : nodelet_generate_messages_lisp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/nodelet_generate_messages_py.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/nodelet_generate_messages_py.dir/rule
-.PHONY : hippo2/CMakeFiles/nodelet_generate_messages_py.dir/rule
-
-# Convenience name for target.
-nodelet_generate_messages_py: hippo2/CMakeFiles/nodelet_generate_messages_py.dir/rule
-.PHONY : nodelet_generate_messages_py
-
-# fast build rule for target.
-nodelet_generate_messages_py/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/nodelet_generate_messages_py.dir/build.make hippo2/CMakeFiles/nodelet_generate_messages_py.dir/build
-.PHONY : nodelet_generate_messages_py/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/nodelet_topic_tools_gencfg.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/nodelet_topic_tools_gencfg.dir/rule
-.PHONY : hippo2/CMakeFiles/nodelet_topic_tools_gencfg.dir/rule
-
-# Convenience name for target.
-nodelet_topic_tools_gencfg: hippo2/CMakeFiles/nodelet_topic_tools_gencfg.dir/rule
-.PHONY : nodelet_topic_tools_gencfg
-
-# fast build rule for target.
-nodelet_topic_tools_gencfg/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/nodelet_topic_tools_gencfg.dir/build.make hippo2/CMakeFiles/nodelet_topic_tools_gencfg.dir/build
-.PHONY : nodelet_topic_tools_gencfg/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/pcl_msgs_generate_messages_cpp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/pcl_msgs_generate_messages_cpp.dir/rule
-.PHONY : hippo2/CMakeFiles/pcl_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-pcl_msgs_generate_messages_cpp: hippo2/CMakeFiles/pcl_msgs_generate_messages_cpp.dir/rule
-.PHONY : pcl_msgs_generate_messages_cpp
-
-# fast build rule for target.
-pcl_msgs_generate_messages_cpp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/pcl_msgs_generate_messages_cpp.dir/build.make hippo2/CMakeFiles/pcl_msgs_generate_messages_cpp.dir/build
-.PHONY : pcl_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/rule
-.PHONY : hippo2/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-pcl_msgs_generate_messages_lisp: hippo2/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/rule
-.PHONY : pcl_msgs_generate_messages_lisp
-
-# fast build rule for target.
-pcl_msgs_generate_messages_lisp/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/build.make hippo2/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/build
-.PHONY : pcl_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/pcl_msgs_generate_messages_py.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/pcl_msgs_generate_messages_py.dir/rule
-.PHONY : hippo2/CMakeFiles/pcl_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-pcl_msgs_generate_messages_py: hippo2/CMakeFiles/pcl_msgs_generate_messages_py.dir/rule
-.PHONY : pcl_msgs_generate_messages_py
-
-# fast build rule for target.
-pcl_msgs_generate_messages_py/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/pcl_msgs_generate_messages_py.dir/build.make hippo2/CMakeFiles/pcl_msgs_generate_messages_py.dir/build
-.PHONY : pcl_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-hippo2/CMakeFiles/pcl_ros_gencfg.dir/rule:
-	cd /home/pioneer/group41/build && $(MAKE) -f CMakeFiles/Makefile2 hippo2/CMakeFiles/pcl_ros_gencfg.dir/rule
-.PHONY : hippo2/CMakeFiles/pcl_ros_gencfg.dir/rule
-
-# Convenience name for target.
-pcl_ros_gencfg: hippo2/CMakeFiles/pcl_ros_gencfg.dir/rule
-.PHONY : pcl_ros_gencfg
-
-# fast build rule for target.
-pcl_ros_gencfg/fast:
-	cd /home/pioneer/group41/build && $(MAKE) -f hippo2/CMakeFiles/pcl_ros_gencfg.dir/build.make hippo2/CMakeFiles/pcl_ros_gencfg.dir/build
-.PHONY : pcl_ros_gencfg/fast
 
 # Convenience name for target.
 hippo2/CMakeFiles/pose_adjuster.dir/rule:
@@ -922,17 +712,10 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... bond_generate_messages_cpp"
-	@echo "... bond_generate_messages_lisp"
-	@echo "... bond_generate_messages_py"
 	@echo "... costmap_2d_gencfg"
 	@echo "... costmap_2d_generate_messages_cpp"
 	@echo "... costmap_2d_generate_messages_lisp"
 	@echo "... costmap_2d_generate_messages_py"
-	@echo "... dynamic_reconfigure_gencfg"
-	@echo "... dynamic_reconfigure_generate_messages_cpp"
-	@echo "... dynamic_reconfigure_generate_messages_lisp"
-	@echo "... dynamic_reconfigure_generate_messages_py"
 	@echo "... edit_cache"
 	@echo "... gripper_controller"
 	@echo "... hippo2_gencfg"
@@ -951,14 +734,6 @@ help:
 	@echo "... nav_msgs_generate_messages_cpp"
 	@echo "... nav_msgs_generate_messages_lisp"
 	@echo "... nav_msgs_generate_messages_py"
-	@echo "... nodelet_generate_messages_cpp"
-	@echo "... nodelet_generate_messages_lisp"
-	@echo "... nodelet_generate_messages_py"
-	@echo "... nodelet_topic_tools_gencfg"
-	@echo "... pcl_msgs_generate_messages_cpp"
-	@echo "... pcl_msgs_generate_messages_lisp"
-	@echo "... pcl_msgs_generate_messages_py"
-	@echo "... pcl_ros_gencfg"
 	@echo "... pose_adjuster"
 	@echo "... rebuild_cache"
 	@echo "... send_goal"

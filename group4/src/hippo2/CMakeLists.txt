@@ -67,11 +67,10 @@ generate_dynamic_reconfigure_options(
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  Int.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -81,10 +80,10 @@ generate_dynamic_reconfigure_options(
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+ generate_messages(
+   DEPENDENCIES
+   std_msgs
+ )
 
 ###################################
 ## catkin specific configuration ##
@@ -98,7 +97,7 @@ generate_dynamic_reconfigure_options(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES hippo2
-#  CATKIN_DEPENDS roscpp rospy std_msgs
+  CATKIN_DEPENDS message_runtime roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
 
@@ -209,8 +208,8 @@ target_link_libraries(pose_adjuster ${catkin_LIBRARIES})
 add_executable(task_planner src/task_planner.cpp)
 target_link_libraries(task_planner ${catkin_LIBRARIES})
 
-#add_executable(server src/server.cpp)
-#target_link_libraries(server ${catkin_LIBRARIES})
+add_executable(server src/server.cpp)
+target_link_libraries(server ${catkin_LIBRARIES})
 
 add_executable(ir_locator src/ir_locator.cpp)
 target_link_libraries(ir_locator ${catkin_LIBRARIES})

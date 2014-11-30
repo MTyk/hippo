@@ -1434,6 +1434,123 @@ hippo2_gencfg/fast:
 .PHONY : hippo2_gencfg/fast
 
 #=============================================================================
+# Target rules for targets named hippo2_gencpp
+
+# Build rule for target.
+hippo2_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hippo2_gencpp
+.PHONY : hippo2_gencpp
+
+# fast build rule for target.
+hippo2_gencpp/fast:
+	$(MAKE) -f hippo2/CMakeFiles/hippo2_gencpp.dir/build.make hippo2/CMakeFiles/hippo2_gencpp.dir/build
+.PHONY : hippo2_gencpp/fast
+
+#=============================================================================
+# Target rules for targets named hippo2_generate_messages
+
+# Build rule for target.
+hippo2_generate_messages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hippo2_generate_messages
+.PHONY : hippo2_generate_messages
+
+# fast build rule for target.
+hippo2_generate_messages/fast:
+	$(MAKE) -f hippo2/CMakeFiles/hippo2_generate_messages.dir/build.make hippo2/CMakeFiles/hippo2_generate_messages.dir/build
+.PHONY : hippo2_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named hippo2_generate_messages_cpp
+
+# Build rule for target.
+hippo2_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hippo2_generate_messages_cpp
+.PHONY : hippo2_generate_messages_cpp
+
+# fast build rule for target.
+hippo2_generate_messages_cpp/fast:
+	$(MAKE) -f hippo2/CMakeFiles/hippo2_generate_messages_cpp.dir/build.make hippo2/CMakeFiles/hippo2_generate_messages_cpp.dir/build
+.PHONY : hippo2_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named hippo2_generate_messages_eus
+
+# Build rule for target.
+hippo2_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hippo2_generate_messages_eus
+.PHONY : hippo2_generate_messages_eus
+
+# fast build rule for target.
+hippo2_generate_messages_eus/fast:
+	$(MAKE) -f hippo2/CMakeFiles/hippo2_generate_messages_eus.dir/build.make hippo2/CMakeFiles/hippo2_generate_messages_eus.dir/build
+.PHONY : hippo2_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named hippo2_generate_messages_lisp
+
+# Build rule for target.
+hippo2_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hippo2_generate_messages_lisp
+.PHONY : hippo2_generate_messages_lisp
+
+# fast build rule for target.
+hippo2_generate_messages_lisp/fast:
+	$(MAKE) -f hippo2/CMakeFiles/hippo2_generate_messages_lisp.dir/build.make hippo2/CMakeFiles/hippo2_generate_messages_lisp.dir/build
+.PHONY : hippo2_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named hippo2_generate_messages_py
+
+# Build rule for target.
+hippo2_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hippo2_generate_messages_py
+.PHONY : hippo2_generate_messages_py
+
+# fast build rule for target.
+hippo2_generate_messages_py/fast:
+	$(MAKE) -f hippo2/CMakeFiles/hippo2_generate_messages_py.dir/build.make hippo2/CMakeFiles/hippo2_generate_messages_py.dir/build
+.PHONY : hippo2_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named hippo2_geneus
+
+# Build rule for target.
+hippo2_geneus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hippo2_geneus
+.PHONY : hippo2_geneus
+
+# fast build rule for target.
+hippo2_geneus/fast:
+	$(MAKE) -f hippo2/CMakeFiles/hippo2_geneus.dir/build.make hippo2/CMakeFiles/hippo2_geneus.dir/build
+.PHONY : hippo2_geneus/fast
+
+#=============================================================================
+# Target rules for targets named hippo2_genlisp
+
+# Build rule for target.
+hippo2_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hippo2_genlisp
+.PHONY : hippo2_genlisp
+
+# fast build rule for target.
+hippo2_genlisp/fast:
+	$(MAKE) -f hippo2/CMakeFiles/hippo2_genlisp.dir/build.make hippo2/CMakeFiles/hippo2_genlisp.dir/build
+.PHONY : hippo2_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named hippo2_genpy
+
+# Build rule for target.
+hippo2_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hippo2_genpy
+.PHONY : hippo2_genpy
+
+# fast build rule for target.
+hippo2_genpy/fast:
+	$(MAKE) -f hippo2/CMakeFiles/hippo2_genpy.dir/build.make hippo2/CMakeFiles/hippo2_genpy.dir/build
+.PHONY : hippo2_genpy/fast
+
+#=============================================================================
 # Target rules for targets named hippo2_tf_ALL_GEN_OUTPUT_FILES_eus
 
 # Build rule for target.
@@ -1614,6 +1731,19 @@ send_goal2: cmake_check_build_system
 send_goal2/fast:
 	$(MAKE) -f hippo2/CMakeFiles/send_goal2.dir/build.make hippo2/CMakeFiles/send_goal2.dir/build
 .PHONY : send_goal2/fast
+
+#=============================================================================
+# Target rules for targets named server
+
+# Build rule for target.
+server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 server
+.PHONY : server
+
+# fast build rule for target.
+server/fast:
+	$(MAKE) -f hippo2/CMakeFiles/server.dir/build.make hippo2/CMakeFiles/server.dir/build
+.PHONY : server/fast
 
 #=============================================================================
 # Target rules for targets named state_publisher
@@ -1831,6 +1961,15 @@ help:
 	@echo "... costmap_2d_generate_messages_py"
 	@echo "... gripper_controller"
 	@echo "... hippo2_gencfg"
+	@echo "... hippo2_gencpp"
+	@echo "... hippo2_generate_messages"
+	@echo "... hippo2_generate_messages_cpp"
+	@echo "... hippo2_generate_messages_eus"
+	@echo "... hippo2_generate_messages_lisp"
+	@echo "... hippo2_generate_messages_py"
+	@echo "... hippo2_geneus"
+	@echo "... hippo2_genlisp"
+	@echo "... hippo2_genpy"
 	@echo "... hippo2_tf_ALL_GEN_OUTPUT_FILES_eus"
 	@echo "... ir_locator"
 	@echo "... map_msgs_generate_messages_cpp"
@@ -1845,6 +1984,7 @@ help:
 	@echo "... pose_adjuster"
 	@echo "... send_goal"
 	@echo "... send_goal2"
+	@echo "... server"
 	@echo "... state_publisher"
 	@echo "... std_srvs_generate_messages_cpp"
 	@echo "... std_srvs_generate_messages_lisp"
