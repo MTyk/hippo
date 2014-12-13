@@ -11,6 +11,7 @@ from cv_bridge import CvBridge, CvBridgeError
 from math import sqrt, pow
 from time import time
 import message_filters
+from hippo2.srv import Int
 
 class hippoVision():
     def __init__(self):
@@ -37,6 +38,7 @@ class hippoVision():
         self.ros_rgb_raw = None
         
         self.pickup_done = False
+        self.toys_found = False
         
         # Create the cv_bridge object
         self.bridge = CvBridge()
@@ -44,6 +46,8 @@ class hippoVision():
         self.image_height = 0
         self.image_width = 0
         self.center = (0,0)
+        self.pixel_offset = (0,0)
+        self.angle_offset = (0,0)
         
         self.depth_image_metric = None
         self.roi = (None, 0.0)
@@ -76,6 +80,8 @@ class hippoVision():
         #self.pose_err_pub = rospy.Publisher('/pose_error', Twist, queue_size=1)
         #self.gripper_pub = rospy.Publisher('/arduino_command', Vector3, queue_size=10)
         self.toy_loc_pub = rospy.Publisher('/toy_loc', Vector3, queue_size=10)
+        
+        self.srv1 = rospy.Service('/locate_toy', Int, self.locateToy)
         
         '''
         #rospy.loginfo("Waiting for image topics...")
@@ -126,13 +132,13 @@ class hippoVision():
         
         # Display the image
         cv2.imshow(self.node_name, frame)
-        '''
-        pixel_offset = self.calculate_pixel_offset()
+
+        self.pixel_offset = self.calculate_pixel_offset()
         #rospy.loginfo("ROI offset: %s", str(pixel_offset))
-        angle_offset = self.calculate_angle_offset(pixel_offset)
+        self.angle_offset = self.calculate_angle_offset()
         #self.move_camera(pixel_offset, angle_offset)
         #self.align_robot(angle_offset)
-        '''
+
         
         '''
         if self.roi[0] != None:
@@ -181,11 +187,14 @@ class hippoVision():
         
         
     def process_image(self, frame):
-        # Convert image to grayscale
+        # Perform histogram equalization
+        frame = self.equalize_intesity(frame)
+    
+        # Convert image to HSV
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         
-        lower_yellow = np.array([255, 255, 255])
-        upper_yellow = np.array([255, 255, 255])
+        lower_yellow = np.array([10, 160, 200])
+        upper_yellow = np.array([30, 255, 255])
         mask_yellow = cv2.inRange(hsv, lower_yellow, upper_yellow)
         
         lower_green = np.array([50, 100, 60])
@@ -255,6 +264,7 @@ class hippoVision():
         for cnt in contours:
             x,y,w,h = cv2.boundingRect(cnt)
             area = w * h
+            rospy.loginfo("area: %d", area)
             if (min_area < area < max_area):     # filter by area (we don't want the small objects a.k.a. crap)
                 if(w/h < box_ratio) and (h/w < box_ratio):    # filter by shape (mainly for filtering out wall-floor intersections)
                     '''
@@ -276,24 +286,53 @@ class hippoVision():
                         rospy.loginfo("Invalid blob: no depth")
                         continue
                     '''
-                    distance = self.depth_image_metric[y+(h/2)][x+(w/2)]
+                    distance = self.depth_image_metric[y+(h/2)][x+(w/2)] * 0.001
                     
                     # Try to find an approximate value, if previous distance was 0.0
-                    px_shift = 1
-                    while (distance == 0.0) and (px_shift < 51):
-                        rospy.loginfo("Locating distance with pixel shift")
-                        if (x+(w/2) + px_shift) < self.image_width:
-                            distance = self.depth_image_metric[y+(h/2)][x+(w/2) + px_shift]
-                            if (distance == 0.0):
-                                if (x+(w/2) - px_shift) >= 0:
-                                    distance = self.depth_image_metric[y+(h/2)][x+(w/2) - px_shift]
-                        px_shift += 1
+                    if distance == 0.0:
+                        pixel = (x + w/2, y + h/2)
+                        distance = self.search_for_valid_distance(pixel)
+                        
+                    if distance == 0.0:
+                        # distance is still invalid
+                        continue
                     
-                    if distance > 0.0:
-                        distance = sqrt(pow(distance * 0.001, 2) - pow(0.38, 2))
-                        rospy.loginfo("Aye, got a distance!")
+                    # Check for walls
+                    pixel_above = (x + w/2, y - 5)
+                    distance_above = self.search_for_valid_distance(pixel_above)
+                    rospy.loginfo("Distance to pixel: %f", distance)
+                    rospy.loginfo("Distance to pixel above: %f", distance_above)
+                    if distance_above == 0.0:
+                        # pass as wall for now
+                        continue
+                    if distance < 0.6:
+                        if (distance_above - distance) < 0.03:
+                            # is a wall
+                            rospy.loginfo("Object is a wall")
+                            continue
                     else:
-                        rospy.loginfo("Nay, bad sport.")
+                        if (distance_above - distance) < 0.1:
+                            # is a wall
+                            rospy.loginfo("Object is a wall")
+                            continue
+                    
+                    # Transform the distance to begin from front bumber
+                    distance = sqrt(pow(distance, 2) - pow(0.38, 2))
+                    rospy.loginfo("Aye, got a distance!")
+                    
+                    if distance >= 2.0:
+                        if area > 800:
+                            # Object is most likely a basket
+                            continue
+                    elif distance >= 1.5:
+                        if area > 1500:
+                            # Object is most likely a basket
+                            continue
+                    elif distance >= 1.0:
+                        pass
+
+                    toy_frame = color_frame[y:y+h,x:x+w]
+                    toy_label = self.identify_toy(toy_frame)
                     
                     # Compare for the closest object
                     if (self.roi[0] == None) or (closest[1] == 0.0):
@@ -304,27 +343,15 @@ class hippoVision():
                             
                     cv2.rectangle(color_frame, (x,y), (x+w, y+h), (0, 255, 0), 2)
                     rospy.loginfo("Object found at a distance of " + str(distance) + "m")
-                    
-                    if (distance > 0.0):
-                        pix_to_angle = 0.00172
-                        corr_coef = 0.025
-                        
-                        roi_center = (x+(w/2), y+(h/2))
-                        x_offset = roi_center[0] - self.center[0]
-                        angle_offset_z = pix_to_angle * -x_offset + corr_coef
-                        
-                        toy_loc = Vector3()
-                        toy_loc.x = distance
-                        toy_loc.y = angle_offset_z
-                        toy_loc.z = 0.0
-                        rospy.loginfo("Publishing object location: offset = %f", angle_offset_z)
-                        self.toy_loc_pub.publish(toy_loc)
+
                     
         if closest[0] == None:
             rospy.loginfo("Robot did not find any ROIs.")
+            self.toys_found = False
         else:
             rospy.loginfo("Robot found a ROI!")
             rospy.loginfo("Distance to object from the front is " + str(closest[1]) + " m.")
+            self.toys_found = True
             
         return closest
     
@@ -345,16 +372,18 @@ class hippoVision():
         return (0,0)
     
     
-    def calculate_angle_offset(self, offset):
+    def calculate_angle_offset(self):
         if (self.roi[0] != None) and (self.roi[1] > 0.0):
+            x,y,w,h = cv2.boundingRect(self.roi[0])
+            '''
             gain = 0.001
             #tolerance = 0.1
-            x,y,w,h = cv2.boundingRect(self.roi[0])
             #angle_offset_z = cos(distance_to_center/self.roi[1])
             angle_offset_z = gain * -offset[0] + 0.04
             rospy.loginfo("Z angle offset =  " + str(angle_offset_z))
             angle_offset_y = gain * -offset[1]
-            '''
+            
+            ###
             if abs(angle_offset_z) < tolerance:
                 rospy.loginfo("Z angle offset is below tolerance")
                 angle_offset_z = 0
@@ -362,6 +391,13 @@ class hippoVision():
                 rospy.loginfo("Y angle offset is below tolerance")
                 angle_offset_y = 0
             '''
+                
+            pix_to_angle = 0.00172
+            corr_coef = 0.025
+                        
+            angle_offset_z = pix_to_angle * -self.pixel_offset[0] + corr_coef
+            angle_offset_y = pix_to_angle * -self.pixel_offset[1]
+            
             return (angle_offset_z, angle_offset_y)
         return (0.0, 0.0)
         
@@ -473,16 +509,54 @@ class hippoVision():
         lower_color = np.array([0,0,0])
         upper_color = np.array([255,255,20])
     
-        # Threshold the HSV image to get only blue colors
+        # Threshold the HSV image to get only black colors
         mask = cv2.inRange(hsv, lower_color, upper_color)
         
         return mask
+        
+    def equalize_intesity(self, frame):
+        if (frame.shape)[2] >= 3:
+            ycrcb = cv2.cvtColor(frame, cv2.COLOR_BGR2YCR_CB)
+            ycrcb[:,:,0] = cv2.equalizeHist(ycrcb[:,:,0])
+            result = cv2.cvtColor(ycrcb, cv2.COLOR_YCR_CB2BGR)
+            return result
+        return frame
             
         
     def cleanup(self):
         print "Shutting down vision node."
         cv2.destroyAllWindows()       
-
+    
+    
+    def locateToy(self, req):
+        toy_loc = Vector3()
+        toy_loc.x = self.roi[1]
+        toy_loc.y = self.angle_offset[0]
+        toy_loc.z = 0.0
+        rospy.loginfo("Publishing nearest object location: offset = %f", toy_loc.y)
+        self.toy_loc_pub.publish(toy_loc)
+        return self.toys_found
+     
+        
+    def search_for_valid_distance(self, pixel):
+        px_shift = 1
+        distance = self.depth_image_metric[pixel[1]][pixel[0]]
+        while (distance == 0.0) and (px_shift < 51):
+            rospy.loginfo("Locating distance with pixel shift")
+            if (pixel[0] + px_shift) < self.image_width:
+                distance = self.depth_image_metric[pixel[1]][pixel[0] + px_shift]
+                if (distance == 0.0):
+                    if (pixel[0] - px_shift) >= 0:
+                        distance = self.depth_image_metric[pixel[1]][pixel[0] - px_shift]
+            px_shift += 1
+        return distance * 0.001
+        
+    def identify_toy(self, frame):
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        hist = cv2.calcHist([gray], [0], None, [16], [0,256])
+        # TODO: process histogram here
+        return 1
+    
     
 if __name__ == '__main__':
     try:

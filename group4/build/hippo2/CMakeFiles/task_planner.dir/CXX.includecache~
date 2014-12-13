@@ -6,6 +6,46 @@
 
 #IncludeRegexTransform: 
 
+/home/pioneer/group41/devel/include/hippo2/Int.h
+ros/service_traits.h
+-
+hippo2/IntRequest.h
+-
+hippo2/IntResponse.h
+-
+
+/home/pioneer/group41/devel/include/hippo2/IntRequest.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
+/home/pioneer/group41/devel/include/hippo2/IntResponse.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
 /home/pioneer/group41/src/hippo2/src/task_planner.cpp
 ros/ros.h
 /home/pioneer/group41/src/hippo2/src/ros/ros.h
@@ -19,6 +59,10 @@ tf/transform_datatypes.h
 -
 geometry_msgs/PoseWithCovarianceStamped.h
 /home/pioneer/group41/src/hippo2/src/geometry_msgs/PoseWithCovarianceStamped.h
+hippo2/Int.h
+/home/pioneer/group41/src/hippo2/src/hippo2/Int.h
+geometry_msgs/Vector3.h
+/home/pioneer/group41/src/hippo2/src/geometry_msgs/Vector3.h
 
 /opt/ros/hydro/include/XmlRpcDecl.h
 ros/macros.h

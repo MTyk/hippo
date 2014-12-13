@@ -11,6 +11,7 @@ double linError = 0;
 double angError = 0;
 double linErrorTolerance = 0.00;
 double angErrorTolerance = 0.00;
+bool pub = false;
 
 void getError(const geometry_msgs::Twist& e){
     linError = e.linear.x;
@@ -20,6 +21,7 @@ void getError(const geometry_msgs::Twist& e){
     ROS_INFO("linErr0:%f ",e.linear.x);
     ROS_INFO("linErr:%f ",linError);
     ROS_INFO("angErr:%f ",angError);
+    pub=true;
 }
 
 int main(int argc, char** argv)
@@ -58,7 +60,7 @@ int main(int argc, char** argv)
             iAction = angKi * sampleTime * angErrorSum / 2;
             cmd.angular.z = pAction + dAction + iAction;
             angErrorLast = angError;
-            
+
             //Set linear velocity to 0 to ensure only orientation is controlled
             cmd.linear.x = 0;
         } else if ( (linError<0 && linError<linErrorTolerance*(-1)) || (linError>0 && linError>linErrorTolerance) ){
@@ -85,7 +87,10 @@ int main(int argc, char** argv)
         }
 
         //Dispatch message, get next error, then wait for the next cycle
-        cmd_pub.publish(cmd);
+        if (pub){
+            cmd_pub.publish(cmd);
+            pub = false;
+            }
         ros::spinOnce();
         loop_rate.sleep();
     }

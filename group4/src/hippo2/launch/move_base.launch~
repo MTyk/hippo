@@ -2,13 +2,12 @@
     <master auto="start"/>
     
     <!-- Run the map server -->
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find hippo2)/maps/map.pgm 0.05"/>
-   
-    <!--<node name="slam_gmapping" pkg="gmapping" type="slam_gmapping">
-    </node>-->  
+    <!--<node name="map_server" pkg="map_server" type="map_server" args="$(find hippo2)/maps/newmap3.pgm 0.05"/>-->
+    <node name="slam_gmapping" pkg="gmapping" type="slam_gmapping">
+        </node>
 
     <!--- Run AMCL -->
-    <include file="$(find amcl)/examples/amcl_diff.launch" />
+    <!--<include file="$(find amcl)/examples/amcl_diff.launch" />-->
     
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
     <!--<param name="base_global_planner" value="global_planner/GlobalPlanner"/>-->

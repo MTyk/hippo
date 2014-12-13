@@ -1,0 +1,813 @@
+# Brought to you by Tasderos the Great
+
+import rospy
+import sys
+import cv2
+import cv2.cv as cv
+import numpy as np
+from sensor_msgs.msg import Image, CameraInfo, RegionOfInterest
+from geometry_msgs.msg import Twist, Vector3
+from std_msgs.msg import UInt8
+from cv_bridge import CvBridge, CvBridgeError
+from math import sqrt, pow
+from time import time
+import message_filters
+from hippo2.srv import Int
+
+class hippoVision():
+    def __init__(self):
+        self.node_name = "hippo_vision"
+        rospy.init_node(self.node_name)
+
+        # What we do during shutdown
+        rospy.on_shutdown(self.cleanup)
+        
+        # Rospy loop rate 10Hz
+        #self.rate = rospy.rate(10)
+        
+        # Create the OpenCV display window for the RGB image
+        self.cv_window_name = self.node_name
+        cv.NamedWindow(self.cv_window_name, cv.CV_WINDOW_NORMAL)
+        cv.MoveWindow(self.cv_window_name, 25, 75)
+        
+        # And one for the depth image
+        cv.NamedWindow("Depth Image", cv.CV_WINDOW_NORMAL)
+        cv.MoveWindow("Depth Image", 25, 350)
+        
+        # Create holders for raw image data
+        self.ros_depth_raw = None
+        self.ros_rgb_raw = None
+        
+        self.pickup_done = False
+        self.toys_found = False
+        self.toy_buffer = 0
+        
+        # Create the cv_bridge object
+        self.bridge = CvBridge()
+        
+        self.image_height = 0
+        self.image_width = 0
+        self.center = (0,0)
+        self.pixel_offset = (0,0)
+        self.angle_offset = (0,0)
+        
+        self.depth_image_metric = None
+        self.roi = (None, 0.0)
+        self.roi_frame = None
+        self.color_frame_clean = None
+        
+        self.ir_range = 0.0
+        self.is_closed_scoop = False
+        self.is_flying_blind = False
+        self.is_ready_for_pickup = False
+        
+        self.default_camera_pose = (0, 90, 90)
+        self.desired_camera_pose = (0, 70, 90)
+        
+        self.start_time = time()
+        
+        rospy.wait_for_message('/camera/rgb/camera_info', CameraInfo)
+        self.info_sub = rospy.Subscriber('/camera/rgb/camera_info', CameraInfo, self.get_camera_info)
+        
+        # Subscribe to the IR range data
+        #rospy.wait_for_message('/arduino_data', Vector3)
+        self.range_sub = rospy.Subscriber("/arduino_data", Vector3, self.ir_callback)
+        
+        # Subscribe to the camera image and depth topics and set
+        # the appropriate callbacks
+        rospy.wait_for_message('/camera/depth/image_raw', Image)
+        self.depth_sub = rospy.Subscriber("/camera/depth/image_raw", Image, self.depth_callback)    
+        
+        #rospy.wait_for_message('/camera/rgb/image_color', Image)
+        self.image_sub = rospy.Subscriber("/camera/rgb/image_color", Image, self.image_callback)
+        
+        #self.roi_pub = rospy.Publisher('/roi', RegionOfInterest, queue_size=1)
+        self.pose_err_pub = rospy.Publisher('/pose_error', Twist, queue_size=10)
+        #self.gripper_pub = rospy.Publisher('/arduino_command', Vector3, queue_size=10)
+        self.toy_loc_pub = rospy.Publisher('/toy_loc', Vector3, queue_size=10)
+        
+        self.srv1 = rospy.Service('/locate_toy', Int, self.locate_toy)
+        self.srv2 = rospy.Service('/id_toy', Int, self.identify_toy)
+        
+        '''
+        #rospy.loginfo("Waiting for image topics...")
+        rospy.wait_for_service('pickup')
+        self.pickup_service = rospy.Service('pickup', self, self.start_pickup_service)
+        '''
+
+    
+    # Finds the height, width of the image and calculates its center point    
+    def get_camera_info(self, msg):
+        # Init image resolution based on first msg
+        if (self.center[0] == 0) and (self.center[1] == 0):
+            self.image_height = msg.height
+            self.image_width = msg.width
+            self.center = (self.image_width/2, self.image_height/2)
+            rospy.loginfo("Found camera with a resolution of %d x %d", self.image_width, self.image_height)
+            
+    
+    def ir_callback(self, msg):
+        if msg.x == 8.0:
+            self.ir_range = msg.y * 0.01
+        elif (msg.x == 2.0) and (msg.y <= 40.0):
+            self.is_closed_scoop = True
+        
+        
+    def image_callback(self, ros_rgb_raw):
+        # Use cv_bridge() to convert the ROS image to OpenCV format
+        try:
+            frame = self.bridge.imgmsg_to_cv(ros_rgb_raw, "bgr8")
+        except CvBridgeError, e:
+            print e
+        
+        # Convert the image to a Numpy array since most cv2 functions
+        # require Numpy arrays.
+        frame = np.array(frame, dtype=np.uint8)
+
+        # Process the frame using the process_image() function
+        display_image = self.process_image(frame)
+        masked = cv2.bitwise_and(frame, frame, mask=display_image)
+        cv2.imshow("Masked image", masked)
+
+        # Find closest region of interest
+        self.roi = self.find_closest_roi(display_image, frame)
+        self.mark_roi(frame)
+
+        #self.classify_toy(self.roi_frame)
+        
+        # Display the image
+        cv2.imshow(self.node_name, frame)
+
+        self.pixel_offset = self.calculate_pixel_offset()
+        #rospy.loginfo("ROI offset: %s", str(pixel_offset))
+        self.angle_offset = self.calculate_angle_offset()
+        #self.move_camera(pixel_offset, angle_offset)
+        #self.align_robot(angle_offset)
+
+        
+        '''
+        if self.roi[0] != None:
+            x,y,w,h = cv2.boundingRect(self.roi[0])
+            roi_new = RegionOfInterest()
+            roi_new.x_offset = x
+            roi_new.y_offset = y
+            roi_new.height = h
+            roi_new.width = w
+            roi_new.do_rectify = False
+            self.roi_pub.publish(roi_new)
+        '''
+        
+        # Process any keyboard commands
+        self.keystroke = cv.WaitKey(5)
+        if 32 <= self.keystroke and self.keystroke < 128:
+            cc = chr(self.keystroke).lower()
+            if cc == 'q':
+                # The user has press the q key, so exit
+                rospy.signal_shutdown("User hit q key to quit.")
+        
+        
+    def depth_callback(self, ros_depth_raw):
+        # Use cv_bridge() to convert the ROS image to OpenCV format
+        try:
+            # The depth image is a single-channel float32 image
+            depth_image = self.bridge.imgmsg_to_cv(ros_depth_raw, "32FC1")
+        except CvBridgeError, e:
+            print e
+        
+        # Convert the depth image to a Numpy array since most cv2 functions
+        # require Numpy arrays.
+        depth_array = np.array(depth_image, dtype=np.float32)
+        self.depth_image_metric = np.copy(depth_array)
+        
+        # Normalize the depth image to fall between 0 and 1
+        cv2.normalize(depth_array, depth_array, 0, 1, cv2.NORM_MINMAX)
+        
+        # Process the depth image
+        depth_display_image = self.process_depth_image(depth_array)
+        
+        # Display the result
+        cv2.imshow("Depth Image", depth_display_image)
+        
+        #rospy.wait_for_message('/camera/rgb/image_color', Image)
+        
+        
+    def process_image(self, frame):
+        # Perform histogram equalization
+        #frame = self.equalize_intesity(frame)
+        
+        '''
+        cv2.namedWindow('Color frame')
+        
+        cv2.createTrackbar('hue lo','Color frame',0,360,self.nothing)
+        cv2.createTrackbar('hue hi','Color frame',0,360,self.nothing)
+        cv2.createTrackbar('sat lo','Color frame',0,360,self.nothing)
+        cv2.createTrackbar('sat hi','Color frame',0,360,self.nothing)
+        cv2.createTrackbar('val lo','Color frame',0,360,self.nothing)
+        cv2.createTrackbar('val hi','Color frame',0,360,self.nothing)
+        '''
+        
+        # Make a copy of clean color frame
+        self.color_frame_clean = np.copy(frame)
+        
+        '''
+        while(1):
+            k = cv2.waitKey(1) & 0xFF
+
+            if k == 27:
+                break
+        
+            hue_lo = cv2.getTrackbarPos('hue lo','Color frame')
+            hue_hi = cv2.getTrackbarPos('hue hi','Color frame')
+            sat_lo = cv2.getTrackbarPos('sat lo','Color frame')
+            sat_hi = cv2.getTrackbarPos('sat hi','Color frame')
+            val_lo = cv2.getTrackbarPos('val lo','Color frame')
+            val_hi = cv2.getTrackbarPos('val hi','Color frame')
+            
+            lower_yellow = np.array([hue_lo, sat_lo, val_lo])
+            upper_yellow = np.array([hue_hi, sat_hi, val_hi])
+            mask_yellow = cv2.inRange(hsv, lower_yellow, upper_yellow)
+        '''
+            
+        # Convert image to HSV
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+        lower_yellow = np.array([10, 160, 200])
+        upper_yellow = np.array([30, 255, 255])
+        mask_yellow = cv2.inRange(hsv, lower_yellow, upper_yellow)
+        
+        lower_green = np.array([50, 100, 60])
+        upper_green = np.array([80, 255, 255])
+        mask_green = cv2.inRange(hsv, lower_green, upper_green)
+        
+        lower_red = np.array([160, 100, 100])
+        upper_red = np.array([180, 255, 255])
+        mask_red = cv2.inRange(hsv, lower_red, upper_red)
+        
+        lower_blue = np.array([100, 150, 100])
+        upper_blue = np.array([130, 255, 255])
+        mask_blue = cv2.inRange(hsv, lower_blue, upper_blue)
+        
+        res = cv2.bitwise_or(mask_yellow, mask_green)
+        res = cv2.bitwise_or(res, mask_red)
+        res = cv2.bitwise_or(res, mask_blue)
+        
+        #res = mask_yellow
+        #cv2.imshow('Color frame', res)
+            
+        f_thres = 1000
+        b_thres = 500
+        
+        res_16U = res.astype(np.uint16)
+        
+        filtered_16U = cv2.boxFilter(res_16U, -1, (10,10), -1, (-1, -1), False)
+        low_values_indices = filtered_16U < f_thres # Where values are low
+        filtered_16U[low_values_indices] = 0
+        cv2.normalize(filtered_16U, filtered_16U, 0, 255, cv2.NORM_MINMAX, cv2.CV_16UC1)
+        
+        filtered_8U = filtered_16U.astype(np.uint8)
+        
+        blob_16U = cv2.boxFilter(filtered_16U, -1, (10,10), -1, (-1, -1), False)
+        low_values_indices = blob_16U < b_thres # Where values are low
+        blob_16U[low_values_indices] = 0
+        high_values_indices = blob_16U > b_thres # Where values are high
+        blob_16U[high_values_indices] = 255
+        
+        blob_8U = blob_16U.astype(np.uint8)
+        #blob_8U = res
+
+        return blob_8U
+    
+    
+    def process_intensity_image(self):
+        '''
+        # Create a black image, a window
+        cv2.namedWindow('1. Detected edges')
+        cv2.namedWindow('2. After noise filtering')
+        cv2.namedWindow('3. After blob filtering')
+        '''
+        
+        '''
+        # create trackbars for threshold change
+        cv2.createTrackbar('Upper threshold','1. Detected edges',0,255,self.nothing)
+        cv2.createTrackbar('Lower threshold','1. Detected edges',0,255,self.nothing)
+        cv2.createTrackbar('Filter threshold','2. After noise filtering',0,10000,self.nothing)
+        cv2.createTrackbar('Blob threshold','3. After blob filtering',0,65535,self.nothing)
+        '''
+        # Convert image to grayscale
+        frame = cv2.cvtColor(self.color_frame_clean, cv2.COLOR_BGR2GRAY)
+        
+        '''
+        while(1):
+            k = cv2.waitKey(1) & 0xFF
+            if k == 27:
+                break
+        '''
+
+   
+        upper = 210
+        lower = 190
+        f_thres = 7000
+        b_thres = 30000
+        
+        '''
+        # Get current positions of trackbars
+        upper = cv2.getTrackbarPos('Upper threshold','1. Detected edges')
+        lower = cv2.getTrackbarPos('Lower threshold','1. Detected edges')
+        f_thres = cv2.getTrackbarPos('Filter threshold','2. After noise filtering')
+        b_thres = cv2.getTrackbarPos('Blob threshold','3. After blob filtering')
+        '''
+        
+        edges_8U = cv2.Canny(frame, lower, upper)
+        #cv2.imshow('1. Detected edges', edges_8U)
+        
+        edges_16U = edges_8U.astype(np.uint16)
+        
+        filtered_16U = cv2.boxFilter(edges_16U, -1, (15,15), -1, (-1, -1), False)
+        
+        low_values_indices = filtered_16U < f_thres # Where values are low
+        filtered_16U[low_values_indices] = 0
+        #high_values_indices = filtered_16U > f_thres # Where values are high
+        #filtered_16U[high_values_indices] = 255
+        cv2.normalize(filtered_16U, filtered_16U, 0, 255, cv2.NORM_MINMAX, cv2.CV_16UC1)
+        
+        filtered_8U = filtered_16U.astype(np.uint8)
+
+        #cv2.imshow('2. After noise filtering', filtered_8U)
+        
+        blob_16U = cv2.boxFilter(filtered_16U, -1, (30,30), -1, (-1, -1), False)
+        low_values_indices = blob_16U < b_thres # Where values are low
+        blob_16U[low_values_indices] = 0
+        high_values_indices = blob_16U > b_thres # Where values are high
+        blob_16U[high_values_indices] = 255
+        
+        blob_8U = blob_16U.astype(np.uint8)
+
+        #cv2.imshow('3. After blob filtering', blob_8U)
+            
+        #cv2.destroyAllWindows()
+        return blob_8U
+        
+        
+        
+    def process_depth_image(self, frame):
+        # Just return the raw image for this demo
+        return frame
+    
+    
+    def nothing(self, x):
+        pass
+    
+    
+    def find_closest_roi(self, blob_frame, color_frame, using_intensity = False):
+        #rospy.wait_for_message('/camera/depth/image_raw', Image)
+        contours, hierarchy = cv2.findContours(blob_frame,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+    
+        min_area = 200
+        max_area = 15000
+        box_ratio = 5
+        closest = (None, 0.0)
+        
+        x_c = self.image_width/2
+        y_c = self.image_height/2
+        cv2.rectangle(color_frame, (x_c-1,y_c-1), (x_c+1, y_c+1), (0, 0, 255), 2)
+        rospy.loginfo("Sorting contours")
+    
+        for cnt in contours:
+            x,y,w,h = cv2.boundingRect(cnt)
+            area = w * h
+            rospy.loginfo("area: %d", area)
+            if (min_area < area < max_area):     # filter by area (we don't want the small objects a.k.a. crap)
+                if(w/h < box_ratio) and (h/w < box_ratio):    # filter by shape (mainly for filtering out wall-floor intersections)
+                    # Get the distance to the object
+                    rospy.loginfo("Calculating distance")
+                    
+                    if using_intensity:
+                            '''
+                            depth_roi = self.depth_image_metric[y:y+h,x:x+w]
+                            non_zero_pix = 100.0 * cv2.countNonZero(depth_roi)
+                            percentage = non_zero_pix / area
+                            if percentage > 95.0:
+                                rospy.loginfo("Invalid blob: no depth")
+                                continue
+                            '''
+                            roi_center = (x+(w/2), y+(h/2))
+                            x_offset = roi_center[0] - self.center[0]
+                            y_offset = roi_center[1] - self.center[1]
+                            
+                            if (abs(x_offset) > 80) or ((abs(y_offset) < 40)):
+                                #object is not the centered one
+                                continue
+
+                    distance = self.depth_image_metric[y+(h/2)][x+(w/2)] * 0.001
+                    
+                    # Try to find an approximate value, if previous distance was 0.0
+                    if distance == 0.0:
+                        pixel = (x + w/2, y + h/2)
+                        distance = self.search_for_valid_distance(pixel)
+                    
+                    # Sanity check: distance should now be other than zero    
+                    if distance == 0.0:
+                        # distance is still invalid
+                        continue
+                    
+                    # Check for walls
+                    pixel_above_left = (x, y - 20)
+                    pixel_above_right = (x + w, y - 20)
+                    distance_above_left = self.search_for_valid_distance(pixel_above_left)
+                    distance_above_right = self.search_for_valid_distance(pixel_above_right)
+                    rospy.loginfo("Distance to pixel: %f", distance)
+                    rospy.loginfo("Distance to pixel above left corner: %f", distance_above_left)
+                    rospy.loginfo("Distance to pixel above right corner: %f", distance_above_right)
+                    if (distance_above_right == 0.0) or (distance_above_right == 0.0):
+                        # pass as wall for now
+                        continue
+                    if distance < 0.6:
+                        if ((distance_above_left - distance) < 0.03) or ((distance_above_right - distance) < 0.03):
+                            # is a wall
+                            rospy.loginfo("Object is a wall")
+                            continue
+                    elif distance > 1.6:
+                        if ((distance_above_left - distance) < 0.2) or ((distance_above_right - distance) < 0.2):
+                            # is a wall
+                            rospy.loginfo("Object is a wall")
+                            continue
+                    elif (1.6 > distance >= 1.2):
+                        if ((distance_above_left - distance) < 0.1) or ((distance_above_right - distance) < 0.1):
+                            # is a wall
+                            rospy.loginfo("Object is a wall")
+                            continue
+                    else:
+                        if ((distance_above_left - distance) < 0.06) or ((distance_above_right - distance) < 0.06):
+                            # is a wall
+                            rospy.loginfo("Object is a wall")
+                            continue
+                    
+                    # Transform the distance to begin from front bumber
+                    distance = sqrt(pow(distance, 2) - pow(0.38, 2))
+                    rospy.loginfo("Aye, got a distance!")
+                    
+                    if distance >= 2.0:
+                        if area > 900:
+                            # Object is most likely a basket
+                            continue
+                    elif distance >= 1.6:
+                        if area > 1500:
+                            # Object is most likely a basket
+                            continue
+                    elif distance >= 1.3:
+                        if area > 2000:
+                            # Object is most likely a basket
+                            continue
+                    elif distance >= 1.0:
+                        if area > 8000:
+                            continue
+
+                    
+                    # Compare for the closest object
+                    if (self.roi[0] == None) or (closest[1] == 0.0):
+                        closest = (cnt, distance)
+                    else:
+                        if (distance < closest[1]):
+                            closest = (cnt, distance)
+                            
+                    cv2.rectangle(color_frame, (x-1,y-1), (x+w+1, y+h+1), (0, 255, 0), 1)
+                    rospy.loginfo("Object found at a distance of " + str(distance) + "m")
+
+                    
+        if closest[0] == None:
+            rospy.loginfo("Robot did not find any ROIs.")
+            self.toy_buffer = 0
+            self.toys_found = False
+        else:
+            rospy.loginfo("Robot found a ROI!")
+            rospy.loginfo("Distance to object from the front is " + str(closest[1]) + " m.")
+            self.toy_buffer += 1
+            if self.toy_buffer > 9:
+                self.toys_found = True
+            
+        return closest
+    
+    
+    def mark_roi(self, color_frame):
+        if self.roi[0] != None:
+            x,y,w,h = cv2.boundingRect(self.roi[0])
+            self.roi_frame = np.copy(color_frame[y:y+h,x:x+w])
+            cv2.rectangle(color_frame, (x-1,y-1), (x+w+1, y+h+1), (255, 0, 0), 1)
+        else:
+            self.roi_frame = None
+            
+    
+    def calculate_pixel_offset(self):
+        if (self.roi[0] != None) and (self.roi[1] > 0.0):
+            x,y,w,h = cv2.boundingRect(self.roi[0])
+            roi_center = (x+(w/2), y+(h/2))
+            x_offset = roi_center[0] - self.center[0]
+            y_offset = roi_center[1] - self.center[1]
+            return (x_offset, y_offset)
+        return (0,0)
+    
+    
+    def calculate_angle_offset(self):
+        if (self.roi[0] != None) and (self.roi[1] > 0.0):
+            x,y,w,h = cv2.boundingRect(self.roi[0])
+            '''
+            gain = 0.001
+            #tolerance = 0.1
+            #angle_offset_z = cos(distance_to_center/self.roi[1])
+            angle_offset_z = gain * -offset[0] + 0.04
+            rospy.loginfo("Z angle offset =  " + str(angle_offset_z))
+            angle_offset_y = gain * -offset[1]
+            
+            ###
+            if abs(angle_offset_z) < tolerance:
+                rospy.loginfo("Z angle offset is below tolerance")
+                angle_offset_z = 0
+            if abs(angle_offset_y) < tolerance:
+                rospy.loginfo("Y angle offset is below tolerance")
+                angle_offset_y = 0
+            '''
+                
+            pix_to_angle = 0.00172
+            corr_coef = 0.025
+                        
+            angle_offset_z = pix_to_angle * -self.pixel_offset[0] + corr_coef
+            angle_offset_y = pix_to_angle * -self.pixel_offset[1]
+            
+            return (angle_offset_z, angle_offset_y)
+        return (0.0, 0.0)
+        
+          
+    def move_camera(self, pixel_offset, angle_offset):
+        #TODO: Clean this up
+        if (self.roi[0] == None) or (self.roi[1] == 0.0):
+            # move camera to default pose
+            pass
+        elif (angle_offset[0] == 0): #and (angle_offset[1] == 0):
+            rospy.loginfo("Camera is looking at object.")
+            '''
+            rospy.loginfo("Aligning robot with object.")
+            self.align_robot()
+            '''
+            # Remove lines below, when ptu_control works
+            '''
+            if self.roi[1] < 450.0:
+                rospy.loginfo("Initiating toy pickup.")
+                # Write code for toy pickup
+                self.pickup_done = True
+            '''
+        else:
+            '''
+            if pixel_offset[0] < 0:
+                angle_offset = (-angle_offset[0], angle_offset[1])
+            if pixel_offset[1] < 0:
+                angle_offset = (angle_offset[0], -angle_offset[1])
+            '''
+            '''
+            x, y, z = self.default_camera_pose
+            y_twist = degrees(angle_offset[1])
+            z_twist = degrees(angle_offset[0])
+            self.desired_camera_pose = (x, y + y_twist, z + z_twist)
+            # publish to camera control node
+            '''
+            pass
+            
+            
+    def align_robot(self):
+        #TODO: Clean this up
+        pose_error = Twist()
+        pose_error.linear.x = 0.0
+        pose_error.linear.z = 0.03
+        pose_error.angular.x = self.angle_offset[0]
+        pose_error.angular.z = 0.003
+        
+        setpoint_depth = 0.40
+        setpoint_ir = 0.15
+        
+        if not self.is_flying_blind:
+            rospy.loginfo("Aligning robot.")
+            if (self.roi[0] != None) and (self.roi[1] > 0.0):
+                #pose_error.linear.x = self.roi[1] * 0.001 - 0.6
+                #pose_error.linear.x = sqrt(pow(self.roi[1] * 0.001, 2) - pow(0.38, 2)) - setpoint_depth
+                pose_error.linear.x = self.roi[1] - setpoint_depth
+                #pose_error.linear.x = self.ir_range - setpoint
+                rospy.loginfo("Approximated distance error is %f.", pose_error.linear.x)
+                
+                if (pose_error.linear.x <= 0.10) and (abs(pose_error.angular.x) <= pose_error.angular.z):
+                    # We're properly aligned and close enough to depend on IR
+                    rospy.loginfo("Robot is poperly aligned.")
+                    rospy.loginfo("Changing distance measuring to IR.")
+                    self.is_flying_blind = True
+                    pose_error.linear.x = self.ir_range - setpoint_ir
+            #pose_error.angular.x = self.desired_camera_pose[2] - self.default_camera_pose[2]
+            '''
+            if abs(pose_error.linear.x) >= 0.30:
+                pose_error.angular.z = 0.02
+            elif 0.10 < abs(pose_error.linear.x) < 0.30:
+                pose_error.angular.z = 0.025
+            elif abs(pose_error.linear.x) <= 0.10:
+                pose_error.angular.z = 0.03
+            '''
+        elif self.is_flying_blind and not self.is_ready_for_pickup:
+            rospy.loginfo("Measuring distance with IR.")
+            #rospy.wait_for_message('/arduino_data', Vector3)
+            pose_error.linear.x = self.ir_range - setpoint_ir
+            pose_error.linear.z = 0.03
+            
+            #dummy implementation
+            rospy.loginfo("In place - starting scoop.")
+            if pose_error.linear.x <= pose_error.linear.z:
+                self.is_ready_for_pickup = True
+                
+        elif self.is_ready_for_pickup:
+            pose_error.linear.x = 0.0
+            rospy.loginfo("SCOOP!")
+            gripper_command = Vector3()
+            gripper_command.x = 1.0
+            gripper_command.y = 0.0
+            gripper_command.z = 300.0
+            self.gripper_pub.publish(gripper_command)
+            if self.is_closed_scoop:
+                lift_command = Vector3()
+                lift_command.x = 2.0
+                lift_command.y = 10.0
+                lift_command.z = 0.0
+                self.gripper_pub.publish(lift_command)
+            
+        
+        self.pose_err_pub.publish(pose_error)
+        elapsed_time = time() - self.start_time
+        rospy.loginfo("elapsed time: " + str(elapsed_time))
+    
+    
+    def mask_color(self, color_frame):
+        hsv = cv2.cvtColor(color_frame, cv2.COLOR_BGR2HSV)
+    
+        # define range of black color in HSV
+        lower_color = np.array([0,0,0])
+        upper_color = np.array([255,255,30])
+    
+        # Threshold the HSV image to get only black colors
+        mask = cv2.inRange(hsv, lower_color, upper_color)
+        
+        return mask
+        
+    def equalize_intesity(self, frame):
+        if (frame.shape)[2] >= 3:
+            ycrcb = cv2.cvtColor(frame, cv2.COLOR_BGR2YCR_CB)
+            ycrcb[:,:,0] = cv2.equalizeHist(ycrcb[:,:,0])
+            result = cv2.cvtColor(ycrcb, cv2.COLOR_YCR_CB2BGR)
+            return result
+        return frame
+            
+        
+    def cleanup(self):
+        print "Shutting down vision node."
+        cv2.destroyAllWindows()       
+    
+    
+    def locate_toy(self, req):
+        rospy.loginfo('Starting vantage point sweep.')
+        start_time = time()
+        current_time = time()
+        while not self.toys_found:
+            time_seq = 2.0
+            delay = 2.0
+            
+            elapsed = current_time - start_time
+            pose_error = Twist()
+            pose_error.linear.x = 0.0
+            pose_error.linear.z = 0.01
+            pose_error.angular.z = 0.01
+            if (elapsed < delay):
+                # Wait in the middle
+                pose_error.angular.x = 0.0
+            elif (delay <= elapsed) and (elapsed < (time_seq + delay)):
+                # Turn left
+                pose_error.angular.x = 0.41
+            elif ((time_seq + delay) <= elapsed) and (elapsed < (time_seq + delay*2.0)):
+                # Wait in left position
+                pose_error.angular.x = 0.0
+            elif ((time_seq + delay*2.0) <= elapsed) and (elapsed < (time_seq*3.0 + delay*2.0)):
+                # Turn all the way right
+                pose_error.angular.x = -0.41
+            elif ((time_seq*3.0 + delay*2.0) <= elapsed) and (elapsed < (time_seq*3.0 + delay*3.0)):
+                # Wait in right position
+                pose_error.angular.x = 0.0
+            else:
+                rospy.loginfo("Time's up!")
+                break
+            self.pose_err_pub.publish(pose_error)
+            current_time = time()
+        pose_error = Twist()
+        pose_error.linear.x = 0.0
+        pose_error.linear.z = 0.01
+        pose_error.angular.x = 0.0
+        pose_error.angular.z = 0.01
+        self.pose_err_pub.publish(pose_error)
+        
+        #rospy.sleep(0.5)
+        
+        rospy.loginfo('Publishing findings..')  
+        if self.toys_found:      
+            toy_loc = Vector3()
+            toy_loc.x = self.roi[1]
+            toy_loc.y = self.angle_offset[0]
+            toy_loc.z = 0.0
+            rospy.loginfo("Publishing nearest object location: offset = %f", toy_loc.y)
+            self.toy_loc_pub.publish(toy_loc)
+        else:
+            rospy.loginfo('..but did not find anything')
+        return self.toys_found
+     
+        
+    def search_for_valid_distance(self, pixel):
+        px_shift = 1
+        distance = self.depth_image_metric[pixel[1]][pixel[0]]
+        while (distance == 0.0) and (px_shift < 51):
+            rospy.loginfo("Locating distance with pixel shift")
+            if (pixel[0] + px_shift) < self.image_width:
+                distance = self.depth_image_metric[pixel[1]][pixel[0] + px_shift]
+            if (distance == 0.0):
+                if (pixel[0] - px_shift) >= 0:
+                    distance = self.depth_image_metric[pixel[1]][pixel[0] - px_shift]
+            px_shift += 1
+        return distance * 0.001
+        
+        
+    def identify_toy(self, req):
+        rospy.loginfo('Starting angle adjustment.')
+        pose_error = Twist()
+        pose_error.linear.x = 0.0
+        pose_error.linear.z = 0.03
+        pose_error.angular.x = self.angle_offset[0]
+        pose_error.angular.z = 0.005
+        
+        centered_hits = 0
+        while (centered_hits < 50):
+            if (abs(pose_error.angular.x) < pose_error.angular.z):
+                centered_hits += 1
+                rospy.loginfo('Centered hit!')
+            pose_error.angular.x = self.angle_offset[0]
+            self.pose_err_pub.publish(pose_error)
+        
+        pose_error.angular.x = 0.0
+        
+        self.pose_err_pub.publish(pose_error)
+        rospy.loginfo('Angle adjustment done.')
+        
+        rospy.sleep(0.5)
+        
+        intensity_frame = self.process_intensity_image()
+        self.roi = self.find_closest_roi(intensity_frame, self.color_frame_clean, True)
+        self.mark_roi(self.color_frame_clean)
+        
+        rospy.loginfo('Starting toy classification.')
+
+        if self.roi_frame == None:
+            rospy.loginfo('Whoah! Lost the object already.')
+            return 0
+        else:
+            toy_label = self.classify_toy(self.roi_frame)
+            return toy_label 
+        
+    
+    def classify_toy(self, frame):
+        h, w, c = frame.shape
+        area = h*w
+        mask = self.mask_color(frame)
+        #gray = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
+        cv2.imshow("Toy classifying", mask)
+        #hist = cv2.calcHist([mask], [0], None, [16], [0,256])
+        #cv.CalcHist(mask, hist)
+        
+        #black_num1 = (float)cv.GetReal1D(hist.bins(), 0)
+        #rospy.loginfo("black_num1: %f", black_num1)
+        #black_num2 = cv.QueryHistValue_1D(hist, 0)
+        #black_num2 = hist[0]
+        white_pixels = cv2.countNonZero(mask)
+        percentage = white_pixels * 100 / area
+        rospy.loginfo("white pixel percentage: %d", percentage)
+        
+        #rospy.loginfo("black_num2: %f", black_num2)
+        '''
+        if black_num2 > 10:
+            return 1
+        '''
+        rospy.loginfo("")
+        if percentage >= 5:
+            rospy.loginfo("Found a big toy!")
+            return 1
+        rospy.loginfo("Found a small toy!")
+        return 2
+    
+    
+if __name__ == '__main__':
+    try:
+        rospy.init_node("hippo_vision")
+        hippo = hippoVision()
+        rospy.spin()
+    except KeyboardInterrupt:
+        print "Shutting down vision node."
+        cv.DestroyAllWindows()   
+    
+    

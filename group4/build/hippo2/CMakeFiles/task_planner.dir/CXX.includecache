@@ -63,6 +63,10 @@ hippo2/Int.h
 /home/pioneer/group41/src/hippo2/src/hippo2/Int.h
 geometry_msgs/Vector3.h
 /home/pioneer/group41/src/hippo2/src/geometry_msgs/Vector3.h
+geometry_msgs/Twist.h
+/home/pioneer/group41/src/hippo2/src/geometry_msgs/Twist.h
+actionlib_msgs/GoalID.h
+/home/pioneer/group41/src/hippo2/src/actionlib_msgs/GoalID.h
 
 /opt/ros/hydro/include/XmlRpcDecl.h
 ros/macros.h
@@ -470,6 +474,26 @@ ros/message_operations.h
 std_msgs/Header.h
 -
 geometry_msgs/Transform.h
+-
+
+/opt/ros/hydro/include/geometry_msgs/Twist.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+geometry_msgs/Vector3.h
+-
+geometry_msgs/Vector3.h
 -
 
 /opt/ros/hydro/include/geometry_msgs/Vector3.h

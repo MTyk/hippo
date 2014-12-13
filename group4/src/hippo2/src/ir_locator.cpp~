@@ -6,6 +6,10 @@
    
 #define SLEEP 0.2 
 #define RATE 10
+
+#define DISTANCE 40.0
+#define SETPOINTTOY 15.0
+#define SETPOINTBASKET 13.0
    
 float ir_range;
    
@@ -21,15 +25,18 @@ std_srvs::Empty srv;
 //ros::Subscriber irtest_sub;
  
 ros::Timer error_timer;
+
+float lastError=100.0;
  
 int ang_counter=0; 
  
+ bool basket = false;
 geometry_msgs::Twist error; 
    
 enum State{
     START,ANGULAR, LINEAR, ACTION, ERROR
   };
-State pickupState=START;
+State pickupState=ANGULAR;
 State dropState=START;
    
 /*void irtest(const geometry_msgs::Vector3 msg){
@@ -49,8 +56,13 @@ void sendAngError(const ros::TimerEvent& timerevent){
   } else{
     ang_counter=0;
   }
- 
-  if(ir_range>30.0){
+    float dist;
+    if(basket){
+    dist = 15;
+    }else{
+    dist = 40;
+    } 
+  if(ir_range>dist){
     error.linear.x=0.0;
     error.linear.z=0.0;
     error.angular.x=ang_error;
@@ -87,6 +99,7 @@ bool init_gripper(std_srvs::Empty::Request& request, std_srvs::Empty::Response& 
 bool pickup(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response)
 {
     ROS_INFO("service pickup called");
+    basket=false;
     ros::NodeHandle n;
     error_timer=n.createTimer(ros::Duration(0.1),sendAngError);
     bool isClockwise=true;
@@ -96,13 +109,13 @@ bool pickup(std_srvs::Empty::Request& request, std_srvs::Empty::Response& respon
      // ROS_INFO("%f",ir_range);
       switch(pickupState){
         case START:
-          if(raiseGripperClient.call(srv)){
+         /* if(raiseGripperClient.call(srv)){
             ROS_INFO("*** Gripper init raise ***");
           }
           if(openGripperClient.call(srv)){
             ROS_INFO("*** Gripper Init open *** ");
           }
-          pickupState=ANGULAR;
+          pickupState=ANGULAR;*/
           break;
         case ANGULAR:
           {
@@ -114,14 +127,16 @@ bool pickup(std_srvs::Empty::Request& request, std_srvs::Empty::Response& respon
           {
             ROS_INFO("*** Pickup linear");
   
-            if(ir_range>30.0){
+            if(ir_range>DISTANCE){
               ROS_INFO("*** Lost Object, going back to angular ***");
               pickupState=ANGULAR;
               break;
             }
               
-            float lin_error=ir_range-15.0;
+            float lin_error=ir_range-SETPOINTTOY;
             float lin_tolerance=2.0;
+            
+            if(lin_error-lastError < 7.0){
    
             error.linear.x=lin_error*0.01;
             error.linear.z=lin_tolerance*0.01;
@@ -129,15 +144,23 @@ bool pickup(std_srvs::Empty::Request& request, std_srvs::Empty::Response& respon
             error.angular.z=0.0;
               
             ROS_INFO("*** Linear Error= %f cm ***",lin_error);
+            }else{
+                ROS_INFO("*** Lost Object, going back to angular ***");
+                pickupState=ANGULAR;
+                break;
+            }
+   
    
             if ( ((lin_error<0 && lin_error<lin_tolerance*(-1)) || (lin_error>0 && lin_error>lin_tolerance)) ){
               pose_error.publish(error);
+              lastError=lin_error;
             }else{
               error.linear.x=0.0;
               error.linear.z=0.0;
               error.angular.x=0.0;
               error.angular.z=0.0;
               pose_error.publish(error);
+              lastError=lin_error;
               ROS_INFO("*** Going to ACtion mode***");
               pickupState=ACTION;
             }
@@ -175,6 +198,8 @@ bool pickup(std_srvs::Empty::Request& request, std_srvs::Empty::Response& respon
 bool drop(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response)
 {
     ROS_INFO("service drop called");
+    basket=true;
+    lastError=100.0;
     ros::NodeHandle n;
     error_timer=n.createTimer(ros::Duration(0.1),sendAngError);
     bool isClockwise=true;
@@ -197,14 +222,14 @@ bool drop(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response
           {
             ROS_INFO("*** Drop Linear ***");
   
-            if(ir_range>30.0){
+            if(ir_range>DISTANCE+2.0){
               ROS_INFO("*** Lost Object, going back to angular ***");
               dropState=ANGULAR;
               break;
             }
   
             error_timer.stop();
-            float lin_error=ir_range-13.0;
+            float lin_error=ir_range-SETPOINTBASKET;
             float lin_tolerance=2.0;
    
                error.linear.x=lin_error*0.01;

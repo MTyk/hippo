@@ -4,9 +4,12 @@
  
 #define DELAY 0.5
 #define LIFT_TIME_COUNT 30
+#define HALF_TIME_COUNT 3
  
 bool gripperUp;
 bool gripperDown;
+bool gripperClosed;
+bool gripperOpen;
  
 ros::Subscriber arduinoSubscriber;
 ros::Publisher gripperPublisher;
@@ -36,30 +39,49 @@ void getLiftData(const geometry_msgs::Vector3 msg){
             gripperUp = false;
       }
   }
+  if (msg.x==2.0){
+    if(msg.y<10){
+        gripperClosed=true;
+    }else{
+        gripperClosed=false;
+
+    }
+    if(msg.y>245){
+        gripperOpen=true;
+    }else{
+        gripperOpen=false;
+    }
+  }
 }
  
 bool closeGripper(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response)
 {
     ROS_INFO("service close_gripper called");
-    geometry_msgs::Vector3 gripper_cmd;
-    gripper_cmd.x=1.0;
-    gripper_cmd.y=0.0;
-    gripper_cmd.z=300.0;
-    gripperPublisher.publish(gripper_cmd);
-    ros::Duration(3*DELAY).sleep();
+    while(!gripperClosed){
+        ros::spinOnce();
+        geometry_msgs::Vector3 gripper_cmd;
+        gripper_cmd.x=1.0;
+        gripper_cmd.y=0.0;
+        gripper_cmd.z=300.0;
+        gripperPublisher.publish(gripper_cmd);
+        ros::Duration(3*DELAY).sleep();
+    }
     return true;
 }
  
 bool openGripper(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response)
 {
     ROS_INFO("service open_gripper called");
-    geometry_msgs::Vector3 gripper_cmd;
-    ROS_INFO("*** Dropped it like its hot");
-    gripper_cmd.x=1.0;
-    gripper_cmd.y=255.0;
-    gripper_cmd.z=300.0;
-    gripperPublisher.publish(gripper_cmd);
-    ros::Duration(3*DELAY).sleep();
+    while(!gripperOpen){
+        ros::spinOnce();
+        geometry_msgs::Vector3 gripper_cmd;
+        ROS_INFO("*** Dropped it like its hot");
+        gripper_cmd.x=1.0;
+        gripper_cmd.y=255.0;
+        gripper_cmd.z=150.0;
+        gripperPublisher.publish(gripper_cmd);
+        ros::Duration(3*DELAY).sleep();
+    }
     return true;
 }
  
@@ -77,6 +99,8 @@ bool raiseGripper(std_srvs::Empty::Request& request, std_srvs::Empty::Response& 
     gripper_cmd.x=2.0;
     gripper_cmd.y=30.0;
     gripper_cmd.z=0.0;
+    gripperPublisher.publish(gripper_cmd);
+    ros::Duration(DELAY).sleep();
     gripperPublisher.publish(gripper_cmd);
     int timeCounter = 0;
     while(!gripperUp){
@@ -109,6 +133,8 @@ bool lowerGripper(std_srvs::Empty::Request& request, std_srvs::Empty::Response& 
     gripper_cmd.y=-10.0;
     gripper_cmd.z=0.0;
     gripperPublisher.publish(gripper_cmd);
+        ros::Duration(DELAY).sleep();
+    gripperPublisher.publish(gripper_cmd);
  
     int timeCounter = 0;
     while(!gripperDown){
@@ -124,6 +150,44 @@ bool lowerGripper(std_srvs::Empty::Request& request, std_srvs::Empty::Response& 
     return true;
  
 }
+
+bool halfLowerGripper(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response)
+{
+    ROS_INFO("service half_lower_gripper called");
+    ros::spinOnce();    //to get switch status
+    if(gripperDown){
+        ROS_INFO("Gripper is already down.");
+        return true;
+    }
+    geometry_msgs::Vector3 gripper_cmd;
+    ROS_INFO("Going down.");
+    gripper_cmd.x=2.0;
+    gripper_cmd.y=-10.0;
+    gripper_cmd.z=0.0;
+    gripperPublisher.publish(gripper_cmd);
+        ros::Duration(DELAY).sleep();
+    gripperPublisher.publish(gripper_cmd);
+ 
+    int timeCounter = 0;
+ 
+     while(timeCounter<HALF_TIME_COUNT){//wait a total of DELAY*LIFT_TIME_COUNT
+        ros::Duration(DELAY).sleep();
+        timeCounter++;
+     }
+      ROS_INFO("Stopping.");
+      gripper_cmd.x=2.0;
+      gripper_cmd.y=-0.0;
+      gripper_cmd.z=0.0;
+      gripperPublisher.publish(gripper_cmd);
+      ros::spinOnce();
+      ros::Duration(DELAY).sleep();
+      gripperPublisher.publish(gripper_cmd);
+      ros::spinOnce();
+        
+    ROS_INFO("Gripper half lowered.");
+    return true;
+ 
+}
  
 int main(int argc, char **argv)
 {
@@ -134,7 +198,8 @@ int main(int argc, char **argv)
     ros::ServiceServer openGripeprService = n.advertiseService("open_gripper", openGripper);
     ros::ServiceServer raiseGripperService = n.advertiseService("raise_gripper", raiseGripper);
     ros::ServiceServer lowerGripperService = n.advertiseService("lower_gripper", lowerGripper);
-    arduinoSubscriber = n.subscribe("/arduino_data", 100, getLiftData);
+    ros::ServiceServer halfLowerGripperService = n.advertiseService("half_lower_gripper", halfLowerGripper);
+    arduinoSubscriber = n.subscribe("/arduino_data", 1000, getLiftData);
     gripperPublisher = n.advertise<geometry_msgs::Vector3>("/arduino_command",10);
   //  ros::Rate loop_rate(0.2);
     ros::spin();

@@ -287,7 +287,7 @@
 	<joint name="z_joint" type="continuous">
 	  <parent link="camera_z_link"/>
 	  <child link="camera_link"/>
-	  <origin xyz="0 0 0.03" rpy="0 1.57 0"/>
+	  <origin xyz="0 0 0.09" rpy="0 4.7128 0"/>
 	  <axis xyz="0 1 0"/>	  
 	</joint>  
 	

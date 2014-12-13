@@ -1,7 +1,7 @@
 #base_global_planner: global_planner/GlobalPlanner
 
-recovery_behavior_enabled: false
-
+recovery_behavior_enabled: true
+recovery_behaviors: [{name: aggressive_reset, type: clear_costmap_recovery/ClearCostmapRecovery},{name: conservative_reset, type: clear_costmap_recovery/ClearCostmapRecovery}, {name: rotate_recovery, type: rotate_recovery/RotateRecovery}]
 #controller_frequency: 5.0
 #controller_patience: 3.0
 

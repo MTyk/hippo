@@ -2,10 +2,9 @@
     <master auto="start"/>
     
     <!-- Run the map server -->
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find hippo2)/maps/tests/newmap.pgm 0.05"/>
-   
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find hippo2)/maps/newmap3.pgm 0.05"/>
     <!--<node name="slam_gmapping" pkg="gmapping" type="slam_gmapping">
-    </node>-->  
+        </node>-->
 
     <!--- Run AMCL -->
     <include file="$(find amcl)/examples/amcl_diff.launch" />
