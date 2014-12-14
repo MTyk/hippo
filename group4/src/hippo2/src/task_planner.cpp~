@@ -38,7 +38,7 @@ void recover()
     cancelPublisher.publish(goalId);
     ros::Duration(RECOVER_TIME).sleep();
     geometry_msgs::Twist msg;
-    msg.linear.x=-0.5;
+    msg.linear.x=-0.1;
     msg.linear.y=0;
     msg.linear.z=0;
     msg.angular.x=0;
@@ -58,7 +58,7 @@ void getToyLocation(const geometry_msgs::Vector3 msg)
 }
 void getVelocity(const geometry_msgs::Twist msg)
 {
-    ROS_INFO("Linear velocities: %f, %f",msg.linear.x,msg.angular.z);
+   // ROS_INFO("Linear velocities: %f, %f",msg.linear.x,msg.angular.z);
     if( (msg.linear.x != 0.0) || (msg.angular.z != 0.0) )
     {
         baseMoving = true;
@@ -107,13 +107,13 @@ int main(int argc, char** argv)
 
     Goal basketLocation[2], vantagePoint[NUM_VANTAGE];
     //TODO: Define type1 (white) basket location
-    basketLocation[0].x = 11.575;
-    basketLocation[0].y = 11.718;
-    basketLocation[0].s = -80;
+    basketLocation[0].x = 11.815;  
+    basketLocation[0].y = 11.834;
+    basketLocation[0].s = -100;
     //To DO: Define type2 (blue) basket location
     basketLocation[1].x = 14.459;
     basketLocation[1].y = 12.272;
-    basketLocation[1].s = 0;
+    basketLocation[1].s = 20;
 
     vantagePoint[0].x=11.498;
     vantagePoint[0].y=13.719;
@@ -210,7 +210,7 @@ int main(int argc, char** argv)
                 ros::spinOnce();    //get velocity status
                 actionlib::SimpleClientGoalState acState = ac.getState();   //get nav state
 
-                ROS_INFO("Nav state: %s",acState.getText().c_str());
+               // ROS_INFO("Nav state: %s",acState.getText().c_str());
 
                 if (!baseMoving)
                 {
@@ -272,7 +272,7 @@ int main(int argc, char** argv)
                 ROS_INFO("Failed to call id_toy service. Default (white) toy type assumed.");
                 toyType = 1;	//default type (white)
             }
-            vantageIndex = toyType;   // the next vantage point to go to is the one neares to the basket
+            vantageIndex = toyType-1;   // the next vantage point to go to is the one neares to the basket
             state = PICKUP;
             break;
         case PICKUP:
@@ -309,7 +309,7 @@ int main(int argc, char** argv)
                 ros::spinOnce();    //get velocity status
                 actionlib::SimpleClientGoalState acState = ac.getState();   //get nav state
 
-                ROS_INFO("Nav state: %s",acState.getText().c_str());
+                //ROS_INFO("Nav state: %s",acState.getText().c_str());
 
                 if (!baseMoving)
                 {

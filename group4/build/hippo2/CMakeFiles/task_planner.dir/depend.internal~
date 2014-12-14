@@ -38,6 +38,7 @@ hippo2/CMakeFiles/task_planner.dir/src/task_planner.cpp.o
  /opt/ros/hydro/include/geometry_msgs/QuaternionStamped.h
  /opt/ros/hydro/include/geometry_msgs/Transform.h
  /opt/ros/hydro/include/geometry_msgs/TransformStamped.h
+ /opt/ros/hydro/include/geometry_msgs/Twist.h
  /opt/ros/hydro/include/geometry_msgs/Vector3.h
  /opt/ros/hydro/include/geometry_msgs/Vector3Stamped.h
  /opt/ros/hydro/include/move_base_msgs/MoveBaseAction.h

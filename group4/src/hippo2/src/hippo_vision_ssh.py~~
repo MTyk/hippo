@@ -104,7 +104,6 @@ class hippoVision():
             self.image_width = msg.width
             self.center = (self.image_width/2, self.image_height/2)
             rospy.loginfo("Found camera with a resolution of %d x %d", self.image_width, self.image_height)
-            rospy.loginfo('')
             
     
     def ir_callback(self, msg):
@@ -365,7 +364,7 @@ class hippoVision():
     
         min_area = 200
         max_area = 15000
-        box_ratio = 3
+        box_ratio = 5
         closest = (None, 0.0)
         
         x_c = self.image_width/2
@@ -463,39 +462,29 @@ class hippoVision():
                         if area > 8000:
                             continue
 
+                    
                     # Compare for the closest object
                     if (self.roi[0] == None) or (closest[1] == 0.0):
                         closest = (cnt, distance)
                     else:
-                        roi_center = (x+(w/2), y+(h/2))
-                        x_offset_this = abs(roi_center[0] - self.center[0])
-                        x2,y2,w2,h2 = cv2.boundingRect(closest[0])
-                        roi_center = (x2+(w2/2), y2+(h2/2))
-                        x_offset_closest = abs(roi_center[0] - self.center[0])
-                        if (abs(distance - closest[1]) <= 0.10):
-                            if x_offset_this < x_offset_closest:
-                                closest = (cnt, distance)
-                        elif (distance < closest[1]):
+                        if (distance < closest[1]):
                             closest = (cnt, distance)
                             
                     cv2.rectangle(color_frame, (x-1,y-1), (x+w+1, y+h+1), (0, 255, 0), 1)
                     #rospy.loginfo("Object found at a distance of " + str(distance) + "m")
 
-        previous_state = self.toys_found         
+                    
         if closest[0] == None:
+            rospy.loginfo("Robot doesn't see any objects.")
             self.toy_buffer = 0
             self.toys_found = False
         else:
             #rospy.loginfo("Distance to object from the front is " + str(closest[1]) + " m.")
             self.toy_buffer += 1
             if self.toy_buffer > 9:
+                #rospy.loginfo("Robot definitely found an object!")
                 self.toys_found = True
-                
-        if (previous_state and not self.toys_found):
-            rospy.loginfo("Lost object from sight.")
-        elif (not previous_state and self.toys_found):
-            rospy.loginfo("Found an object!")
-        
+            
         return closest
     
     
@@ -730,7 +719,6 @@ class hippoVision():
             self.toy_loc_pub.publish(toy_loc)
         else:
             rospy.loginfo('..but did not find anything :|')
-        rospy.loginfo('')
         return self.toys_found
      
         
@@ -752,9 +740,9 @@ class hippoVision():
         rospy.loginfo('Starting angle adjustment')
         pose_error = Twist()
         pose_error.linear.x = 0.0
-        pose_error.linear.z = 0.05
+        pose_error.linear.z = 0.03
         pose_error.angular.x = self.angle_offset[0]
-        pose_error.angular.z = 0.003
+        pose_error.angular.z = 0.004
         
         centered_hits = 0
         while (centered_hits < 30):
@@ -766,24 +754,9 @@ class hippoVision():
             self.pose_err_pub.publish(pose_error)
         
         pose_error.angular.x = 0.0
-        self.pose_err_pub.publish(pose_error)
-        rospy.loginfo('Angle adjustment completed :)')
-        rospy.loginfo('')
         
-        rospy.loginfo('Starting linear adjustment')
-        target_offset = 60
-        while (self.pixel_offset[1] < target_offset):
-            if (self.roi[0] == None):
-                break
-            rospy.loginfo('Linear pixel offset: %d px; target is %d', self.pixel_offset[1], target_offset)
-            pose_error.linear.x = 0.2
-            pose_error.angular.x = 0.0
-            self.pose_err_pub.publish(pose_error)
-        rospy.loginfo('Linear adjustment completed :)')
-        rospy.loginfo('')
-        
-        pose_error.linear.x = 0.0
         self.pose_err_pub.publish(pose_error)
+        rospy.loginfo('Angle adjustment done :)')
         
         rospy.sleep(0.5)
         
@@ -795,11 +768,9 @@ class hippoVision():
 
         if self.roi_frame == None:
             rospy.loginfo("Whoah! This catch is invalid :E")
-            rospy.loginfo('')
             return 0
         else:
             toy_label = self.classify_toy(self.roi_frame)
-            rospy.loginfo('')
             return toy_label 
         
     

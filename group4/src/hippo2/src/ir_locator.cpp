@@ -7,10 +7,12 @@
 #define SLEEP 0.2 
 #define RATE 10
 
-#define DISTANCE 40.0
-#define DISTANCEBASKET 15
+#define DISTANCETOY 50.0
+#define DISTANCEBASKET 20.0
 #define SETPOINTTOY 15.0
 #define SETPOINTBASKET 13.0
+
+bool firstTime=true;
    
 float ir_range;
    
@@ -27,7 +29,7 @@ std_srvs::Empty srv;
  
 ros::Timer error_timer;
 
-float lastError=100.0;
+float lastError;
  
 int ang_counter=0; 
  
@@ -37,7 +39,7 @@ geometry_msgs::Twist error;
 enum State{
     START,ANGULAR, LINEAR, ACTION, ERROR
   };
-State pickupState=ANGULAR;
+State pickupState=START;
 State dropState=START;
    
 /*void irtest(const geometry_msgs::Vector3 msg){
@@ -57,12 +59,13 @@ void sendAngError(const ros::TimerEvent& timerevent){
   } else{
     ang_counter=0;
   }
-    float dist;
-    if(basket){
+  float dist;
+  if(basket){
     dist = DISTANCEBASKET;
-    }else{
-    dist = DISTANCE;
-    } 
+  }else{
+    dist = DISTANCETOY;
+  } 
+
   if(ir_range>dist){
     error.linear.x=0.0;
     error.linear.z=0.0;
@@ -110,39 +113,42 @@ bool pickup(std_srvs::Empty::Request& request, std_srvs::Empty::Response& respon
      // ROS_INFO("%f",ir_range);
       switch(pickupState){
         case START:
-         /* if(raiseGripperClient.call(srv)){
-            ROS_INFO("*** Gripper init raise ***");
-          }
-          if(openGripperClient.call(srv)){
-            ROS_INFO("*** Gripper Init open *** ");
-          }
-          pickupState=ANGULAR;*/
+         ROS_INFO("*** start");
+          firstTime=true;
+          pickupState=ANGULAR;
           break;
         case ANGULAR:
           {
-          ROS_INFO("*** Pickup angular");
-          error_timer.start();
+            ROS_INFO("*** Pickup angular");
+            error_timer.start();
           }
           break;
         case LINEAR:
           {
             ROS_INFO("*** Pickup linear");
-  
-            if(ir_range>DISTANCE){
+            ROS_INFO("Ir Range: %f, DistanceToy: %f",ir_range, DISTANCETOY);
+            if(ir_range>DISTANCETOY){
               ROS_INFO("*** Lost Object, going back to angular ***");
               pickupState=ANGULAR;
               break;
             }
               
             float lin_error=ir_range-SETPOINTTOY;
+            if(firstTime){
+              lastError=lin_error;
+              firstTime=false;
+            }  
+            ROS_INFO("lin_error: %f",lin_error);
             float lin_tolerance=2.0;
             
-            if(lin_error-lastError < 7.0){
-   
-            error.linear.x=lin_error*0.01;
-            error.linear.z=lin_tolerance*0.01;
-            error.angular.x=0.0;
-            error.angular.z=0.0;
+            //It happened that ir saw a toy, lost it, sweeped and found an obstacle in range and pusued the obstacle. 
+            //With this if findings are ignored if following findings are more then 7 cm away.
+            if(abs(lin_error)-abs(lastError) < 7.0){
+     
+              error.linear.x=lin_error*0.01;
+              error.linear.z=lin_tolerance*0.01;
+              error.angular.x=0.0;
+              error.angular.z=0.0;
               
             ROS_INFO("*** Linear Error= %f cm ***",lin_error);
             }else{
@@ -151,7 +157,7 @@ bool pickup(std_srvs::Empty::Request& request, std_srvs::Empty::Response& respon
                 break;
             }
    
-   
+            //If the object is distance within the tolerance
             if ( ((lin_error<0 && lin_error<lin_tolerance*(-1)) || (lin_error>0 && lin_error>lin_tolerance)) ){
               pose_error.publish(error);
               lastError=lin_error;
@@ -161,7 +167,7 @@ bool pickup(std_srvs::Empty::Request& request, std_srvs::Empty::Response& respon
               error.angular.x=0.0;
               error.angular.z=0.0;
               pose_error.publish(error);
-              lastError=lin_error;
+              lastError=100;
               ROS_INFO("*** Going to ACtion mode***");
               pickupState=ACTION;
             }
@@ -233,10 +239,10 @@ bool drop(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response
             float lin_error=ir_range-SETPOINTBASKET;
             float lin_tolerance=2.0;
    
-               error.linear.x=lin_error*0.01;
-              error.linear.z=lin_tolerance*0.01;
-              error.angular.x=0.0;
-              error.angular.z=0.0;
+            error.linear.x=lin_error*0.01;
+            error.linear.z=lin_tolerance*0.01;
+            error.angular.x=0.0;
+            error.angular.z=0.0;
                 
             if ( ((lin_error<0 && lin_error<lin_tolerance*(-1)) || (lin_error>0 && lin_error>lin_tolerance)) ){
               pose_error.publish(error);
